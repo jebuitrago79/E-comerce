@@ -4,14 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1a7a21c7-0c85-4fbe-85cb-d3bd922c5c8b" name="Changes" comment="Se crean carpetas para cada clase">
-      <change afterPath="$PROJECT_DIR$/Modelos/Comprador.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Modelos/User.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Modelos/Vendedor.py" afterDir="false" />
+    <list default="true" id="1a7a21c7-0c85-4fbe-85cb-d3bd922c5c8b" name="Changes" comment="Se actualiza el xml">
+      <change afterPath="$PROJECT_DIR$/CRUD/Crud_Vendedor.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Data/New_data.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Routers/vendedores.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/db/engine.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/db/init_db.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Administrador/Administrador.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modelos/Administrador.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cliente/Cliente.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Usuario/Usuario.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modelos/Administrador.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modelos/Administrador.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modelos/Comprador.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modelos/Comprador.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modelos/User.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modelos/User.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modelos/Vendedor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modelos/Vendedor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +43,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.engine.executor": "Run",
+    "Python.init_db.executor": "Run",
     "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
@@ -52,6 +58,58 @@
       <recent name="C:\Users\USUARIO\PycharmProjects\E-comerce\Cliente" />
       <recent name="C:\Users\USUARIO\PycharmProjects\E-comerce\Usuario" />
     </key>
+  </component>
+  <component name="RunManager" selected="Python.engine">
+    <configuration name="engine" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="E-comerce" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/db" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/db/engine.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="init_db" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="E-comerce" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/db" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/db/init_db.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.engine" />
+        <item itemvalue="Python.init_db" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -84,11 +142,56 @@
       <option name="project" value="LOCAL" />
       <updated>1758239698915</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003">
+      <option name="closed" value="true" />
+      <created>1758241473406</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1758241473406</updated>
+    </task>
+    <task id="LOCAL-00004">
+      <option name="closed" value="true" />
+      <created>1758241511708</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1758241511708</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Se crea la clase User.py">
+      <option name="closed" value="true" />
+      <created>1758241543241</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1758241543241</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Se crea la clase Vendedor.py">
+      <option name="closed" value="true" />
+      <created>1758241553847</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1758241553847</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Se actualiza el xml">
+      <option name="closed" value="true" />
+      <created>1758241574105</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1758241574105</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Se crean carpetas para cada clase" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se crean carpetas para cada clase" />
+    <MESSAGE value="Se crea la clase Administrador.py" />
+    <MESSAGE value="Se crea la clase Comprador.py" />
+    <MESSAGE value="Se crea la clase User.py" />
+    <MESSAGE value="Se crea la clase Vendedor.py" />
+    <MESSAGE value="Se actualiza el xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se actualiza el xml" />
   </component>
 </project>

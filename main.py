@@ -1,14 +1,12 @@
 from fastapi import FastAPI
+from contextlib import asynccontextmanager
+from db.init_db import create_db_and_tables
+from Routers import vendedores
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    create_db_and_tables()
+    yield
 
-app = FastAPI()
-
-
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
-
-
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
+app = FastAPI(title="API E-comerce", lifespan=lifespan)
+app.include_router(vendedores.router)
