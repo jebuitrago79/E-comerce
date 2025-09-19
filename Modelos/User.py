@@ -1,8 +1,8 @@
-from datetime import datetime
 from typing import Optional
+from datetime import datetime
 from enum import Enum
-from sqlalchemy import Column, String
 from sqlmodel import SQLModel, Field
+from sqlalchemy import Column, String
 
 class EstadoCuenta(str, Enum):
     activo = "activo"
