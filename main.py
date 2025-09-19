@@ -10,3 +10,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="API E-comerce", lifespan=lifespan)
 app.include_router(vendedores.router)
+
+@app.get("/")
+def root():
+    return {"ok": True}
