@@ -13,3 +13,6 @@ class Administrador(UserFields, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     id_admin: int = Field(index=True)
     nivel_acceso: int = Field(default=1, ge=1)
+
+
+    ##comentario de sigmotoa
