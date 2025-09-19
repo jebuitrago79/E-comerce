@@ -1,0 +1,149 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"1a7a21c7-0c85-4fbe-85cb-d3bd922c5c8b\" name=\"Changes\" comment=\"Se crean carpetas para cada clase\" />\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Python Script\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 4\n}</component>\n  <component name=\"ProjectId\" id=\"32mrZiclxj6sQ12Ok9aTJut6MZq\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"ModuleVcsDetector.initialDetectionPerformed\": \"true\",\n    \"Python.main.executor\": \"Run\",\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\n    \"RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252\": \"true\",\n    \"RunOnceActivity.git.unshallow\": \"true\",\n    \"git-widget-placeholder\": \"main\"\n  }\n}]]></component>\n  <component name=\"RecentsManager\">\n    <key name=\"MoveFile.RECENT_KEYS\">\n      <recent name=\"C:\\Users\\USUARIO\\PycharmProjects\\E-comerce\\Administrador\" />\n      <recent name=\"C:\\Users\\USUARIO\\PycharmProjects\\E-comerce\\Cliente\" />\n      <recent name=\"C:\\Users\\USUARIO\\PycharmProjects\\E-comerce\\Usuario\" />\n    </key>\n  </component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"bundled-python-sdk-ce6832f46686-7b97d883f26b-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.25557.178\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"1a7a21c7-0c85-4fbe-85cb-d3bd922c5c8b\" name=\"Changes\" comment=\"\" />\n      <created>1758036649647</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1758036649647</updated>\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"Se crean carpetas para cada clase\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1758239533682</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1758239533682</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"2\" />\n    <servers />\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"Se crean carpetas para cada clase\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Se crean carpetas para cada clase\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision ea72245348ae33b330e75fc60c6b2bf36907875c)
++++ b/.idea/workspace.xml	(date 1758241823910)
+@@ -4,7 +4,9 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="1a7a21c7-0c85-4fbe-85cb-d3bd922c5c8b" name="Changes" comment="Se crean carpetas para cada clase" />
++    <list default="true" id="1a7a21c7-0c85-4fbe-85cb-d3bd922c5c8b" name="Changes" comment="Se crean carpetas para cada clase">
++      <change beforePath="$PROJECT_DIR$/Administrador/Administrador.py" beforeDir="false" afterPath="$PROJECT_DIR$/Administrador/Administrador.py" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -20,6 +22,18 @@
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
++  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
++  "lastFilter": {
++    "state": "OPEN",
++    "assignee": "Juanarroyo234"
++  }
++}]]></component>
++  <component name="GithubPullRequestsUISettings"><![CDATA[{
++  "selectedUrlAndAccountId": {
++    "url": "https://github.com/Juanarroyo234/E-comerce.git",
++    "accountId": "69cbd2d0-c5ab-4403-bfea-dcf30486df5d"
++  }
++}]]></component>
+   <component name="ProjectColorInfo">{
+   &quot;associatedIndex&quot;: 4
+ }</component>
+@@ -30,12 +44,22 @@
+   </component>
+   <component name="PropertiesComponent"><![CDATA[{
+   "keyToString": {
++    "FastAPI.Unnamed.executor": "Run",
+     "ModuleVcsDetector.initialDetectionPerformed": "true",
++    "Python.Administrador.executor": "Run",
++    "Python.Usuario.executor": "Run",
+     "Python.main.executor": "Run",
+     "RunOnceActivity.ShowReadmeOnStart": "true",
+     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+     "RunOnceActivity.git.unshallow": "true",
+-    "git-widget-placeholder": "main"
++    "git-widget-placeholder": "main",
++    "node.js.detected.package.eslint": "true",
++    "node.js.detected.package.tslint": "true",
++    "node.js.selected.package.eslint": "(autodetect)",
++    "node.js.selected.package.tslint": "(autodetect)",
++    "nodejs_package_manager_path": "npm",
++    "settings.editor.selected.configurable": "preferences.lookFeel",
++    "vue.rearranger.settings.migration": "true"
+   }
+ }]]></component>
+   <component name="RecentsManager">
+@@ -44,11 +68,44 @@
+       <recent name="C:\Users\USUARIO\PycharmProjects\E-comerce\Cliente" />
+       <recent name="C:\Users\USUARIO\PycharmProjects\E-comerce\Usuario" />
+     </key>
++  </component>
++  <component name="RunManager">
++    <configuration name="Unnamed" type="Python.FastAPI" nameIsGenerated="true">
++      <module name="E-comerce" />
++      <option name="ENV_FILES" value="" />
++      <option name="INTERPRETER_OPTIONS" value="" />
++      <option name="PARENT_ENVS" value="true" />
++      <option name="SDK_HOME" value="$PROJECT_DIR$/.venv/bin/python" />
++      <option name="SDK_NAME" value="Python 3.11 (e-comerce)" />
++      <option name="WORKING_DIRECTORY" value="" />
++      <option name="IS_MODULE_SDK" value="false" />
++      <option name="ADD_CONTENT_ROOTS" value="true" />
++      <option name="ADD_SOURCE_ROOTS" value="true" />
++      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
++      <option name="launchJavascriptDebuger" value="false" />
++      <method v="2" />
++    </configuration>
++    <configuration default="true" type="Python.FastAPI">
++      <module name="E-comerce" />
++      <option name="ENV_FILES" value="" />
++      <option name="INTERPRETER_OPTIONS" value="" />
++      <option name="PARENT_ENVS" value="true" />
++      <option name="SDK_HOME" value="$PROJECT_DIR$/.venv/bin/python" />
++      <option name="SDK_NAME" value="Python 3.11 (e-comerce)" />
++      <option name="WORKING_DIRECTORY" value="" />
++      <option name="IS_MODULE_SDK" value="false" />
++      <option name="ADD_CONTENT_ROOTS" value="true" />
++      <option name="ADD_SOURCE_ROOTS" value="true" />
++      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
++      <option name="launchJavascriptDebuger" value="false" />
++      <method v="2" />
++    </configuration>
+   </component>
+   <component name="SharedIndexes">
+     <attachedChunks>
+       <set>
+-        <option value="bundled-python-sdk-ce6832f46686-7b97d883f26b-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.25557.178" />
++        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-PY-251.25410.159" />
++        <option value="bundled-python-sdk-e0ed3721d81e-36ea0e71a18c-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-251.25410.159" />
+       </set>
+     </attachedChunks>
+   </component>
+@@ -59,6 +116,7 @@
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+       <updated>1758036649647</updated>
++      <workItem from="1758240933132" duration="889000" />
+     </task>
+     <task id="LOCAL-00001" summary="Se crean carpetas para cada clase">
+       <option name="closed" value="true" />
+@@ -71,8 +129,16 @@
+     <option name="localTasksCounter" value="2" />
+     <servers />
+   </component>
++  <component name="TypeScriptGeneratedFilesManager">
++    <option name="version" value="3" />
++  </component>
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="Se crean carpetas para cada clase" />
+     <option name="LAST_COMMIT_MESSAGE" value="Se crean carpetas para cada clase" />
+   </component>
++  <component name="com.intellij.coverage.CoverageDataManagerImpl">
++    <SUITE FILE_PATH="coverage/e_comerce$Administrador.coverage" NAME="Administrador Coverage Results" MODIFIED="1758241047849" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Administrador" />
++    <SUITE FILE_PATH="coverage/e_comerce$main.coverage" NAME="main Coverage Results" MODIFIED="1758241215134" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
++    <SUITE FILE_PATH="coverage/e_comerce$Usuario.coverage" NAME="Usuario Coverage Results" MODIFIED="1758241362582" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Usuario" />
++  </component>
+ </project>
+\ No newline at end of file
+Index: Administrador/Administrador.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#HORA AQUI VA LA CLASE ADMI
+===================================================================
+diff --git a/Administrador/Administrador.py b/Administrador/Administrador.py
+--- a/Administrador/Administrador.py	(revision ea72245348ae33b330e75fc60c6b2bf36907875c)
++++ b/Administrador/Administrador.py	(date 1758241090529)
+@@ -1,1 +1,1 @@
+-#HORA AQUI VA LA CLASE ADMI
+\ No newline at end of file
++    #HORA AQUI VA LA CLASE ADMI
+\ No newline at end of file

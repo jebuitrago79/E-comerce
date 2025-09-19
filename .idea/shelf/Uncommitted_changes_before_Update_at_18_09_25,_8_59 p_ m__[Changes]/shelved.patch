@@ -1,0 +1,83 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"1a7a21c7-0c85-4fbe-85cb-d3bd922c5c8b\" name=\"Changes\" comment=\"Se crean carpetas para cada clase\">\n      <change afterPath=\"$PROJECT_DIR$/Modelos/Comprador.py\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/Modelos/User.py\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/Modelos/Vendedor.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Administrador/Administrador.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Modelos/Administrador.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Cliente/Cliente.py\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Usuario/Usuario.py\" beforeDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Python Script\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 4\n}</component>\n  <component name=\"ProjectId\" id=\"32mrZiclxj6sQ12Ok9aTJut6MZq\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"ModuleVcsDetector.initialDetectionPerformed\": \"true\",\n    \"Python.main.executor\": \"Run\",\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\n    \"RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252\": \"true\",\n    \"RunOnceActivity.git.unshallow\": \"true\",\n    \"git-widget-placeholder\": \"main\"\n  }\n}]]></component>\n  <component name=\"RecentsManager\">\n    <key name=\"MoveFile.RECENT_KEYS\">\n      <recent name=\"C:\\Users\\USUARIO\\PycharmProjects\\E-comerce\\Administrador\" />\n      <recent name=\"C:\\Users\\USUARIO\\PycharmProjects\\E-comerce\\Cliente\" />\n      <recent name=\"C:\\Users\\USUARIO\\PycharmProjects\\E-comerce\\Usuario\" />\n    </key>\n  </component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"bundled-python-sdk-ce6832f46686-7b97d883f26b-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.25557.178\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"1a7a21c7-0c85-4fbe-85cb-d3bd922c5c8b\" name=\"Changes\" comment=\"\" />\n      <created>1758036649647</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1758036649647</updated>\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"Se crean carpetas para cada clase\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1758239533682</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1758239533682</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"Se crean carpetas para cada clase\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1758239698915</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1758239698915</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"3\" />\n    <servers />\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"Se crean carpetas para cada clase\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Se crean carpetas para cada clase\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 5f97072977a0b953d102946f5eeab8ed2c986c41)
++++ b/.idea/workspace.xml	(date 1758247155334)
+@@ -5,13 +5,8 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="1a7a21c7-0c85-4fbe-85cb-d3bd922c5c8b" name="Changes" comment="Se crean carpetas para cada clase">
+-      <change afterPath="$PROJECT_DIR$/Modelos/Comprador.py" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/Modelos/User.py" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/Modelos/Vendedor.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Administrador/Administrador.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modelos/Administrador.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Cliente/Cliente.py" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Usuario/Usuario.py" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/E-comerce.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/E-comerce.iml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -36,16 +31,16 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "ModuleVcsDetector.initialDetectionPerformed": "true",
+-    "Python.main.executor": "Run",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+-    "RunOnceActivity.git.unshallow": "true",
+-    "git-widget-placeholder": "main"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
++    &quot;Python.main.executor&quot;: &quot;Run&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;main&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="RecentsManager">
+     <key name="MoveFile.RECENT_KEYS">
+       <recent name="C:\Users\USUARIO\PycharmProjects\E-comerce\Administrador" />
+@@ -91,4 +86,9 @@
+     <MESSAGE value="Se crean carpetas para cada clase" />
+     <option name="LAST_COMMIT_MESSAGE" value="Se crean carpetas para cada clase" />
+   </component>
++  <component name="com.intellij.coverage.CoverageDataManagerImpl">
++    <SUITE FILE_PATH="coverage/e_comerce$Administrador.coverage" NAME="Administrador Coverage Results" MODIFIED="1758241047849" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Administrador" />
++    <SUITE FILE_PATH="coverage/e_comerce$main.coverage" NAME="main Coverage Results" MODIFIED="1758241215134" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
++    <SUITE FILE_PATH="coverage/e_comerce$Usuario.coverage" NAME="Usuario Coverage Results" MODIFIED="1758241362582" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Usuario" />
++  </component>
+ </project>
+\ No newline at end of file
+Index: .idea/E-comerce.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<module type=\"PYTHON_MODULE\" version=\"4\">\n  <component name=\"NewModuleRootManager\">\n    <content url=\"file://$MODULE_DIR$\">\n      <excludeFolder url=\"file://$MODULE_DIR$/.venv\" />\n    </content>\n    <orderEntry type=\"jdk\" jdkName=\"Python 3.13 (E-comerce)\" jdkType=\"Python SDK\" />\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\n  </component>\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/E-comerce.iml b/.idea/E-comerce.iml
+--- a/.idea/E-comerce.iml	(revision 5f97072977a0b953d102946f5eeab8ed2c986c41)
++++ b/.idea/E-comerce.iml	(date 1758242057489)
+@@ -4,7 +4,7 @@
+     <content url="file://$MODULE_DIR$">
+       <excludeFolder url="file://$MODULE_DIR$/.venv" />
+     </content>
+-    <orderEntry type="jdk" jdkName="Python 3.13 (E-comerce)" jdkType="Python SDK" />
++    <orderEntry type="jdk" jdkName="Python 3.11 (e-comerce)" jdkType="Python SDK" />
+     <orderEntry type="sourceFolder" forTests="false" />
+   </component>
+ </module>
+\ No newline at end of file
