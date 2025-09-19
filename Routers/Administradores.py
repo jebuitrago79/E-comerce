@@ -53,4 +53,4 @@ def eliminar_usuario(usuario_id: int, session: Session = Depends(get_session)):
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
     session.delete(usuario)
     session.commit()
-    return {"message": f"Usuario {usuario.nombre} eliminado correctamente"}
+    return {"message": f"Usuario {usuario.nombre} eliminado correctamente"}###
