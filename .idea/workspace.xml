@@ -4,20 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1a7a21c7-0c85-4fbe-85cb-d3bd922c5c8b" name="Changes" comment="Se modifica el main">
-      <change afterPath="$PROJECT_DIR$/Modelos/common.py" afterDir="false" />
+    <list default="true" id="1a7a21c7-0c85-4fbe-85cb-d3bd922c5c8b" name="Changes" comment="Se ajustan lso routers para que estos funcionen correctamernte en el main">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CRUD/Crud_Vendedor.py" beforeDir="false" afterPath="$PROJECT_DIR$/CRUD/Crud_Vendedor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/New_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data/New_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/E-comerce.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modelos/Administrador.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modelos/Administrador.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modelos/Comprador.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modelos/Comprador.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modelos/User.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modelos/Vendedor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modelos/Vendedor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Routers/vendedores.py" beforeDir="false" afterPath="$PROJECT_DIR$/Routers/vendedores.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/db/engine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/init_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/db/init_db.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/New_data.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/app.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -240,7 +231,55 @@
       <option name="project" value="LOCAL" />
       <updated>1758246568721</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Se modifican las clases para usar el modelo sqlmodel">
+      <option name="closed" value="true" />
+      <created>1758248583057</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1758248583057</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Nueva clase usuario comun que hace herencia a las demas">
+      <option name="closed" value="true" />
+      <created>1758248606205</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1758248606205</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Se modifica Crud_Vendedor.py">
+      <option name="closed" value="true" />
+      <created>1758248620453</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1758248620453</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Nueva base de datos provisional">
+      <option name="closed" value="true" />
+      <created>1758248644885</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1758248644885</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Se ajustan cosas de la data provisional">
+      <option name="closed" value="true" />
+      <created>1758248669100</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1758248669100</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Se ajustan lso routers para que estos funcionen correctamernte en el main">
+      <option name="closed" value="true" />
+      <created>1758248693288</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1758248693288</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -257,6 +296,12 @@
     <MESSAGE value="Se modifica user" />
     <MESSAGE value="Se modifica el modelo vendedor y se crean los routers" />
     <MESSAGE value="Se modifica el main" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se modifica el main" />
+    <MESSAGE value="Se modifican las clases para usar el modelo sqlmodel" />
+    <MESSAGE value="Nueva clase usuario comun que hace herencia a las demas" />
+    <MESSAGE value="Se modifica Crud_Vendedor.py" />
+    <MESSAGE value="Nueva base de datos provisional" />
+    <MESSAGE value="Se ajustan cosas de la data provisional" />
+    <MESSAGE value="Se ajustan lso routers para que estos funcionen correctamernte en el main" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se ajustan lso routers para que estos funcionen correctamernte en el main" />
   </component>
 </project>
