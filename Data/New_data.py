@@ -2,7 +2,7 @@
 from sqlmodel import Session, select
 from db.engine import engine
 from CRUD.Crud_Vendedor import crear_vendedor, listar_vendedores
-from Modelos.User import Usuario
+from Modelos.common import Usuario
 
 
 def seed_vendedores():
