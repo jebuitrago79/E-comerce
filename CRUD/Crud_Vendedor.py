@@ -15,12 +15,10 @@ def crear_vendedor(
     telefono: str,
 ) -> Vendedor:
 
-    # Unicidad por email en vendedores
     ya = session.exec(select(Vendedor).where(Vendedor.email == email)).first()
     if ya:
         raise ValueError(f"El email '{email}' ya existe en vendedores.")
 
-    # Unicidad por id_vendedor
     ya2 = session.exec(select(Vendedor).where(Vendedor.id_vendedor == id_vendedor)).first()
     if ya2:
         raise ValueError(f"El id_vendedor '{id_vendedor}' ya existe.")
@@ -51,7 +49,7 @@ def actualizar_vendedor(session: Session, vendedor_id: int, **campos) -> Optiona
     if not vendedor:
         return None
 
-    # Validaciones de unicidad si cambian email / id_vendedor
+
     nuevo_email = campos.get("email")
     if nuevo_email and nuevo_email != vendedor.email:
         existe = session.exec(select(Vendedor).where(Vendedor.email == nuevo_email)).first()
