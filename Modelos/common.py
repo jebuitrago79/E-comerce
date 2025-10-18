@@ -10,4 +10,3 @@ class UserFields(SQLModel):
     nombre: str
     email: str
     password: str
-    estado_cuenta: EstadoCuenta = EstadoCuenta.activo
