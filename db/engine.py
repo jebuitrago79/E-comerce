@@ -1,36 +1,27 @@
-import pytest
-import httpx
+# db/engine.py
+import os
+from sqlmodel import create_engine, Session
+from dotenv import load_dotenv
 
-SUPABASE_URL = "https://aqdwhapdvikqzgeodneu.supabase.co"
-SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxZHdoYXBkdmlrcXpnZW9kbmV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA5ODYwOTEsImV4cCI6MjA3NjU2MjA5MX0.fPnIdRxejZW-lDcgYWC9GX9aMKktyFloMDmdA5Fouj8"
+load_dotenv()
+DATABASE_URL = os.getenv("DATABASE_URL")
 
-HEADERS = {
-    "apikey": SUPABASE_KEY,
-    "Authorization": f"Bearer {SUPABASE_KEY}",
-    "Content-Type": "application/json"
-}
+if not DATABASE_URL:
+    raise RuntimeError("DATABASE_URL no encontrada en .env")
 
+# Normaliza por si hubo errores viejos
+if DATABASE_URL.startswith("ppostgresql://"):
+    DATABASE_URL = "postgresql+psycopg2://" + DATABASE_URL[len("ppostgresql://"):]
+elif DATABASE_URL.startswith("postgresql://"):
+    DATABASE_URL = "postgresql+psycopg2://" + DATABASE_URL[len("postgresql://"):]
 
-@pytest.mark.asyncio
-async def test_supabase_connection():
-    """Prueba la conexión a la tabla player_images en Supabase."""
-    url = f"{SUPABASE_URL}/rest/v1/player_images?sofifa_id=eq.2147&select=*"
+if not DATABASE_URL.startswith("postgresql+psycopg2://"):
+    raise ValueError(f"Formato inválido de DATABASE_URL: {DATABASE_URL}")
 
-    async with httpx.AsyncClient(timeout=10.0) as client:
-        response = await client.get(url, headers=HEADERS)
+engine = create_engine(DATABASE_URL, echo=False)
 
-    # Verifica código de estado
-    assert response.status_code == 200, f"❌ Código inesperado: {response.status_code}"
+def get_session():
+    with Session(engine) as session:
+        yield session
 
-    data = response.json()
-
-    # Verifica que la respuesta sea una lista (como debe devolver Supabase)
-    assert isinstance(data, list), f"❌ El resultado no es una lista: {type(data)}"
-
-    # Verifica que haya al menos un resultado
-    assert len(data) > 0, "❌ No se encontró ningún registro con ese sofifa_id"
-
-    # Opcional: muestra salida legible solo si el test pasa
-    print("✅ Conexión exitosa con Supabase")
-    print("🔍 Resultado:", data[0])
 
