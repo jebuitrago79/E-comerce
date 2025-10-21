@@ -1,6 +1,6 @@
 # Routers/vendedores.py
 from typing import List, Optional
-
+from db.engine import get_session
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlmodel import Session, SQLModel
 
