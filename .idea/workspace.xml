@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1a7a21c7-0c85-4fbe-85cb-d3bd922c5c8b" name="Changes" comment="Se crea el  engine que este gestiona la conexcin con la base de datos">
-      <change afterPath="$PROJECT_DIR$/db/test_connection.py" afterDir="false" />
+    <list default="true" id="1a7a21c7-0c85-4fbe-85cb-d3bd922c5c8b" name="Changes" comment="Se hace un ajuste en main para que este ahora ejecute cada vez el inicio en la data se supabase">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/init_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/db/init_db.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -226,7 +223,7 @@
       <workItem from="1760993397040" duration="105000" />
       <workItem from="1760993538587" duration="103000" />
       <workItem from="1760993660704" duration="160000" />
-      <workItem from="1761001131231" duration="11068000" />
+      <workItem from="1761001131231" duration="11513000" />
     </task>
     <task id="LOCAL-00001" summary="Se crean carpetas para cada clase">
       <option name="closed" value="true" />
@@ -444,16 +441,37 @@
       <option name="project" value="LOCAL" />
       <updated>1761012599381</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="El init_db se encarga de crear las tablas de cada uno de los modelos">
+      <option name="closed" value="true" />
+      <created>1761012630449</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1761012630449</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Se crea el primer test este para confirmar que funciona la conexion">
+      <option name="closed" value="true" />
+      <created>1761012661113</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1761012661113</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Se hace un ajuste en main para que este ahora ejecute cada vez el inicio en la data se supabase">
+      <option name="closed" value="true" />
+      <created>1761012708680</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1761012708680</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Se crean carpetas para cada clase" />
-    <MESSAGE value="Se crea la clase Administrador.py" />
-    <MESSAGE value="Se crea la clase Comprador.py" />
     <MESSAGE value="Se crea la clase User.py" />
     <MESSAGE value="Se crea la clase Vendedor.py" />
     <MESSAGE value="Se actualiza el xml" />
@@ -476,7 +494,10 @@
     <MESSAGE value="se modifica vendedores" />
     <MESSAGE value="Se modifican los accesos a la base de datos en supabase, y se ocultan estos en un .env" />
     <MESSAGE value="Se crea el  engine que este gestiona la conexcin con la base de datos" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se crea el  engine que este gestiona la conexcin con la base de datos" />
+    <MESSAGE value="El init_db se encarga de crear las tablas de cada uno de los modelos" />
+    <MESSAGE value="Se crea el primer test este para confirmar que funciona la conexion" />
+    <MESSAGE value="Se hace un ajuste en main para que este ahora ejecute cada vez el inicio en la data se supabase" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se hace un ajuste en main para que este ahora ejecute cada vez el inicio en la data se supabase" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/E_comerce$.coverage" NAME=" Coverage Results" MODIFIED="1761012398107" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/db" />
