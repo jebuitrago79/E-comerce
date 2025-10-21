@@ -1,7 +1,6 @@
 # main.py
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
-from db.init_db import create_db_and_tables
 from Routers import vendedores, Administradores, Compradores
 from db.init_db import create_db_and_tables
 
