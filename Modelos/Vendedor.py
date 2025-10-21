@@ -18,7 +18,7 @@ class Vendedor(UserFields, table=True):
     direccion: str
     telefono: str
 
-    # Enum definido por modelo (evitamos reutilizar el mismo Column)
+
     estado_cuenta: EstadoCuenta = Field(
         default=EstadoCuenta.activo,
         sa_column=Column(
