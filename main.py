@@ -1,7 +1,7 @@
 # main.py
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
-from Routers import vendedores, Administradores, Compradores
+from Routers import vendedores, Administradores, Compradores, Productos
 from db.init_db import create_db_and_tables
 
 @asynccontextmanager
@@ -14,6 +14,7 @@ app = FastAPI(title="API E-commerce", lifespan=lifespan)
 app.include_router(vendedores.router)
 app.include_router(Administradores.router)
 app.include_router(Compradores.router)
+app.include_router(Productos.router)
 
 
 @app.get("/")
