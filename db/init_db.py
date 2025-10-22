@@ -1,20 +1,16 @@
 # db/init_db.py
-from sqlmodel import SQLModel, Session
+from sqlmodel import SQLModel
 from db.engine import engine
-from Modelos import Administrador, Comprador, Usuario, Vendedor, Producto # importa tus modelos
+# importa los modelos para que queden registrados en el metadata
+from Modelos import Administrador, Comprador, Usuario, Vendedor, Producto
+from sqlalchemy import text
 
 def create_db_and_tables():
-    """
-    Crea todas las tablas definidas en los modelos SQLModel
-    dentro de la base de datos conectada (Supabase o SQLite).
-    """
     print("🛠️ Creando tablas en la base de datos (si no existen)...")
     SQLModel.metadata.create_all(engine)
     print("✅ Tablas creadas correctamente.")
-def get_db():
-    """
-    Crea una sesión temporal de base de datos que se
-    usa como dependencia en los endpoints de FastAPI.
-    """
-    with Session(engine) as session:
-        yield session
+
+def test_connection():
+    with engine.connect() as conn:
+        row = conn.execute(text("select current_user, inet_server_addr(), inet_server_port();")).first()
+        print("✅ Conexión OK:", row)
