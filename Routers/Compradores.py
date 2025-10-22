@@ -2,7 +2,7 @@
 from typing import List, Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
-from sqlmodel import Session, SQLModel
+from sqlmodel import SQLModel ,Session, SQLModel
 from db.engine import get_session
 from db.engine import engine
 

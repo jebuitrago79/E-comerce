@@ -1,7 +1,7 @@
 # db/init_db.py
-from sqlmodel import SQLModel
+from sqlmodel import SQLModel, Session
 from db.engine import engine
-from Modelos import Administrador, Comprador, Usuario, Vendedor  # importa tus modelos
+from Modelos import Administrador, Comprador, Usuario, Vendedor, Producto # importa tus modelos
 
 def create_db_and_tables():
     """
@@ -11,3 +11,10 @@ def create_db_and_tables():
     print("🛠️ Creando tablas en la base de datos (si no existen)...")
     SQLModel.metadata.create_all(engine)
     print("✅ Tablas creadas correctamente.")
+def get_db():
+    """
+    Crea una sesión temporal de base de datos que se
+    usa como dependencia en los endpoints de FastAPI.
+    """
+    with Session(engine) as session:
+        yield session

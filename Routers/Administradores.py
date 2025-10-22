@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException, Depends
-from sqlmodel import Session, select
+from sqlmodel import SQLModel, Session, select
 from db.engine import get_session
 from Modelos.Administrador import Administrador
 from Modelos.Usuario import Usuario

@@ -1,0 +1,176 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"1a7a21c7-0c85-4fbe-85cb-d3bd922c5c8b\" name=\"Changes\" comment=\"Se modifica el main\">\n      <change afterPath=\"$PROJECT_DIR$/Modelos/common.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/CRUD/Crud_Vendedor.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/CRUD/Crud_Vendedor.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Data/New_data.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Data/New_data.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/E-comerce.db\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Modelos/Administrador.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Modelos/Administrador.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Modelos/Comprador.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Modelos/Comprador.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Modelos/User.py\" beforeDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Modelos/Vendedor.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Modelos/Vendedor.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/Routers/vendedores.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Routers/vendedores.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/db/engine.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/db/engine.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/db/init_db.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/db/init_db.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/main.py\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/main.py\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Python Script\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 4\n}</component>\n  <component name=\"ProjectId\" id=\"32mrZiclxj6sQ12Ok9aTJut6MZq\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"ModuleVcsDetector.initialDetectionPerformed\": \"true\",\n    \"Python.engine.executor\": \"Run\",\n    \"Python.init_db.executor\": \"Run\",\n    \"Python.main.executor\": \"Run\",\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\n    \"RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252\": \"true\",\n    \"RunOnceActivity.git.unshallow\": \"true\",\n    \"git-widget-placeholder\": \"main\"\n  }\n}]]></component>\n  <component name=\"RecentsManager\">\n    <key name=\"MoveFile.RECENT_KEYS\">\n      <recent name=\"C:\\Users\\USUARIO\\PycharmProjects\\E-comerce\\Administrador\" />\n      <recent name=\"C:\\Users\\USUARIO\\PycharmProjects\\E-comerce\\Cliente\" />\n      <recent name=\"C:\\Users\\USUARIO\\PycharmProjects\\E-comerce\\Usuario\" />\n    </key>\n  </component>\n  <component name=\"RunManager\" selected=\"Python.engine\">\n    <configuration name=\"engine\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"E-comerce\" />\n      <option name=\"ENV_FILES\" value=\"\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <envs>\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\n      </envs>\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/db\" />\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/db/engine.py\" />\n      <option name=\"PARAMETERS\" value=\"\" />\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\n      <option name=\"MODULE_MODE\" value=\"false\" />\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\n      <option name=\"INPUT_FILE\" value=\"\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"init_db\" type=\"PythonConfigurationType\" factoryName=\"Python\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"E-comerce\" />\n      <option name=\"ENV_FILES\" value=\"\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <envs>\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\n      </envs>\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"$PROJECT_DIR$/db\" />\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <option name=\"SCRIPT_NAME\" value=\"$PROJECT_DIR$/db/init_db.py\" />\n      <option name=\"PARAMETERS\" value=\"\" />\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\n      <option name=\"MODULE_MODE\" value=\"false\" />\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\n      <option name=\"INPUT_FILE\" value=\"\" />\n      <method v=\"2\" />\n    </configuration>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Python.engine\" />\n        <item itemvalue=\"Python.init_db\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SharedIndexes\">\n    <attachedChunks>\n      <set>\n        <option value=\"bundled-python-sdk-ce6832f46686-7b97d883f26b-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.25557.178\" />\n      </set>\n    </attachedChunks>\n  </component>\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"1a7a21c7-0c85-4fbe-85cb-d3bd922c5c8b\" name=\"Changes\" comment=\"\" />\n      <created>1758036649647</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1758036649647</updated>\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"Se crean carpetas para cada clase\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1758239533682</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1758239533682</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"Se crean carpetas para cada clase\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1758239698915</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1758239698915</updated>\n    </task>\n    <task id=\"LOCAL-00003\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1758241473406</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1758241473406</updated>\n    </task>\n    <task id=\"LOCAL-00004\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1758241511708</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1758241511708</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"Se crea la clase User.py\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1758241543241</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1758241543241</updated>\n    </task>\n    <task id=\"LOCAL-00006\" summary=\"Se crea la clase Vendedor.py\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1758241553847</created>\n      <option name=\"number\" value=\"00006\" />\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1758241553847</updated>\n    </task>\n    <task id=\"LOCAL-00007\" summary=\"Se actualiza el xml\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1758241574105</created>\n      <option name=\"number\" value=\"00007\" />\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1758241574105</updated>\n    </task>\n    <task id=\"LOCAL-00008\" summary=\"Se modifica adm\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1758246470553</created>\n      <option name=\"number\" value=\"00008\" />\n      <option name=\"presentableId\" value=\"LOCAL-00008\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1758246470553</updated>\n    </task>\n    <task id=\"LOCAL-00009\" summary=\"Se\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1758246479375</created>\n      <option name=\"number\" value=\"00009\" />\n      <option name=\"presentableId\" value=\"LOCAL-00009\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1758246479375</updated>\n    </task>\n    <task id=\"LOCAL-00010\" summary=\"Se crea el crud de vendedor\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1758246494279</created>\n      <option name=\"number\" value=\"00010\" />\n      <option name=\"presentableId\" value=\"LOCAL-00010\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1758246494279</updated>\n    </task>\n    <task id=\"LOCAL-00011\" summary=\"Se crea la data provisional con sqlite\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1758246511423</created>\n      <option name=\"number\" value=\"00011\" />\n      <option name=\"presentableId\" value=\"LOCAL-00011\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1758246511423</updated>\n    </task>\n    <task id=\"LOCAL-00012\" summary=\"S\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1758246521586</created>\n      <option name=\"number\" value=\"00012\" />\n      <option name=\"presentableId\" value=\"LOCAL-00012\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1758246521586</updated>\n    </task>\n    <task id=\"LOCAL-00013\" summary=\"Se modifica el modelo vendedor y se crean los routers\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1758246554143</created>\n      <option name=\"number\" value=\"00013\" />\n      <option name=\"presentableId\" value=\"LOCAL-00013\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1758246554143</updated>\n    </task>\n    <task id=\"LOCAL-00014\" summary=\"Se modifica el main\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1758246568721</created>\n      <option name=\"number\" value=\"00014\" />\n      <option name=\"presentableId\" value=\"LOCAL-00014\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1758246568721</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"15\" />\n    <servers />\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"Se crean carpetas para cada clase\" />\n    <MESSAGE value=\"Se crea la clase Administrador.py\" />\n    <MESSAGE value=\"Se crea la clase Comprador.py\" />\n    <MESSAGE value=\"Se crea la clase User.py\" />\n    <MESSAGE value=\"Se crea la clase Vendedor.py\" />\n    <MESSAGE value=\"Se actualiza el xml\" />\n    <MESSAGE value=\"Se modifica admi\" />\n    <MESSAGE value=\"Se modifica comprador\" />\n    <MESSAGE value=\"Se crea el crud de vendedor\" />\n    <MESSAGE value=\"Se crea la data provisional con sqlite\" />\n    <MESSAGE value=\"Se modifica user\" />\n    <MESSAGE value=\"Se modifica el modelo vendedor y se crean los routers\" />\n    <MESSAGE value=\"Se modifica el main\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Se modifica el main\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 2d7b49d51d1f22f98eea54c62942c03b2bb74599)
++++ b/.idea/workspace.xml	(date 1758293292135)
+@@ -4,20 +4,10 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="1a7a21c7-0c85-4fbe-85cb-d3bd922c5c8b" name="Changes" comment="Se modifica el main">
+-      <change afterPath="$PROJECT_DIR$/Modelos/common.py" afterDir="false" />
++    <list default="true" id="1a7a21c7-0c85-4fbe-85cb-d3bd922c5c8b" name="Changes" comment="comentarios">
++      <change beforePath="$PROJECT_DIR$/.idea/E-comerce.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/E-comerce.iml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/CRUD/Crud_Vendedor.py" beforeDir="false" afterPath="$PROJECT_DIR$/CRUD/Crud_Vendedor.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Data/New_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data/New_data.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/E-comerce.db" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Modelos/Administrador.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modelos/Administrador.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Modelos/Comprador.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modelos/Comprador.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Modelos/User.py" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Modelos/Vendedor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modelos/Vendedor.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Routers/vendedores.py" beforeDir="false" afterPath="$PROJECT_DIR$/Routers/vendedores.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/db/engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/db/engine.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/db/init_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/db/init_db.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -34,6 +24,12 @@
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
++  <component name="GithubPullRequestsUISettings"><![CDATA[{
++  "selectedUrlAndAccountId": {
++    "url": "https://github.com/jebuitrago79/E-comerce.git",
++    "accountId": "69cbd2d0-c5ab-4403-bfea-dcf30486df5d"
++  }
++}]]></component>
+   <component name="ProjectColorInfo">{
+   &quot;associatedIndex&quot;: 4
+ }</component>
+@@ -51,7 +47,10 @@
+     "RunOnceActivity.ShowReadmeOnStart": "true",
+     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+     "RunOnceActivity.git.unshallow": "true",
+-    "git-widget-placeholder": "main"
++    "git-widget-placeholder": "main",
++    "node.js.selected.package.tslint": "(autodetect)",
++    "nodejs_package_manager_path": "npm",
++    "vue.rearranger.settings.migration": "true"
+   }
+ }]]></component>
+   <component name="RecentsManager">
+@@ -75,6 +74,7 @@
+       <option name="IS_MODULE_SDK" value="true" />
+       <option name="ADD_CONTENT_ROOTS" value="true" />
+       <option name="ADD_SOURCE_ROOTS" value="true" />
++      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/db/engine.py" />
+       <option name="PARAMETERS" value="" />
+       <option name="SHOW_COMMAND_LINE" value="false" />
+@@ -97,6 +97,7 @@
+       <option name="IS_MODULE_SDK" value="true" />
+       <option name="ADD_CONTENT_ROOTS" value="true" />
+       <option name="ADD_SOURCE_ROOTS" value="true" />
++      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/db/init_db.py" />
+       <option name="PARAMETERS" value="" />
+       <option name="SHOW_COMMAND_LINE" value="false" />
+@@ -106,6 +107,10 @@
+       <option name="INPUT_FILE" value="" />
+       <method v="2" />
+     </configuration>
++    <list>
++      <item itemvalue="Python.engine" />
++      <item itemvalue="Python.init_db" />
++    </list>
+     <recent_temporary>
+       <list>
+         <item itemvalue="Python.engine" />
+@@ -116,6 +121,7 @@
+   <component name="SharedIndexes">
+     <attachedChunks>
+       <set>
++        <option value="bundled-js-predefined-d6986cc7102b-b598e85cdad2-JavaScript-PY-252.25557.178" />
+         <option value="bundled-python-sdk-ce6832f46686-7b97d883f26b-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.25557.178" />
+       </set>
+     </attachedChunks>
+@@ -127,6 +133,7 @@
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+       <updated>1758036649647</updated>
++      <workItem from="1758292971269" duration="320000" />
+     </task>
+     <task id="LOCAL-00001" summary="Se crean carpetas para cada clase">
+       <option name="closed" value="true" />
+@@ -240,8 +247,35 @@
+       <option name="project" value="LOCAL" />
+       <updated>1758246568721</updated>
+     </task>
+-    <option name="localTasksCounter" value="15" />
++    <task id="LOCAL-00015" summary="Cambios y inicio de administrador">
++      <option name="closed" value="true" />
++      <created>1758250247936</created>
++      <option name="number" value="00015" />
++      <option name="presentableId" value="LOCAL-00015" />
++      <option name="project" value="LOCAL" />
++      <updated>1758250247936</updated>
++    </task>
++    <task id="LOCAL-00016" summary="Admin completado">
++      <option name="closed" value="true" />
++      <created>1758250720476</created>
++      <option name="number" value="00016" />
++      <option name="presentableId" value="LOCAL-00016" />
++      <option name="project" value="LOCAL" />
++      <updated>1758250720476</updated>
++    </task>
++    <task id="LOCAL-00017" summary="comentarios">
++      <option name="closed" value="true" />
++      <created>1758251858003</created>
++      <option name="number" value="00017" />
++      <option name="presentableId" value="LOCAL-00017" />
++      <option name="project" value="LOCAL" />
++      <updated>1758251858003</updated>
++    </task>
++    <option name="localTasksCounter" value="18" />
+     <servers />
++  </component>
++  <component name="TypeScriptGeneratedFilesManager">
++    <option name="version" value="3" />
+   </component>
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="Se crean carpetas para cada clase" />
+@@ -257,6 +291,14 @@
+     <MESSAGE value="Se modifica user" />
+     <MESSAGE value="Se modifica el modelo vendedor y se crean los routers" />
+     <MESSAGE value="Se modifica el main" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Se modifica el main" />
++    <MESSAGE value="Cambios y inicio de administrador" />
++    <MESSAGE value="Admin completado" />
++    <MESSAGE value="comentarios" />
++    <option name="LAST_COMMIT_MESSAGE" value="comentarios" />
++  </component>
++  <component name="com.intellij.coverage.CoverageDataManagerImpl">
++    <SUITE FILE_PATH="coverage/e_comerce$Administrador.coverage" NAME="Administrador Coverage Results" MODIFIED="1758241047849" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Administrador" />
++    <SUITE FILE_PATH="coverage/e_comerce$main.coverage" NAME="main Coverage Results" MODIFIED="1758241215134" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
++    <SUITE FILE_PATH="coverage/e_comerce$Usuario.coverage" NAME="Usuario Coverage Results" MODIFIED="1758241362582" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Usuario" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/E-comerce.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<module type=\"PYTHON_MODULE\" version=\"4\">\n  <component name=\"NewModuleRootManager\">\n    <content url=\"file://$MODULE_DIR$\">\n      <excludeFolder url=\"file://$MODULE_DIR$/.venv\" />\n    </content>\n    <orderEntry type=\"jdk\" jdkName=\"Python 3.13 (E-comerce)\" jdkType=\"Python SDK\" />\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\n  </component>\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/E-comerce.iml b/.idea/E-comerce.iml
+--- a/.idea/E-comerce.iml	(revision 2d7b49d51d1f22f98eea54c62942c03b2bb74599)
++++ b/.idea/E-comerce.iml	(date 1758252063047)
+@@ -4,7 +4,7 @@
+     <content url="file://$MODULE_DIR$">
+       <excludeFolder url="file://$MODULE_DIR$/.venv" />
+     </content>
+-    <orderEntry type="jdk" jdkName="Python 3.13 (E-comerce)" jdkType="Python SDK" />
++    <orderEntry type="jdk" jdkName="Python 3.11 (e-comerce)" jdkType="Python SDK" />
+     <orderEntry type="sourceFolder" forTests="false" />
+   </component>
+ </module>
+\ No newline at end of file

@@ -14,7 +14,7 @@ from CRUD.Crud_Vendedor import (
     actualizar_vendedor, eliminar_vendedor,
 )
 from Modelos.common import EstadoCuenta
-
+from Modelos.Vendedor import Vendedor
 
 router = APIRouter(prefix="/vendedores", tags=["Vendedores"])
 
@@ -52,13 +52,16 @@ class VendedorRead(SQLModel):
     telefono: str
 
 
-@router.post("/", response_model=VendedorRead, status_code=status.HTTP_201_CREATED)
-def create_vendedor(payload: VendedorCreate, session: Session = Depends(get_session)):
+@router.post("/", response_model=Vendedor)
+def crear_vendedor(vendedor: Vendedor, session: Session = Depends(get_session)):
     try:
-        nuevo = crear_vendedor(session, **payload.model_dump())
-        return VendedorRead.model_validate(nuevo, from_attributes=True)
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        session.add(vendedor)
+        session.commit()
+        session.refresh(vendedor)
+        return vendedor
+    except Exception as e:
+        session.rollback()
+        raise HTTPException(status_code=500, detail=f"Error al crear vendedor: {e}")
 
 
 @router.get("/", response_model=List[VendedorRead])
