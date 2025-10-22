@@ -1,21 +1,13 @@
-# Modelos/Vendedor.py
 from typing import Optional, List
 from sqlmodel import SQLModel, Field, Relationship
 from sqlalchemy import UniqueConstraint, Column
 from sqlalchemy import Enum as SAEnum
-from enum import Enum
-
-
-class EstadoCuenta(str, Enum):
-    activo = "activo"
-    inactivo = "inactivo"
+from .common import EstadoCuenta
 
 
 class Vendedor(SQLModel, table=True):
     __tablename__ = "vendedores"
-    __table_args__ = (
-        UniqueConstraint("id_vendedor", name="uq_vendedores_id_vendedor"),
-    )
+    __table_args__ = (UniqueConstraint("id_vendedor", name="uq_vendedores_id_vendedor"),)
 
     id: Optional[int] = Field(default=None, primary_key=True)
     id_vendedor: int = Field(index=True)

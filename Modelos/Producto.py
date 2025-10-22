@@ -1,15 +1,14 @@
+# Modelos/Producto.py
 from sqlmodel import SQLModel, Field, Relationship, Column
 from typing import Optional
 from enum import Enum
-from sqlalchemy import Enum as SAEnum  # 👈 Import necesario para usar ENUM en PostgreSQL
-
+from sqlalchemy import Enum as SAEnum
 
 class CategoriaEnum(str, Enum):
     ropa = "ropa"
     tecnologia = "tecnologia"
     comida = "comida"
     deportes = "deportes"
-
 
 class Producto(SQLModel, table=True):
     __tablename__ = "productos"
@@ -20,11 +19,17 @@ class Producto(SQLModel, table=True):
     precio: float
     stock: int = Field(default=0)
 
-    # ⚙️ Guardamos el ENUM correctamente en la base de datos PostgreSQL
+    # Mantén la columna ENUM en el modelo
     categoria: CategoriaEnum = Field(
-        sa_column=Column(SAEnum(CategoriaEnum, name="categoria_enum"), nullable=False)
+        sa_column=Column(
+            SAEnum(
+                CategoriaEnum,
+                name="categoria_enum",
+                create_type=False  # <- clave: no deja a SQLAlchemy crear el tipo
+            ),
+            nullable=False
+        )
     )
 
     vendedor_id: Optional[int] = Field(default=None, foreign_key="vendedores.id")
-
     vendedor: Optional["Vendedor"] = Relationship(back_populates="productos")
