@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1a7a21c7-0c85-4fbe-85cb-d3bd922c5c8b" name="Changes" comment="Se ajusta el main con los nuevos routers">
+      <change beforePath="$PROJECT_DIR$/.idea/E-comerce.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/E-comerce.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;history&quot;: [
+    {
+      &quot;state&quot;: &quot;OPEN&quot;,
+      &quot;assignee&quot;: &quot;Juanarroyo234&quot;
+    }
+  ],
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Juanarroyo234&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/jebuitrago79/E-comerce.git&quot;,
+    &quot;accountId&quot;: &quot;122ca890-d2b5-4175-9781-f5b81a1bdb4a&quot;
+  }
+}</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/requirements.txt" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="32mrZiclxj6sQ12Ok9aTJut6MZq" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python tests.Python tests for engine.test_supabase_connection.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for init_db.test_connection.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_connection.test_connection.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in test_connection.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python.engine.executor&quot;: &quot;Run&quot;,
+    &quot;Python.init_db.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/julian/PycharmProjects/E-comerce&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\USUARIO\PycharmProjects\E-comerce\Administrador" />
+      <recent name="C:\Users\USUARIO\PycharmProjects\E-comerce\Cliente" />
+      <recent name="C:\Users\USUARIO\PycharmProjects\E-comerce\Usuario" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.main">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="E-comerce" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test_connection" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="E-comerce" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/db" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/db/test_connection.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for engine.test_supabase_connection" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="E-comerce" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/db" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;engine.test_supabase_connection&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for init_db.test_connection" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="E-comerce" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/db" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;init_db.test_connection&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for test_connection.test_connection" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="E-comerce" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/db" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_connection.test_connection&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests in test_connection.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="E-comerce" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/db" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/db/test_connection.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.main" />
+      <item itemvalue="Python.test_connection" />
+      <item itemvalue="Python tests.Python tests for init_db.test_connection" />
+      <item itemvalue="Python tests.Python tests for engine.test_supabase_connection" />
+      <item itemvalue="Python tests.Python tests for test_connection.test_connection" />
+      <item itemvalue="Python tests.Python tests in test_connection.py" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python tests.Python tests for test_connection.test_connection" />
+        <item itemvalue="Python tests.Python tests for init_db.test_connection" />
+        <item itemvalue="Python tests.Python tests in test_connection.py" />
+        <item itemvalue="Python tests.Python tests for engine.test_supabase_connection" />
+        <item itemvalue="Python.test_connection" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-PY-243.26053.29" />
+        <option value="bundled-python-sdk-b1dbf8ef85a6-4df51de95216-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.26053.29" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1a7a21c7-0c85-4fbe-85cb-d3bd922c5c8b" name="Changes" comment="" />
+      <created>1758036649647</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1758036649647</updated>
+      <workItem from="1760991978905" duration="1253000" />
+      <workItem from="1760993397040" duration="105000" />
+      <workItem from="1760993538587" duration="103000" />
+      <workItem from="1760993660704" duration="160000" />
+      <workItem from="1761001131231" duration="12214000" />
+      <workItem from="1761252958809" duration="872000" />
+    </task>
+    <task id="LOCAL-00001" summary="Se crean carpetas para cada clase">
+      <option name="closed" value="true" />
+      <created>1758239533682</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1758239533682</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Se crean carpetas para cada clase">
+      <option name="closed" value="true" />
+      <created>1758239698915</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1758239698915</updated>
+    </task>
+    <task id="LOCAL-00003">
+      <option name="closed" value="true" />
+      <created>1758241473406</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1758241473406</updated>
+    </task>
+    <task id="LOCAL-00004">
+      <option name="closed" value="true" />
+      <created>1758241511708</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1758241511708</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Se crea la clase User.py">
+      <option name="closed" value="true" />
+      <created>1758241543241</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1758241543241</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Se crea la clase Vendedor.py">
+      <option name="closed" value="true" />
+      <created>1758241553847</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1758241553847</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Se actualiza el xml">
+      <option name="closed" value="true" />
+      <created>1758241574105</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1758241574105</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Se modifica adm">
+      <option name="closed" value="true" />
+      <created>1758246470553</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1758246470553</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Se">
+      <option name="closed" value="true" />
+      <created>1758246479375</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1758246479375</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Se crea el crud de vendedor">
+      <option name="closed" value="true" />
+      <created>1758246494279</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1758246494279</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Se crea la data provisional con sqlite">
+      <option name="closed" value="true" />
+      <created>1758246511423</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1758246511423</updated>
+    </task>
+    <task id="LOCAL-00012" summary="S">
+      <option name="closed" value="true" />
+      <created>1758246521586</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1758246521586</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Se modifica el modelo vendedor y se crean los routers">
+      <option name="closed" value="true" />
+      <created>1758246554143</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1758246554143</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Se modifica el main">
+      <option name="closed" value="true" />
+      <created>1758246568721</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1758246568721</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Se modifican las clases para usar el modelo sqlmodel">
+      <option name="closed" value="true" />
+      <created>1758248583057</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1758248583057</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Nueva clase usuario comun que hace herencia a las demas">
+      <option name="closed" value="true" />
+      <created>1758248606205</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1758248606205</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Se modifica Crud_Vendedor.py">
+      <option name="closed" value="true" />
+      <created>1758248620453</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1758248620453</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Nueva base de datos provisional">
+      <option name="closed" value="true" />
+      <created>1758248644885</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1758248644885</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Se ajustan cosas de la data provisional">
+      <option name="closed" value="true" />
+      <created>1758248669100</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1758248669100</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Se ajustan lso routers para que estos funcionen correctamernte en el main">
+      <option name="closed" value="true" />
+      <created>1758248693288</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1758248693288</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Se guardan las librerias a utulizar">
+      <option name="closed" value="true" />
+      <created>1760992787580</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1760992787580</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Se guardan las librerias a utulizar">
+      <option name="closed" value="true" />
+      <created>1760992861322</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1760992861322</updated>
+    </task>
+    <task id="LOCAL-00023" summary="se crea la clase compradores tambien su crud y su modelo base">
+      <option name="closed" value="true" />
+      <created>1761010467734</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1761010467734</updated>
+    </task>
+    <task id="LOCAL-00024" summary="se inicia la conexcion con supa base por medio de un test aun no fucniona">
+      <option name="closed" value="true" />
+      <created>1761010500224</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1761010500224</updated>
+    </task>
+    <task id="LOCAL-00025" summary="se modifica vendedores">
+      <option name="closed" value="true" />
+      <created>1761010518588</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1761010518588</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Se modifican los accesos a la base de datos en supabase, y se ocultan estos en un .env">
+      <option name="closed" value="true" />
+      <created>1761012550994</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1761012550994</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Se crea el  engine que este gestiona la conexcin con la base de datos">
+      <option name="closed" value="true" />
+      <created>1761012599381</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1761012599381</updated>
+    </task>
+    <task id="LOCAL-00028" summary="El init_db se encarga de crear las tablas de cada uno de los modelos">
+      <option name="closed" value="true" />
+      <created>1761012630449</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1761012630449</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Se crea el primer test este para confirmar que funciona la conexion">
+      <option name="closed" value="true" />
+      <created>1761012661113</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1761012661113</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Se hace un ajuste en main para que este ahora ejecute cada vez el inicio en la data se supabase">
+      <option name="closed" value="true" />
+      <created>1761012708680</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1761012708680</updated>
+    </task>
+    <task id="LOCAL-00031" summary="configuraciones de la conexcion a bases de datos">
+      <option name="closed" value="true" />
+      <created>1761098717733</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1761098717736</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Ajustes en modelos algunos no tomaban bien los enum se hace un ajuste para que no se genere conflicto en la base de datos">
+      <option name="closed" value="true" />
+      <created>1761101719290</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1761101719290</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Se crea el modelo categoria este permite la creacion de categorias al la hora de ingresar un nuevo producto">
+      <option name="closed" value="true" />
+      <created>1761106501499</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1761106501499</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Se modifican los router ajustandolos a las categorias para que no generen conflictos">
+      <option name="closed" value="true" />
+      <created>1761106531724</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1761106531724</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Se crea una clase que me permite importar los modelos para no generar un error a la hora de llamarlos en otra clase, tambien se crea un nuevo modelo de init">
+      <option name="closed" value="true" />
+      <created>1761106572722</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1761106572722</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Se ajusta el main con los nuevos routers">
+      <option name="closed" value="true" />
+      <created>1761106602610</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1761106602610</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Se crea la data provisional con sqlite" />
+    <MESSAGE value="Se modifica user" />
+    <MESSAGE value="Se modifica el modelo vendedor y se crean los routers" />
+    <MESSAGE value="Se modifica el main" />
+    <MESSAGE value="Se modifican las clases para usar el modelo sqlmodel" />
+    <MESSAGE value="Nueva clase usuario comun que hace herencia a las demas" />
+    <MESSAGE value="Se modifica Crud_Vendedor.py" />
+    <MESSAGE value="Nueva base de datos provisional" />
+    <MESSAGE value="Se ajustan cosas de la data provisional" />
+    <MESSAGE value="Se ajustan lso routers para que estos funcionen correctamernte en el main" />
+    <MESSAGE value="Se guardan las librerias a utulizar" />
+    <MESSAGE value="se crea la clase compradores tambien su crud y su modelo base" />
+    <MESSAGE value="se inicia la conexcion con supa base por medio de un test aun no fucniona" />
+    <MESSAGE value="se modifica vendedores" />
+    <MESSAGE value="Se modifican los accesos a la base de datos en supabase, y se ocultan estos en un .env" />
+    <MESSAGE value="Se crea el  engine que este gestiona la conexcin con la base de datos" />
+    <MESSAGE value="El init_db se encarga de crear las tablas de cada uno de los modelos" />
+    <MESSAGE value="Se crea el primer test este para confirmar que funciona la conexion" />
+    <MESSAGE value="Se hace un ajuste en main para que este ahora ejecute cada vez el inicio en la data se supabase" />
+    <MESSAGE value="configuraciones de la conexcion a bases de datos" />
+    <MESSAGE value="Ajustes en modelos algunos no tomaban bien los enum se hace un ajuste para que no se genere conflicto en la base de datos" />
+    <MESSAGE value="Se crea el modelo categoria este permite la creacion de categorias al la hora de ingresar un nuevo producto" />
+    <MESSAGE value="Se modifican los router ajustandolos a las categorias para que no generen conflictos" />
+    <MESSAGE value="Se crea una clase que me permite importar los modelos para no generar un error a la hora de llamarlos en otra clase, tambien se crea un nuevo modelo de init" />
+    <MESSAGE value="Se ajusta el main con los nuevos routers" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se ajusta el main con los nuevos routers" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/E_comerce$.coverage" NAME=" Coverage Results" MODIFIED="1761099591159" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/db" />
+    <SUITE FILE_PATH="coverage/E_comerce$main.coverage" NAME="main Coverage Results" MODIFIED="1761253411786" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/E_comerce$engine.coverage" NAME="engine Coverage Results" MODIFIED="1761008438032" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/db" />
+    <SUITE FILE_PATH="coverage/E_comerce$init_db.coverage" NAME="init_db Coverage Results" MODIFIED="1761008451348" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/db" />
+  </component>
+</project>
