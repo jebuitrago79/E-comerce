@@ -1,4 +1,4 @@
-#!/home/julian/PycharmProjects/E-comerce/.venv/bin/python
+#!/home/julian/PycharmProjects/E-commerce/backend/.venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

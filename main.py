@@ -5,7 +5,7 @@ from Routers import vendedores, Administradores, Compradores
 from db.init_db import create_db_and_tables, test_connection
 from Routers import Productos as productos_router
 from Routers import Categoria as categorias_router
-
+from fastapi.middleware.cors import CORSMiddleware
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -21,6 +21,14 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="API E-commerce", lifespan=lifespan)
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # Routers
 app.include_router(vendedores.router)
 app.include_router(Administradores.router)
@@ -32,11 +40,6 @@ app.include_router(categorias_router.router)
 def root():
     return {"mensaje": "Bienvenido a la API E-commerce"}
 
-
-# ❌ Quita el on_event para evitar ejecución doble
-# @app.on_event("startup")
-# def on_startup():
-#     create_db_and_tables()
 
 if __name__ == "__main__":
     import uvicorn
