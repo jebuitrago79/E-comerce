@@ -4,8 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e767f4b3-dd62-44c6-a162-f4fc312ff565" name="Changes" comment="Se instala next.js que es un fronted y este trae consigo algunas configuracion ya prestablecidas esta libreria nos serviran para hacer el fornt">
+    <list default="true" id="e767f4b3-dd62-44c6-a162-f4fc312ff565" name="Changes" comment="se sapara el backent del fronted">
+      <change afterPath="$PROJECT_DIR$/frontend/app/vendedores/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/components/Card.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/components/CrudPage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/components/Navbar.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/components/Spinner.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/lib/types.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/categorias/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/categorias/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,42 +24,43 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "jebuitrago79"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;jebuitrago79&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/jebuitrago79/E-comerce.git",
-    "accountId": "122ca890-d2b5-4175-9781-f5b81a1bdb4a"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/jebuitrago79/E-comerce.git&quot;,
+    &quot;accountId&quot;: &quot;122ca890-d2b5-4175-9781-f5b81a1bdb4a&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="34UOVd05GogdPk0z3ynYLW700Wu" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/julian/PycharmProjects/E-commerce",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "ts.external.directory.path": "/home/julian/PycharmProjects/E-commerce/frontend/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/julian/PycharmProjects/E-commerce&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/home/julian/PycharmProjects/E-commerce/frontend/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -67,7 +77,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1761264712196</updated>
-      <workItem from="1761264714608" duration="2991000" />
+      <workItem from="1761264714608" duration="3420000" />
+      <workItem from="1761575757166" duration="4041000" />
+      <workItem from="1761619411012" duration="296000" />
     </task>
     <task id="LOCAL-00001" summary="Se instala next.js que es un fronted y este trae consigo algunas configuracion ya prestablecidas esta libreria nos serviran para hacer el fornt">
       <option name="closed" value="true" />
@@ -77,7 +89,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761266408246</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="se sapara el backent del fronted">
+      <option name="closed" value="true" />
+      <created>1761269179630</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1761269179630</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -96,9 +116,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Se instala next.js que es un fronted y este trae consigo algunas configuracion ya prestablecidas esta libreria nos serviran para hacer el fornt" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se instala next.js que es un fronted y este trae consigo algunas configuracion ya prestablecidas esta libreria nos serviran para hacer el fornt" />
+    <MESSAGE value="se sapara el backent del fronted" />
+    <option name="LAST_COMMIT_MESSAGE" value="se sapara el backent del fronted" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/E_commerce$main.coverage" NAME="main Coverage Results" MODIFIED="1761267224977" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend" />
+    <SUITE FILE_PATH="coverage/E_commerce$main.coverage" NAME="main Coverage Results" MODIFIED="1761618298061" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend" />
   </component>
 </project>

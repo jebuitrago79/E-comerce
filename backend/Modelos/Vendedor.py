@@ -1,30 +1,26 @@
-from typing import Optional, List
+from typing import Optional, List, TYPE_CHECKING
 from sqlmodel import SQLModel, Field, Relationship
-from sqlalchemy import UniqueConstraint, Column
-from sqlalchemy import Enum as SAEnum
-from .common import EstadoCuenta
+from sqlalchemy import Column, Integer  # ✅ import correcto
 
+if TYPE_CHECKING:
+    from .Producto import Producto
 
 class Vendedor(SQLModel, table=True):
     __tablename__ = "vendedores"
-    __table_args__ = (UniqueConstraint("id_vendedor", name="uq_vendedores_id_vendedor"),)
 
-    id: Optional[int] = Field(default=None, primary_key=True)
-    id_vendedor: int = Field(index=True)
-    nombre: str = Field(max_length=100)
-    empresa: str = Field(max_length=100)
-    direccion: str = Field(max_length=255)
-    telefono: str = Field(max_length=20)
-    email: Optional[str] = Field(default=None, max_length=100)
-    password: str = Field(max_length=255)
-
-    estado_cuenta: EstadoCuenta = Field(
-        default=EstadoCuenta.activo,
-        sa_column=Column(
-            SAEnum(EstadoCuenta, name="estadocuenta_vendedores"),
-            nullable=False,
-            server_default=EstadoCuenta.activo.value,
-        )
+    # ⛳︎ NO pongas primary_key en Field si ya lo pones en Column
+    id: Optional[int] = Field(
+        default=None,
+        sa_column=Column("id_vendedor", Integer, primary_key=True)  # ✅ PK aquí
     )
 
-    productos: Optional[List["Producto"]] = Relationship(back_populates="vendedor")
+    nombre: str
+    email: str
+    telefono: Optional[str] = None
+    empresa: Optional[str] = None
+    direccion: Optional[str] = None
+    password: str
+    estado_cuenta: str = "activo"
+
+    productos: List["Producto"] = Relationship(back_populates="vendedor")
+

@@ -1,125 +1,27 @@
 "use client";
 
-import * as React from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { api } from "@/lib/api";
-
-const TENANT = process.env.NEXT_PUBLIC_TENANT_ID; // string
-
-type Categoria = {
-  id: number;
-  tenant_id: number;
-  slug: string;
-  nombre: string;
-  descripcion?: string | null;
-};
-
-export default function CategoriasPage() {
-  const qc = useQueryClient();
-  const [form, setForm] = React.useState({ slug: "", nombre: "", descripcion: "" });
-  const [msg, setMsg] = React.useState<string | null>(null);
-
-  // LISTAR
-  const categorias = useQuery({
-    queryKey: ["categorias"],
-    queryFn: async () => {
-      const { data } = await api.get<Categoria[]>(`/tenants/${TENANT}/categorias`);
-      return data;
-    },
-  });
-
-  // CREAR
-  const crear = useMutation({
-    mutationFn: async () => {
-      setMsg(null);
-      // Validación básica en cliente
-      if (!form.slug.trim() || !form.nombre.trim()) {
-        throw new Error("Completa slug y nombre.");
-      }
-      const payload = {
-        slug: form.slug.trim(),
-        nombre: form.nombre.trim(),
-        descripcion: form.descripcion.trim() || null,
-      };
-      const url = `/tenants/${TENANT}/categorias`;
-      console.log("POST", url, payload);
-      const { data } = await api.post(url, payload);
-      return data;
-    },
-    onSuccess: () => {
-      qc.invalidateQueries({ queryKey: ["categorias"] });
-      setForm({ slug: "", nombre: "", descripcion: "" });
-      setMsg("✅ Categoría creada.");
-    },
-    onError: (err: any) => {
-      console.error("Error creando categoría:", err);
-      // Muestra detalle del backend si viene
-      const detail =
-        err?.response?.data?.detail ||
-        err?.message ||
-        "Error desconocido creando la categoría.";
-      setMsg(`❌ ${detail}`);
-      alert(`Error: ${detail}`); // para que lo veas inmediatamente
-    },
-  });
-
+export default function Home() {
   return (
-    <div style={{ padding: 24, maxWidth: 900, margin: "0 auto" }}>
-      <h1 style={{ fontSize: 22, fontWeight: 700 }}>Categorías</h1>
+    <div className="grid md:grid-cols-3 gap-4">
+      <a href="/categorias" className="bg-white rounded-xl border p-6 hover:shadow-sm transition">
+        <h3 className="font-semibold">Categorías</h3>
+        <p className="text-sm text-gray-500">Crea y gestiona categorías del catálogo.</p>
+      </a>
 
-      <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
-        <input
-          placeholder="slug (ej: ropa)"
-          value={form.slug}
-          onChange={(e) => setForm({ ...form, slug: e.target.value })}
-        />
-        <input
-          placeholder="nombre"
-          value={form.nombre}
-          onChange={(e) => setForm({ ...form, nombre: e.target.value })}
-        />
-        <input
-          placeholder="descripción"
-          value={form.descripcion}
-          onChange={(e) => setForm({ ...form, descripcion: e.target.value })}
-        />
-        <button
-          onClick={() => crear.mutate()}
-          disabled={!form.slug || !form.nombre || crear.isPending}
-        >
-          {crear.isPending ? "Creando..." : "Crear"}
-        </button>
-      </div>
+      <a href="/vendedores" className="bg-white rounded-xl border p-6 hover:shadow-sm transition">
+        <h3 className="font-semibold">Vendedores</h3>
+        <p className="text-sm text-gray-500">Administra vendedores de tu tienda.</p>
+      </a>
 
-      {msg && <p style={{ marginTop: 8 }}>{msg}</p>}
+      <a href="/compradores" className="bg-white rounded-xl border p-6 hover:shadow-sm transition">
+        <h3 className="font-semibold">Compradores</h3>
+        <p className="text-sm text-gray-500">Registra/gestiona tus clientes compradores.</p>
+      </a>
 
-      {categorias.isLoading && <p>Cargando...</p>}
-      {categorias.error && (
-        <p style={{ color: "red" }}>
-          Error al cargar categorías (revisa consola).
-        </p>
-      )}
-
-      <table style={{ width: "100%", marginTop: 16, borderCollapse: "collapse" }}>
-        <thead>
-          <tr>
-            <th align="left">ID</th>
-            <th align="left">Slug</th>
-            <th align="left">Nombre</th>
-            <th align="left">Descripción</th>
-          </tr>
-        </thead>
-        <tbody>
-          {categorias.data?.map((c) => (
-            <tr key={c.id}>
-              <td>{c.id}</td>
-              <td>{c.slug}</td>
-              <td>{c.nombre}</td>
-              <td>{c.descripcion}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <a href="/administradores" className="bg-white rounded-xl border p-6 hover:shadow-sm transition">
+        <h3 className="font-semibold">Administradores</h3>
+        <p className="text-sm text-gray-500">Usuarios internos con permisos.</p>
+      </a>
     </div>
   );
 }

@@ -53,15 +53,25 @@ class VendedorRead(SQLModel):
 
 
 @router.post("/", response_model=Vendedor)
-def crear_vendedor(vendedor: Vendedor, session: Session = Depends(get_session)):
+def crear_vendedor(data: VendedorCreate, session: Session = Depends(get_session)):
+    vend = Vendedor(
+        id=data.id_vendedor,
+        nombre=data.nombre.strip(),
+        email=data.email.strip(),
+        telefono=data.telefono.strip(),
+        password=data.password,
+        empresa=data.empresa,
+        direccion=data.direccion,
+        estado_cuenta="activo",
+    )
     try:
-        session.add(vendedor)
+        session.add(vend)
         session.commit()
-        session.refresh(vendedor)
-        return vendedor
+        session.refresh(vend)
+        return vend
     except Exception as e:
         session.rollback()
-        raise HTTPException(status_code=500, detail=f"Error al crear vendedor: {e}")
+        raise HTTPException(status_code=400, detail=f"Error al crear vendedor: {e}")
 
 
 @router.get("/", response_model=List[VendedorRead])
