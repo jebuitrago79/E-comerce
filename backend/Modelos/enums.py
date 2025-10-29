@@ -6,3 +6,7 @@ class CategoriaProducto(str, Enum):
     comida = "comida"
     deportes = "deportes"
     otros = "otros"
+
+class EstadoCuenta(str, Enum):
+    activo = "activo"
+    desactivo = "desactivo"

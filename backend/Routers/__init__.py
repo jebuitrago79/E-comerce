@@ -1,6 +1,6 @@
-# backend/Routers/__init__.py
 from . import Administradores
-from . import Categoria
 from . import Compradores
+from . import Categoria
 from . import Productos
 from . import vendedores
+__all__ = ["Administradores", "Compradores", "Categoria", "Productos", "vendedores"]
