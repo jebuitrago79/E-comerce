@@ -5,16 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e767f4b3-dd62-44c6-a162-f4fc312ff565" name="Changes" comment="se sapara el backent del fronted">
-      <change afterPath="$PROJECT_DIR$/frontend/app/vendedores/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/Card.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/CrudPage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/Navbar.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/Spinner.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/lib/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/app/categorias/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/categorias/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +25,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/jebuitrago79/E-comerce.git&quot;,
-    &quot;accountId&quot;: &quot;122ca890-d2b5-4175-9781-f5b81a1bdb4a&quot;
+    &quot;accountId&quot;: &quot;ecc622d0-ab97-487d-9a33-7cdfb4101098&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -56,7 +48,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
     &quot;ts.external.directory.path&quot;: &quot;/home/julian/PycharmProjects/E-commerce/frontend/node_modules/typescript/lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -64,8 +56,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-PY-243.26053.29" />
-        <option value="bundled-python-sdk-b1dbf8ef85a6-4df51de95216-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.26053.29" />
+        <option value="bundled-python-sdk-164cda30dcd9-0af03a5fa574-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.26830.99" />
       </set>
     </attachedChunks>
   </component>
