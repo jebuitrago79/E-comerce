@@ -1,56 +1,75 @@
+# backend/Routers/Administradores.py
+from typing import Optional, Literal, List
 from fastapi import APIRouter, HTTPException, Depends
 from sqlmodel import SQLModel, Session, select
 from backend.db.engine import get_session
 from backend.Modelos.Administrador import Administrador
-from backend.Modelos.Usuario import Usuario
 
 router = APIRouter(prefix="/administradores", tags=["Administradores"])
 
+# --- DTOs de actualización ---
+class AdministradorUpdate(SQLModel):
+    nombre: Optional[str] = None
+    email: Optional[str] = None
+    password: Optional[str] = None
+    nivel_acceso: Optional[int] = None
+    estado_cuenta: Optional[Literal["activo", "inactivo"]] = None
 
-# Crear administrador
-@router.post("/", response_model=Administrador)
-def crear_admin(admin: Administrador, session: Session = Depends(get_session)):
-    existente = session.exec(
-        select(Administrador).where(Administrador.email == admin.email)
-    ).first()
-    if existente:
-        raise HTTPException(status_code=400, detail="El administrador ya existe")
+class EstadoPayload(SQLModel):
+    estado_cuenta: Literal["activo", "inactivo"]
+
+# ✅ GET LIST
+@router.get("/", response_model=List[Administrador])
+def listar_administradores(
+    limit: int = 50,
+    offset: int = 0,
+    session: Session = Depends(get_session),
+):
+    stmt = select(Administrador).offset(offset).limit(limit)
+    return session.exec(stmt).all()
+
+# --- PUT: modificar campos del admin ---
+@router.put("/{id_admin}", response_model=Administrador)
+def actualizar_admin(id_admin: int, data: AdministradorUpdate, session: Session = Depends(get_session)):
+    admin = session.exec(select(Administrador).where(Administrador.id_admin == id_admin)).first()
+    if not admin:
+        raise HTTPException(status_code=404, detail="Administrador no encontrado")
+
+    # Si cambia el email, valida unicidad
+    if data.email and data.email != admin.email:
+        existe = session.exec(select(Administrador).where(Administrador.email == data.email)).first()
+        if existe:
+            raise HTTPException(status_code=400, detail="Email ya está en uso")
+
+    # Actualiza sólo lo enviado (no sobrescribas con None)
+    for campo, valor in data.dict(exclude_unset=True).items():
+        setattr(admin, campo, valor)
+
     session.add(admin)
     session.commit()
     session.refresh(admin)
     return admin
 
+# --- PATCH: activar/desactivar (soft-delete) ---
+@router.patch("/{id_admin}/estado", response_model=Administrador)
+def cambiar_estado_admin(id_admin: int, payload: EstadoPayload, session: Session = Depends(get_session)):
+    admin = session.exec(select(Administrador).where(Administrador.id_admin == id_admin)).first()
+    if not admin:
+        raise HTTPException(status_code=404, detail="Administrador no encontrado")
 
-# Listar todos los administradores
-@router.get("/", response_model=list[Administrador])
-def listar_admins(session: Session = Depends(get_session)):
-    return session.exec(select(Administrador)).all()
-
-
-# Listar todos los usuarios
-@router.get("/usuarios", response_model=list[Usuario])
-def listar_usuarios(session: Session = Depends(get_session)):
-    return session.exec(select(Usuario)).all()
-
-
-# Bloquear un usuario
-@router.put("/usuarios/{usuario_id}/bloquear")
-def bloquear_usuario(usuario_id: int, session: Session = Depends(get_session)):
-    usuario = session.get(Usuario, usuario_id)
-    if not usuario:
-        raise HTTPException(status_code=404, detail="Usuario no encontrado")
-    usuario.estado_cuenta = "bloqueado"
-    session.add(usuario)
+    admin.estado_cuenta = payload.estado_cuenta
+    session.add(admin)
     session.commit()
-    return {"message": f"Usuario {usuario.nombre} bloqueado correctamente"}
+    session.refresh(admin)
+    return admin
 
-
-# Eliminar un usuario
-@router.delete("/usuarios/{usuario_id}")
-def eliminar_usuario(usuario_id: int, session: Session = Depends(get_session)):
-    usuario = session.get(Usuario, usuario_id)
-    if not usuario:
-        raise HTTPException(status_code=404, detail="Usuario no encontrado")
-    session.delete(usuario)
+# (Opcional) DELETE lógico usando inactivo
+@router.delete("/{id_admin}")
+def desactivar_admin(id_admin: int, session: Session = Depends(get_session)):
+    admin = session.exec(select(Administrador).where(Administrador.id_admin == id_admin)).first()
+    if not admin:
+        raise HTTPException(status_code=404, detail="Administrador no encontrado")
+    admin.estado_cuenta = "inactivo"
+    session.add(admin)
     session.commit()
-    return {"message": f"Usuario {usuario.nombre} eliminado correctamente"}###
+    return {"message": f"Administrador {admin.nombre} desactivado"}

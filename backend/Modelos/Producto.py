@@ -1,34 +1,26 @@
-from typing import Optional, TYPE_CHECKING
-from datetime import datetime
+# backend/Modelos/Producto.py
+from typing import Optional
 from sqlmodel import SQLModel, Field, Relationship
-
-if TYPE_CHECKING:
-    from .Vendedor import Vendedor
-    from .Categoria import Categoria
+from sqlalchemy import Column, Integer, Float, String, ForeignKey
 
 class Producto(SQLModel, table=True):
     __tablename__ = "productos"
 
     id: Optional[int] = Field(default=None, primary_key=True)
-    tenant_id: int = Field(index=True)
+    tenant_id: Optional[int] = 1
 
-    nombre: str = Field(max_length=100)
-    descripcion: Optional[str] = Field(default=None, max_length=255)
+    nombre: str
+    descripcion: Optional[str] = None
     precio: float
-    stock: int = Field(default=0)
+    stock: int = 0
+    category_id: Optional[int] = None
 
-    category_id: Optional[int] = Field(default=None, foreign_key="categorias.id")
+    # La FK DEBE referenciar vendedores.id (PK real)
+    vendedor_id: Optional[int] = Field(
+        default=None,
+        sa_column=Column("vendedor_id", Integer, ForeignKey("vendedores.id", ondelete="SET NULL"))
+    )
 
-    external_id: Optional[str] = Field(default=None, index=True)
-    source: Optional[str] = Field(default=None, index=True)
-
-    created_at: datetime = Field(default_factory=datetime.utcnow)
-    updated_at: datetime = Field(default_factory=datetime.utcnow)
-
-    # 👇 FK debe referir a 'vendedores.id_vendedor'
-    vendedor_id: Optional[int] = Field(default=None, foreign_key="vendedores.id_vendedor")
-
-    categoria: Optional["Categoria"] = Relationship()
+    # relación
     vendedor: Optional["Vendedor"] = Relationship(back_populates="productos")
-
 

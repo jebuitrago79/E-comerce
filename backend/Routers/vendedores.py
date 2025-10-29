@@ -46,13 +46,9 @@ class VendedorRead(VendedorBase):
 
 # ========= Endpoints =========
 @router.get("/", response_model=List[VendedorRead])
-def get_vendedores(
-    limit: int = Query(50, ge=1, le=200),
-    offset: int = Query(0, ge=0),
-    session: Session = Depends(get_session),
-):
-    vendedores = listar_vendedores(session, limit=limit, offset=offset)
-    return [VendedorRead.model_validate(v, from_attributes=True) for v in vendedores]
+def get_vendedores(limit: int = 50, offset: int = 0, session: Session = Depends(get_session)):
+    vendedores = listar_vendedores(session)   # sin limit/offset
+    return vendedores[offset: offset + limit]
 
 
 @router.get("/{id_vendedor}", response_model=VendedorRead)
