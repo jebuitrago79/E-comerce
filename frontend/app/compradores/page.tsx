@@ -1,113 +1,110 @@
 "use client";
-
-import * as React from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { api } from "@/lib/api";
-import { errorToText } from "@/lib/httpError";
-
-type Comprador = {
-  id: number;
-  nombre: string;
-  email: string;
-  direccion: string | null;
-  telefono: string | null;
-  estado_cuenta: "activo" | "bloqueado";
-  id_comprador: number;
-};
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { del, getJSON, postJSON, putJSON } from "@/lib/api";
+import type { Comprador } from "@/lib/types";
+import { useMemo, useState } from "react";
+import Modal from "@/components/Modal";
+import Pagination from "@/components/Pagination";
+import useDebounce from "@/hooks/useDebounce";
 
 export default function CompradoresPage() {
   const qc = useQueryClient();
-  const [msg, setMsg] = React.useState<string | null>(null);
-  const [f, setF] = React.useState({
-    nombre: "", email: "", password: "",
-    id_comprador: "", direccion: "", telefono: "",
-    estado_cuenta: "activo" as "activo" | "bloqueado",
+  const [page, setPage] = useState(1);
+  const pageSize = 10;
+  const offset = (page - 1) * pageSize;
+
+  const { data } = useQuery({
+    queryKey: ["compradores", page, pageSize],
+    queryFn: () => getJSON<Comprador[]>(`/compradores/?limit=${pageSize}&offset=${offset}`),
   });
 
-  const compradores = useQuery({
-    queryKey: ["compradores"],
-    queryFn: async () => (await api.get<Comprador[]>("/compradores")).data,
+  const [f, setF] = useState({ nombre: "", email: "", password: "" });
+  const [msg, setMsg] = useState<string | null>(null);
+
+  const createMut = useMutation({
+    mutationFn: (p: any) => postJSON<Comprador>("/compradores/", p),
+    onSuccess: () => { setMsg("✅ Comprador creado"); setF({ nombre:"", email:"", password:"" }); qc.invalidateQueries({ queryKey: ["compradores"] }); },
+    onError: (e:any)=> setMsg(`❌ ${e?.response?.data?.detail ?? e.message}`),
   });
 
-  const crear = useMutation({
-    mutationFn: async () => {
-      setMsg(null);
-      if (!f.nombre || !f.email || !f.password || !f.id_comprador) {
-        throw new Error("Completa nombre, email, password e ID comprador.");
-      }
-      const payload = {
-        nombre: f.nombre.trim(),
-        email: f.email.trim(),
-        password: f.password,
-        id_comprador: Number(f.id_comprador),
-        direccion: f.direccion.trim() || null,
-        telefono: f.telefono.trim() || null,
-        estado_cuenta: f.estado_cuenta,
-      };
-      return (await api.post("/compradores", payload)).data;
-    },
-    onSuccess: () => {
-      setMsg("✅ Comprador creado");
-      setF({ nombre:"", email:"", password:"", id_comprador:"", direccion:"", telefono:"", estado_cuenta:"activo" });
-      qc.invalidateQueries({ queryKey: ["compradores"] });
-    },
-    onError: (e) => setMsg(`❌ ${errorToText(e)}`),
-  });
-
-  const eliminar = useMutation({
-    mutationFn: async (id: number) => (await api.delete(`/compradores/${id}`)).data,
+  const deleteMut = useMutation({
+    mutationFn: (id: number) => del(`/compradores/${id}`),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["compradores"] }),
   });
 
-  return (
-    <div className="p-6 max-w-6xl mx-auto space-y-4">
-      <h1 className="text-xl font-bold">Compradores</h1>
+  const [search, setSearch] = useState("");
+  const q = useDebounce(search);
+  const filtered = useMemo(()=> {
+    if(!q) return data ?? [];
+    const s = q.toLowerCase();
+    return (data ?? []).filter(c => [c.nombre,c.email].some(x => (x??"").toLowerCase().includes(s)));
+  }, [q, data]);
 
-      <div className="bg-white/5 p-4 rounded-lg flex flex-wrap gap-2">
-        <input placeholder="Nombre" value={f.nombre} onChange={(e)=>setF({...f, nombre:e.target.value})}/>
-        <input placeholder="Email" value={f.email} onChange={(e)=>setF({...f, email:e.target.value})}/>
-        <input placeholder="Password" type="password" value={f.password} onChange={(e)=>setF({...f, password:e.target.value})}/>
-        <input placeholder="ID Comprador (número)" value={f.id_comprador} onChange={(e)=>setF({...f, id_comprador:e.target.value})}/>
-        <input placeholder="Dirección" value={f.direccion} onChange={(e)=>setF({...f, direccion:e.target.value})}/>
-        <input placeholder="Teléfono" value={f.telefono} onChange={(e)=>setF({...f, telefono:e.target.value})}/>
-        <select value={f.estado_cuenta} onChange={(e)=>setF({...f, estado_cuenta: e.target.value as any})}>
-          <option value="activo">activo</option>
-          <option value="bloqueado">bloqueado</option>
-        </select>
-        <button onClick={()=>crear.mutate()} disabled={crear.isPending}>Crear</button>
-        {msg && <p className="w-full mt-2">{msg}</p>}
+  // Editar
+  const [open, setOpen] = useState(false);
+  const [edit, setEdit] = useState<Comprador | null>(null);
+  const [ef, setEf] = useState<Comprador | null>(null);
+  const openEdit = (c: Comprador) => { setEdit(c); setEf({...c}); setOpen(true); };
+
+  const updateMut = useMutation({
+    mutationFn: (c: Comprador) => putJSON<Comprador>(`/compradores/${c.id}`, {
+      nombre: c.nombre, email: c.email, password: c.password
+    }),
+    onSuccess: () => { setOpen(false); qc.invalidateQueries({ queryKey: ["compradores"] }); },
+  });
+
+  return (
+    <section>
+      <h1 className="text-3xl font-bold mb-6">Compradores</h1>
+
+      <div className="bg-white rounded-xl shadow p-4 mb-6 grid gap-4 md:grid-cols-3">
+        <input className="input" placeholder="Nombre" value={f.nombre} onChange={e=>setF(s=>({...s,nombre:e.target.value}))}/>
+        <input className="input" placeholder="Correo" value={f.email} onChange={e=>setF(s=>({...s,email:e.target.value}))}/>
+        <input className="input" type="password" placeholder="Password" value={f.password} onChange={e=>setF(s=>({...s,password:e.target.value}))}/>
+        <div className="md:col-span-3">
+          <button className="btn-primary" onClick={()=>createMut.mutate(f)}>Crear</button>
+          {msg && <span className="ml-3 text-sm">{msg}</span>}
+        </div>
       </div>
 
-      <div className="overflow-x-auto bg-white/5 rounded-lg">
-        <table className="w-full">
-          <thead>
-            <tr>
-              <th className="text-left p-2">ID</th>
-              <th className="text-left p-2">Nombre</th>
-              <th className="text-left p-2">Correo</th>
-              <th className="text-left p-2">Dirección</th>
-              <th className="text-left p-2">Teléfono</th>
-              <th className="text-left p-2">Estado</th>
-              <th/>
-            </tr>
-          </thead>
+      <div className="mb-3">
+        <input className="input max-w-sm" placeholder="Buscar por nombre o correo…" value={search} onChange={e=>setSearch(e.target.value)}/>
+      </div>
+
+      <div className="bg-white rounded-xl shadow p-4">
+        <table className="w-full text-sm">
+          <thead className="bg-slate-100"><tr><th className="th">ID</th><th className="th">Nombre</th><th className="th">Correo</th><th className="th text-right">Acciones</th></tr></thead>
           <tbody>
-            {compradores.data?.map((c) => (
-              <tr key={c.id} className="border-t border-white/10">
-                <td className="p-2">{c.id}</td>
-                <td className="p-2">{c.nombre}</td>
-                <td className="p-2">{c.email}</td>
-                <td className="p-2">{c.direccion}</td>
-                <td className="p-2">{c.telefono}</td>
-                <td className="p-2">{c.estado_cuenta}</td>
-                <td className="p-2">
-                  <button className="text-red-500" onClick={()=>eliminar.mutate(c.id)}>Eliminar</button>
+            {filtered.map(c=>(
+              <tr key={c.id} className="border-t">
+                <td className="td">{c.id}</td>
+                <td className="td">{c.nombre}</td>
+                <td className="td">{c.email}</td>
+                <td className="td text-right flex justify-end gap-2">
+                  <button className="btn-primary !px-3" onClick={()=>openEdit(c)}>Editar</button>
+                  <button className="btn-danger" onClick={()=>deleteMut.mutate(c.id)}>Eliminar</button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+        <Pagination page={page} pageSize={pageSize} onPage={setPage}/>
       </div>
-    </div>
+
+      <Modal open={open} onClose={()=>setOpen(false)} title={`Editar comprador #${edit?.id}`}>
+        {ef && (
+          <div className="grid gap-3">
+            <input className="input" value={ef.nombre} onChange={e=>setEf({...ef, nombre:e.target.value})}/>
+            <input className="input" value={ef.email} onChange={e=>setEf({...ef, email:e.target.value})}/>
+            <input className="input" type="password" placeholder="(opcional) nuevo password"
+                   onChange={e=>setEf({...ef, password: e.target.value || (edit?.password ?? "")})}/>
+            <div className="flex justify-end gap-2">
+              <button className="btn-primary" onClick={()=> ef && updateMut.mutate(ef)}>Guardar</button>
+              <button className="btn-danger" onClick={()=>setOpen(false)}>Cancelar</button>
+            </div>
+          </div>
+        )}
+      </Modal>
+    </section>
   );
 }
