@@ -6,14 +6,24 @@ from backend.Modelos.Vendedor import Vendedor
 from backend.Modelos.common import EstadoCuenta
 
 
-def _coerce_estado(value: Optional[str]) -> Optional[EstadoCuenta]:
-    if value is None:
-        return None
-    v = value.strip().lower()
-    if v not in {e.value for e in EstadoCuenta}:
-        raise ValueError("estado_cuenta debe ser 'activo' o 'bloqueado'")
-    return EstadoCuenta(v)
+from typing import Optional
+from sqlmodel import Session, select
+from backend.Modelos.Vendedor import Vendedor
+from backend.Modelos.common import EstadoCuenta
+# si usas un helper:
+# from backend.Modelos.common import _coerce_estado  # o implementa tu normalizador
 
+def _coerce_estado(valor: Optional[str]) -> EstadoCuenta:
+    """
+    Convierte str -> EstadoCuenta; por defecto 'activo' si viene None/"" o inválido.
+    """
+    if not valor:
+        return EstadoCuenta.activo
+    try:
+        # acepta "activo"/"bloqueado" sin importar mayúsculas
+        return EstadoCuenta(valor.lower())
+    except Exception:
+        return EstadoCuenta.activo
 
 def crear_vendedor(
     session: Session,
@@ -22,28 +32,42 @@ def crear_vendedor(
     email: str,
     password: str,
     estado_cuenta: str = "activo",
-    id_vendedor: int,
-    empresa: str,
-    direccion: str,
-    telefono: str,
+    id_vendedor: Optional[int] = None,      # <- ahora opcional
+    empresa: Optional[str] = None,          # <- opcional
+    direccion: Optional[str] = None,        # <- opcional
+    telefono: Optional[str] = None,         # <- opcional
 ) -> Vendedor:
+    # Normalización básica
+    nombre = nombre.strip()
+    email = email.strip()
+    password = password.strip()
+    empresa = (empresa or "").strip() or None
+    direccion = (direccion or "").strip() or None
+    telefono = (telefono or "").strip() or None
 
+    # 1) Email único
     ya = session.exec(select(Vendedor).where(Vendedor.email == email)).first()
     if ya:
         raise ValueError(f"El email '{email}' ya existe en vendedores.")
 
-    ya2 = session.exec(select(Vendedor).where(Vendedor.id_vendedor == id_vendedor)).first()
-    if ya2:
-        raise ValueError(f"El id_vendedor '{id_vendedor}' ya existe.")
+    # 2) id_vendedor único SOLO si viene
+    if id_vendedor is not None:
+        ya2 = session.exec(
+            select(Vendedor).where(Vendedor.id_vendedor == id_vendedor)
+        ).first()
+        if ya2:
+            raise ValueError(f"El id_vendedor '{id_vendedor}' ya existe.")
 
-    estado_norm = _coerce_estado(estado_cuenta) or EstadoCuenta.activo
+    # 3) Enum estado
+    estado_norm = _coerce_estado(estado_cuenta)
 
+    # 4) Crear
     vendedor = Vendedor(
         nombre=nombre,
         email=email,
         password=password,
-        estado_cuenta=estado_norm,   # <- Enum válido
-        id_vendedor=id_vendedor,
+        estado_cuenta=estado_norm,
+        id_vendedor=id_vendedor,   # puede ser None
         empresa=empresa,
         direccion=direccion,
         telefono=telefono,

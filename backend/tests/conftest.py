@@ -1,38 +1,32 @@
+# backend/tests/conftest.py
+import os
 import pytest
-from backend.db.init_db import create_db_and_tables
-from backend.db.engine import engine
-from sqlmodel import Session, select
-from backend.Modelos import Administrador
+from fastapi.testclient import TestClient
+from sqlmodel import SQLModel
+from sqlmodel import create_engine, Session
+from backend.main import app
+from backend.db.engine import get_session as real_get_session
 
+# Engine de pruebas (SQLite en memoria)
+TEST_DB_URL = "sqlite:///:memory:"
+engine = create_engine(TEST_DB_URL, connect_args={"check_same_thread": False})
+
+def get_test_session():
+    with Session(engine) as session:
+        yield session
 
 @pytest.fixture(scope="session", autouse=True)
-def setup_test_db():
-    """
-    Este fixture se ejecuta automáticamente antes de todos los tests.
-    Crea las tablas necesarias en la base de datos de prueba.
-    """
-    print("\n🧩 Inicializando base de datos de prueba...")
-    create_db_and_tables()
+def _prepare_db():
+    # Crear tablas en SQLite para los tests
+    SQLModel.metadata.create_all(engine)
     yield
-    print("\n🧹 Finalizando tests.")
+    # (opcional) no hace falta dropear al ser :memory:
 
+@pytest.fixture(scope="session")
+def client():
+    # Override de la dependencia de sesión para que la API use SQLite durante los tests
+    app.dependency_overrides[real_get_session] = get_test_session
+    with TestClient(app) as c:
+        yield c
+    app.dependency_overrides.clear()
 
-@pytest.fixture(scope="function", autouse=True)
-def seed_basic_data():
-    """
-    Este fixture opcional inserta datos básicos antes de cada test,
-    para evitar errores de tablas vacías o constraints NOT NULL.
-    """
-    with Session(engine) as session:
-        # Verifica si ya existe un administrador
-        admin_exists = session.exec(select(Administrador)).first()
-        if not admin_exists:
-            admin = Administrador(
-                nombre="AdminTest",
-                email="admin@test.com",
-                password="12345",
-                nivel_acceso="superadmin",
-                estado_cuenta="activo"
-            )
-            session.add(admin)
-            session.commit()

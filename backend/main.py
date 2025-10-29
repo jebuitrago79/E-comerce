@@ -9,14 +9,12 @@ from fastapi.middleware.cors import CORSMiddleware
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # ✅ Arranque de la app: verifica conexión y crea tablas si no existen
     print(" Verificando conexión a la BD...")
     test_connection()
     print(" Creando tablas si no existen...")
     create_db_and_tables()
     print("Startup listo.")
     yield
-    # (Opcional) aquí liberar recursos al apagar la app
 
 
 app = FastAPI(title="API E-commerce", lifespan=lifespan)
