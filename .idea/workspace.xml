@@ -4,22 +4,37 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e767f4b3-dd62-44c6-a162-f4fc312ff565" name="Changes" comment="se sapara el backent del fronted">
-      <change afterPath="$PROJECT_DIR$/frontend/app/vendedores/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/Card.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/CrudPage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/Navbar.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/components/Spinner.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/lib/types.ts" afterDir="false" />
+    <list default="true" id="e767f4b3-dd62-44c6-a162-f4fc312ff565" name="Changes" comment="Se instala next.js que es un fronted y este trae consigo algunas configuracion ya prestablecidas esta libreria nos serviran para hacer el fornt">
+      <change afterPath="$PROJECT_DIR$/backend/db/init_db_sqlite.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/tests/conftest.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/tests/test_routers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/app/categorias/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/categorias/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/CRUD/Crud_Comprador.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/CRUD/Crud_Comprador.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/CRUD/Crud_Producto.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/CRUD/Crud_Producto.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/CRUD/Crud_Vendedor.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/CRUD/Crud_Vendedor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Routers/Administradores.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Routers/Administradores.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Routers/Categoria.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Routers/Categoria.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Routers/Compradores.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Routers/Compradores.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Routers/Productos.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Routers/Productos.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Routers/vendedores.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Routers/vendedores.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/db/engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/db/engine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/db/init_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/db/init_db.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/db/test_connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/db/test_connection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -33,7 +48,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/jebuitrago79/E-comerce.git&quot;,
-    &quot;accountId&quot;: &quot;122ca890-d2b5-4175-9781-f5b81a1bdb4a&quot;
+    &quot;accountId&quot;: &quot;69cbd2d0-c5ab-4403-bfea-dcf30486df5d&quot;
   }
 }</component>
   <component name="ProjectColorInfo">{
@@ -48,6 +63,7 @@
   &quot;keyToString&quot;: {
     &quot;Python.main.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/julian/PycharmProjects/E-commerce&quot;,
@@ -64,8 +80,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-PY-243.26053.29" />
-        <option value="bundled-python-sdk-b1dbf8ef85a6-4df51de95216-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.26053.29" />
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-PY-252.27397.106" />
+        <option value="bundled-python-sdk-4e2b1448bda8-9a97661f3031-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.27397.106" />
       </set>
     </attachedChunks>
   </component>
@@ -77,9 +93,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1761264712196</updated>
-      <workItem from="1761264714608" duration="3420000" />
-      <workItem from="1761575757166" duration="4041000" />
-      <workItem from="1761619411012" duration="296000" />
+      <workItem from="1761264714608" duration="2991000" />
+      <workItem from="1761612778889" duration="77000" />
+      <workItem from="1761612874728" duration="264000" />
+      <workItem from="1761613157659" duration="191000" />
+      <workItem from="1761613354010" duration="1608000" />
+      <workItem from="1761696750226" duration="3216000" />
     </task>
     <task id="LOCAL-00001" summary="Se instala next.js que es un fronted y este trae consigo algunas configuracion ya prestablecidas esta libreria nos serviran para hacer el fornt">
       <option name="closed" value="true" />
@@ -89,15 +108,7 @@
       <option name="project" value="LOCAL" />
       <updated>1761266408246</updated>
     </task>
-    <task id="LOCAL-00002" summary="se sapara el backent del fronted">
-      <option name="closed" value="true" />
-      <created>1761269179630</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1761269179630</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -115,11 +126,13 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/backend" />
+    </ignored-roots>
     <MESSAGE value="Se instala next.js que es un fronted y este trae consigo algunas configuracion ya prestablecidas esta libreria nos serviran para hacer el fornt" />
-    <MESSAGE value="se sapara el backent del fronted" />
-    <option name="LAST_COMMIT_MESSAGE" value="se sapara el backent del fronted" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se instala next.js que es un fronted y este trae consigo algunas configuracion ya prestablecidas esta libreria nos serviran para hacer el fornt" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/E_commerce$main.coverage" NAME="main Coverage Results" MODIFIED="1761618298061" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend" />
+    <SUITE FILE_PATH="coverage/E_commerce$main.coverage" NAME="main Coverage Results" MODIFIED="1761267224977" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend" />
   </component>
 </project>

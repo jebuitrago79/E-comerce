@@ -1,11 +1,11 @@
 # db/init_db.py
 from sqlmodel import SQLModel
-from db.engine import engine
+from backend.db.engine import engine
 from sqlalchemy import text
 
 # Importa modelos para registrar el metadata de SQLModel
 # Asegúrate que Modelos/__init__.py exporte Categoria
-from Modelos import Administrador, Comprador, Usuario, Vendedor, Producto, Categoria
+from backend.Modelos import Administrador, Comprador, Usuario, Vendedor, Producto, Categoria
 
 
 def ensure_categoria_tables_and_columns():

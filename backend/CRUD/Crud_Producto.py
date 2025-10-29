@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from Modelos.Producto import Producto
+from backend.Modelos.Producto import Producto
 
 def crear_producto(db: Session, producto_data):
     nuevo_producto = Producto(**producto_data)

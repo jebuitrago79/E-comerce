@@ -1,20 +1,20 @@
 # Routers/vendedores.py
 from typing import List, Optional
-from db.engine import get_session
+from backend.db.engine import get_session
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlmodel import Session, SQLModel
 
-from db.engine import engine
+from backend.db.engine import engine
 def get_session():
     with Session(engine) as session:
         yield session
 
-from CRUD.Crud_Vendedor import (
+from backend.CRUD.Crud_Vendedor import (
     crear_vendedor, listar_vendedores, obtener_vendedor,
     actualizar_vendedor, eliminar_vendedor,
 )
-from Modelos.common import EstadoCuenta
-from Modelos.Vendedor import Vendedor
+from backend.Modelos.common import EstadoCuenta
+from backend.Modelos.Vendedor import Vendedor
 
 router = APIRouter(prefix="/vendedores", tags=["Vendedores"])
 

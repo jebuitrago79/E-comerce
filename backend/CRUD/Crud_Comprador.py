@@ -2,8 +2,8 @@
 from typing import List, Optional
 
 from sqlmodel import Session, select
-from Modelos.Comprador import Comprador
-from Modelos.common import EstadoCuenta
+from backend.Modelos.Comprador import Comprador
+from backend.Modelos.common import EstadoCuenta
 
 
 def _coerce_estado(value: Optional[str]) -> Optional[EstadoCuenta]:
