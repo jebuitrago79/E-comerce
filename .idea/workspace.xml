@@ -4,25 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e767f4b3-dd62-44c6-a162-f4fc312ff565" name="Changes" comment="Se instala next.js que es un fronted y este trae consigo algunas configuracion ya prestablecidas esta libreria nos serviran para hacer el fornt">
-      <change afterPath="$PROJECT_DIR$/backend/db/init_db_sqlite.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/tests/conftest.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/tests/test_routers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="e767f4b3-dd62-44c6-a162-f4fc312ff565" name="Changes" comment="cambios de relaciones, pruebas de backent y routers">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/CRUD/Crud_Comprador.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/CRUD/Crud_Comprador.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/CRUD/Crud_Producto.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/CRUD/Crud_Producto.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/CRUD/Crud_Vendedor.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/CRUD/Crud_Vendedor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Routers/Administradores.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Routers/Administradores.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Routers/Categoria.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Routers/Categoria.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Routers/Compradores.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Routers/Compradores.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Routers/Productos.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Routers/Productos.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Routers/vendedores.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Routers/vendedores.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/db/engine.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/db/engine.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/db/init_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/db/init_db.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/db/test_connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/db/test_connection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +82,7 @@
       <workItem from="1761612874728" duration="264000" />
       <workItem from="1761613157659" duration="191000" />
       <workItem from="1761613354010" duration="1608000" />
-      <workItem from="1761696750226" duration="3216000" />
+      <workItem from="1761696750226" duration="4580000" />
     </task>
     <task id="LOCAL-00001" summary="Se instala next.js que es un fronted y este trae consigo algunas configuracion ya prestablecidas esta libreria nos serviran para hacer el fornt">
       <option name="closed" value="true" />
@@ -108,7 +92,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761266408246</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="cambios de relaciones, pruebas de backent y routers">
+      <option name="closed" value="true" />
+      <created>1761700022395</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1761700022395</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -130,7 +122,8 @@
       <path value="$PROJECT_DIR$/backend" />
     </ignored-roots>
     <MESSAGE value="Se instala next.js que es un fronted y este trae consigo algunas configuracion ya prestablecidas esta libreria nos serviran para hacer el fornt" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se instala next.js que es un fronted y este trae consigo algunas configuracion ya prestablecidas esta libreria nos serviran para hacer el fornt" />
+    <MESSAGE value="cambios de relaciones, pruebas de backent y routers" />
+    <option name="LAST_COMMIT_MESSAGE" value="cambios de relaciones, pruebas de backent y routers" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/E_commerce$main.coverage" NAME="main Coverage Results" MODIFIED="1761267224977" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend" />
