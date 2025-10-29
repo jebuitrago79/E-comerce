@@ -7,7 +7,8 @@ const tabs = [
   { href: "/compradores", label: "Compradores" },
   { href: "/productos",  label: "Productos" },
   { href: "/categorias", label: "Categorías" },
-  { href: "/usuarios",   label: "Usuarios" }, // si luego agregas
+  { href: "/administradores", label: "Administrador" },
+ // { href: "/usuarios",   label: "Usuarios" }, // si luego agregas
 ];
 
 export default function Navbar() {

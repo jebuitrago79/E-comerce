@@ -7,6 +7,20 @@ import useDebounce from "@/hooks/useDebounce";
 import Modal from "@/components/Modal";
 import Pagination from "@/components/Pagination";
 
+type VRow = {
+  id?: number;                // algunas APIs lo devuelven así
+  id_vendedor?: number;       // otras APIs lo devuelven así
+  nombre: string;
+  email: string;
+  telefono?: string | null;
+  empresa?: string | null;
+  direccion?: string | null;
+  estado_cuenta: "activo" | "bloqueado" | string;
+  password?: string;
+};
+
+const getIdPk = (v: Pick<VRow, "id" | "id_vendedor">) => (v.id ?? v.id_vendedor)!;
+
 export default function VendedoresPage() {
   const qc = useQueryClient();
   const [page, setPage] = useState(1);
@@ -15,7 +29,7 @@ export default function VendedoresPage() {
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["vendedores", page, pageSize],
-    queryFn: () => getJSON<Vendedor[]>(`/vendedores/?limit=${pageSize}&offset=${offset}`),
+    queryFn: () => getJSON<VRow[]>(`/vendedores/?limit=${pageSize}&offset=${offset}`),
     staleTime: 1000,
   });
 
@@ -26,21 +40,22 @@ export default function VendedoresPage() {
     if (!q) return data ?? [];
     const s = q.toLowerCase();
     return (data ?? []).filter(v =>
-      [v.nombre, v.email, v.empresa, v.telefono, v.direccion].some(x => (x ?? "").toLowerCase().includes(s))
+      [v.nombre, v.email, v.empresa, v.telefono, v.direccion]
+        .some(x => (x ?? "").toLowerCase().includes(s))
     );
   }, [q, data]);
 
   // --- CREAR
   const [form, setForm] = useState({
-    id: "" as string,
+    id: "" as string, // id_vendedor manual
     nombre: "", email: "", password: "",
     telefono: "", empresa: "", direccion: "",
-    estado_cuenta: "activo" as Estado,
+    estado_cuenta: "activo" as "activo" | "bloqueado",
   });
   const [msg, setMsg] = useState<string | null>(null);
 
   const createMut = useMutation({
-    mutationFn: (payload: any) => postJSON<Vendedor>("/vendedores/", payload),
+    mutationFn: (payload: any) => postJSON<VRow>("/vendedores/", payload),
     onSuccess: () => {
       setMsg("✅ Vendedor creado");
       setForm({ id:"", nombre:"", email:"", password:"", telefono:"", empresa:"", direccion:"", estado_cuenta:"activo" });
@@ -56,51 +71,69 @@ export default function VendedoresPage() {
     if (!form.nombre || !form.email || !form.password) return setMsg("❌ Nombre, Email y Password son obligatorios.");
     await createMut.mutateAsync({
       id_vendedor: idNum,
-      nombre: form.nombre, email: form.email, password: form.password,
-      telefono: form.telefono || null, empresa: form.empresa || null, direccion: form.direccion || null,
-      estado_cuenta: form.estado_cuenta,
+      nombre: form.nombre,
+      email: form.email,
+      password: form.password,
+      telefono: form.telefono || null,
+      empresa: form.empresa || null,
+      direccion: form.direccion || null,
+      estado_cuenta: form.estado_cuenta, // "activo" | "bloqueado"
     });
   };
 
   // --- ELIMINAR
   const deleteMut = useMutation({
-    mutationFn: (id: number) => del(`/vendedores/${id}`),
+    mutationFn: (idPk: number) => del(`/vendedores/${idPk}`),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["vendedores"] }),
+    onError: (e: any) => setMsg(`❌ ${e?.response?.data?.detail ?? e.message}`),
   });
+
+  const askDelete = (v: VRow) => {
+    const idPk = getIdPk(v);
+    if (confirm(`¿Eliminar vendedor #${idPk}?`)) deleteMut.mutate(idPk);
+  };
 
   // --- EDITAR (modal)
   const [open, setOpen] = useState(false);
-  const [edit, setEdit] = useState<Vendedor | null>(null);
-  const [ef, setEf] = useState<Vendedor | null>(null);
+  const [edit, setEdit] = useState<VRow | null>(null);
+  const [ef, setEf] = useState<VRow | null>(null);
 
-  const openEdit = (v: Vendedor) => {
+  const openEdit = (v: VRow) => {
     setEdit(v);
-    setEf({ ...v });
+    // Clonar y normalizar estado para el select
+    const estado = (v.estado_cuenta === "bloqueado" ? "bloqueado" : "activo") as "activo" | "bloqueado";
+    setEf({ ...v, estado_cuenta: estado });
     setOpen(true);
   };
 
   const updateMut = useMutation({
-    mutationFn: (v: Vendedor) =>
-      putJSON<Vendedor>(`/vendedores/${v.id}`, {
-        id_vendedor: v.id,
-        nombre: v.nombre,
-        email: v.email,
-        password: v.password,
-        telefono: v.telefono ?? null,
-        empresa: v.empresa ?? null,
-        direccion: v.direccion ?? null,
-        estado_cuenta: v.estado_cuenta,
-      }),
+    mutationFn: ({ idPk, payload }: { idPk: number; payload: Partial<VRow> }) =>
+      putJSON<VRow>(`/vendedores/${idPk}`, payload),
     onSuccess: () => {
       setOpen(false);
       qc.invalidateQueries({ queryKey: ["vendedores"] });
     },
+    onError: (e: any) => setMsg(`❌ ${e?.response?.data?.detail ?? e.message}`),
   });
+
+  const handleSave = () => {
+    if (!ef || !edit) return;
+    const idPk = getIdPk(edit);
+
+    // Solo enviar cambios y omitir password si no se escribió algo
+    const payload: Partial<VRow> = {};
+    (["nombre","email","telefono","empresa","direccion","estado_cuenta"] as const).forEach(k => {
+      if ((ef as any)[k] !== (edit as any)[k]) (payload as any)[k] = (ef as any)[k];
+    });
+    if (ef.password && ef.password.trim() !== "") payload.password = ef.password.trim();
+
+    updateMut.mutate({ idPk, payload });
+  };
 
   return (
     <section>
       <h1 className="text-3xl font-bold mb-1">Vendedores</h1>
-      <p className="text-sm text-slate-600 mb-6">ID manual obligatorio. Estado: activo/inactivo.</p>
+      <p className="text-sm text-slate-600 mb-6">ID manual obligatorio. Estado: activo/bloqueado.</p>
 
       {/* Crear */}
       <div className="bg-white rounded-xl shadow p-4 mb-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -119,8 +152,9 @@ export default function VendedoresPage() {
         <div><label className="block text-sm mb-1">Dirección</label>
           <input className="input" value={form.direccion} onChange={e=>setForm(s=>({...s,direccion:e.target.value}))}/></div>
         <div><label className="block text-sm mb-1">Estado</label>
-          <select className="input" value={form.estado_cuenta} onChange={e=>setForm(s=>({...s,estado_cuenta:e.target.value as Estado}))}>
-            <option value="activo">activo</option><option value="inactivo">inactivo</option>
+          <select className="input" value={form.estado_cuenta} onChange={e=>setForm(s=>({...s,estado_cuenta:e.target.value as any}))}>
+            <option value="activo">activo</option>
+            <option value="bloqueado">bloqueado</option>
           </select>
         </div>
         <div className="flex items-end">
@@ -151,8 +185,8 @@ export default function VendedoresPage() {
             {isLoading && <tr><td className="py-6 text-center" colSpan={7}>Cargando…</td></tr>}
             {isError && <tr><td className="py-6 text-center" colSpan={7}>Error al cargar.</td></tr>}
             {filtered.map(v=>(
-              <tr key={v.id} className="border-t">
-                <td className="td">{v.id}</td>
+              <tr key={getIdPk(v)} className="border-t">
+                <td className="td">{v.id ?? v.id_vendedor}</td>
                 <td className="td">{v.nombre}</td>
                 <td className="td">{v.email}</td>
                 <td className="td">{v.telefono ?? "-"}</td>
@@ -160,7 +194,7 @@ export default function VendedoresPage() {
                 <td className="td">{v.estado_cuenta}</td>
                 <td className="td text-right flex gap-2 justify-end">
                   <button className="btn-primary !px-3" onClick={()=>openEdit(v)}>Editar</button>
-                  <button className="btn-danger" onClick={()=>deleteMut.mutate(v.id)}>Eliminar</button>
+                  <button className="btn-danger" onClick={()=>askDelete(v)}>Eliminar</button>
                 </td>
               </tr>
             ))}
@@ -173,7 +207,7 @@ export default function VendedoresPage() {
       </div>
 
       {/* Modal editar */}
-      <Modal open={open} onClose={()=>setOpen(false)} title={`Editar vendedor #${edit?.id}`}>
+      <Modal open={open} onClose={()=>setOpen(false)} title={`Editar vendedor #${edit ? (edit.id ?? edit.id_vendedor) : ""}`}>
         {ef && (
           <div className="grid gap-3 md:grid-cols-2">
             <input className="input" value={ef.nombre} onChange={e=>setEf({...ef, nombre:e.target.value})}/>
@@ -181,13 +215,18 @@ export default function VendedoresPage() {
             <input className="input" value={ef.telefono ?? ""} onChange={e=>setEf({...ef, telefono:e.target.value})}/>
             <input className="input" value={ef.empresa ?? ""} onChange={e=>setEf({...ef, empresa:e.target.value})}/>
             <input className="input" value={ef.direccion ?? ""} onChange={e=>setEf({...ef, direccion:e.target.value})}/>
-            <select className="input" value={ef.estado_cuenta} onChange={e=>setEf({...ef, estado_cuenta:e.target.value as Estado})}>
-              <option value="activo">activo</option><option value="inactivo">inactivo</option>
+            <select className="input" value={ef.estado_cuenta} onChange={e=>setEf({...ef, estado_cuenta:e.target.value as any})}>
+              <option value="activo">activo</option>
+              <option value="bloqueado">bloqueado</option>
             </select>
-            <input className="input md:col-span-2" type="password" placeholder="(opcional) nuevo password"
-                   onChange={e=>setEf({...ef, password: e.target.value || (edit?.password ?? "")})}/>
+            <input
+              className="input md:col-span-2"
+              type="password"
+              placeholder="(opcional) nuevo password"
+              onChange={e=>setEf({...ef, password: e.target.value})}
+            />
             <div className="md:col-span-2 flex justify-end gap-2">
-              <button className="btn-primary" onClick={()=> ef && updateMut.mutate(ef)}>Guardar</button>
+              <button className="btn-primary" onClick={handleSave}>Guardar</button>
               <button className="btn-danger" onClick={()=>setOpen(false)}>Cancelar</button>
             </div>
           </div>
@@ -196,3 +235,4 @@ export default function VendedoresPage() {
     </section>
   );
 }
+
