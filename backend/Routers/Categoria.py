@@ -3,8 +3,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session, select
 from datetime import datetime
 
-from db.engine import get_session
-from Modelos.Categoria import (
+from backend.db.engine import get_session
+from backend.Modelos.Categoria import (
     Categoria, CategoriaCreate, CategoriaUpdate, CategoriaRead
 )
 

@@ -3,8 +3,8 @@ from typing import List, Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlmodel import SQLModel ,Session, SQLModel
-from db.engine import get_session
-from db.engine import engine
+from backend.db.engine import get_session
+from backend.db.engine import engine
 
 
 def get_session():
@@ -12,11 +12,11 @@ def get_session():
         yield session
 
 
-from CRUD.Crud_Comprador import (
+from backend.CRUD.Crud_Comprador import (
     crear_comprador, listar_compradores, obtener_comprador,
     actualizar_comprador, eliminar_comprador,
 )
-from Modelos.common import EstadoCuenta
+from backend.Modelos.common import EstadoCuenta
 
 
 router = APIRouter(prefix="/compradores", tags=["Compradores"])

@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlmodel import SQLModel, Session, select
-from db.engine import get_session
-from Modelos.Administrador import Administrador
-from Modelos.Usuario import Usuario
+from backend.db.engine import get_session
+from backend.Modelos.Administrador import Administrador
+from backend.Modelos.Usuario import Usuario
 
 router = APIRouter(prefix="/administradores", tags=["Administradores"])
 

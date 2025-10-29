@@ -4,9 +4,9 @@ from typing import Optional, List
 from datetime import datetime
 
 from sqlmodel import Session, select
-from db.engine import get_session
-from Modelos.Producto import Producto
-from Modelos.Categoria import Categoria
+from backend.db.engine import get_session
+from backend.Modelos.Producto import Producto
+from backend.Modelos.Categoria import Categoria
 from sqlmodel import SQLModel, Field
 
 

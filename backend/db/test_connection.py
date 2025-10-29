@@ -1,4 +1,4 @@
-from db.engine import engine
+from backend.db.engine import engine
 from sqlmodel import text
 
 def test_connection():
