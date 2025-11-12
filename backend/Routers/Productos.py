@@ -1,41 +1,24 @@
 # backend/Routers/Productos.py
-from fastapi import APIRouter, Depends, HTTPException, Query
-from typing import Optional, List
-from sqlmodel import Session, SQLModel, select
+from typing import List, Optional
+from fastapi import APIRouter, Depends, HTTPException, Query, status
+from sqlmodel import SQLModel, Session, select
 from backend.db.engine import get_session
 from backend.Modelos.Producto import Producto
 from backend.Modelos.Vendedor import Vendedor
-from backend.CRUD.Crud_Producto import (
-    crear_producto as crud_crear_producto,
-    obtener_productos as crud_obtener_productos,
-    obtener_producto_por_id as crud_obtener_producto_por_id,
-    actualizar_producto as crud_actualizar_producto,
-    eliminar_producto as crud_eliminar_producto,
-)
 
 router = APIRouter(prefix="/productos", tags=["Productos"])
-
-# helper: convierte id_vendedor (manual) -> id (PK)
-def _resolver_pk_vendedor(session: Session, id_vendedor_manual: Optional[int]) -> Optional[int]:
-    if id_vendedor_manual is None:
-        return None
-    vend = session.exec(
-        select(Vendedor).where(Vendedor.id_vendedor == id_vendedor_manual)
-    ).first()
-    if not vend:
-        raise HTTPException(status_code=400, detail=f"vendedor_id {id_vendedor_manual} no existe")
-    return vend.id  # ← ahora sí existe
 
 class ProductoBase(SQLModel):
     nombre: str
     descripcion: Optional[str] = None
     precio: float
-    stock: int = 0
+    stock: int
     category_id: Optional[int] = None
-    vendedor_id: Optional[int] = None   # <- del front llega el id_vendedor (manual)
+    external_id: Optional[str] = None
+    source: Optional[str] = None
 
 class ProductoCreate(ProductoBase):
-    tenant_id: Optional[int] = 1
+    id_vendedor: int  # ID manual visible que llega del front
 
 class ProductoUpdate(SQLModel):
     nombre: Optional[str] = None
@@ -43,48 +26,82 @@ class ProductoUpdate(SQLModel):
     precio: Optional[float] = None
     stock: Optional[int] = None
     category_id: Optional[int] = None
-    vendedor_id: Optional[int] = None   # <- también aquí llega id_vendedor (manual)
-    tenant_id: Optional[int] = None
+    external_id: Optional[str] = None
+    source: Optional[str] = None
+    id_vendedor: Optional[int] = None
 
 class ProductoRead(ProductoBase):
     id: int
-    tenant_id: Optional[int] = None
+    vendedor_id: int
 
-# ✅ GET LIST
-@router.get("/", response_model=List[Producto])
+def _resolver_vendedor_pk(session: Session, id_v_manual: int) -> int:
+    v = session.exec(select(Vendedor).where(Vendedor.id_vendedor == id_v_manual)).first()
+    if not v:
+        raise HTTPException(status_code=400, detail="Vendedor (id_vendedor) no existe")
+    return v.id
+
+@router.post("/", response_model=ProductoRead, status_code=status.HTTP_201_CREATED)
+def crear_producto(payload: ProductoCreate, session: Session = Depends(get_session)):
+    vendedor_pk = _resolver_vendedor_pk(session, payload.id_vendedor)
+    obj = Producto(
+        nombre=payload.nombre,
+        descripcion=payload.descripcion,
+        precio=payload.precio,
+        stock=payload.stock,
+        vendedor_id=vendedor_pk,
+        category_id=payload.category_id,
+        external_id=payload.external_id,
+        source=payload.source,
+    )
+    session.add(obj)
+    session.commit()
+    session.refresh(obj)
+    return ProductoRead.model_validate(obj, from_attributes=True)
+
+@router.get("/", response_model=List[ProductoRead])
 def listar_productos(
-    limit: int = 50,
-    offset: int = 0,
     session: Session = Depends(get_session),
+    limit: int = Query(50, ge=1, le=200),
+    offset: int = Query(0, ge=0),
+    id_vendedor: Optional[int] = Query(None, description="id_vendedor (manual)"),
 ):
     stmt = select(Producto).offset(offset).limit(limit)
-    return session.exec(stmt).all()
+    if id_vendedor is not None:
+        vendedor_pk = _resolver_vendedor_pk(session, id_vendedor)
+        stmt = stmt.where(Producto.vendedor_id == vendedor_pk)
+    rows = session.exec(stmt).all()
+    return [ProductoRead.model_validate(r, from_attributes=True) for r in rows]
 
-
-@router.post("/", response_model=ProductoRead, status_code=201)
-def crear_producto(data: ProductoCreate, session: Session = Depends(get_session)):
-    try:
-        payload = data.model_dump(exclude_unset=True)
-        if "vendedor_id" in payload and payload["vendedor_id"] is not None:
-            payload["vendedor_id"] = _resolver_pk_vendedor(session, payload["vendedor_id"])
-        prod = crud_crear_producto(session, payload)
-        return prod
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Error al crear producto: {e}")
+@router.get("/{producto_id}", response_model=ProductoRead)
+def obtener_producto(producto_id: int, session: Session = Depends(get_session)):
+    obj = session.get(Producto, producto_id)
+    if not obj:
+        raise HTTPException(status_code=404, detail="Producto no encontrado")
+    return ProductoRead.model_validate(obj, from_attributes=True)
 
 @router.put("/{producto_id}", response_model=ProductoRead)
-def actualizar_producto(producto_id: int, data: ProductoUpdate, session: Session = Depends(get_session)):
-    p = crud_obtener_producto_por_id(session, producto_id)
-    if not p:
+def actualizar_producto(producto_id: int, payload: ProductoUpdate, session: Session = Depends(get_session)):
+    obj = session.get(Producto, producto_id)
+    if not obj:
         raise HTTPException(status_code=404, detail="Producto no encontrado")
 
-    nuevos = data.model_dump(exclude_unset=True)
-    if "vendedor_id" in nuevos:
-        if nuevos["vendedor_id"] is None:
-            pass  # desasociar (NULL)
-        else:
-            nuevos["vendedor_id"] = _resolver_pk_vendedor(session, nuevos["vendedor_id"])
+    data = payload.model_dump(exclude_unset=True)
+    if "id_vendedor" in data and data["id_vendedor"] is not None:
+        obj.vendedor_id = _resolver_vendedor_pk(session, data.pop("id_vendedor"))
 
-    return crud_actualizar_producto(session, producto_id, nuevos)
+    for k, v in data.items():
+        setattr(obj, k, v)
+
+    session.add(obj)
+    session.commit()
+    session.refresh(obj)
+    return ProductoRead.model_validate(obj, from_attributes=True)
+
+@router.delete("/{producto_id}", status_code=status.HTTP_204_NO_CONTENT)
+def eliminar_producto(producto_id: int, session: Session = Depends(get_session)):
+    obj = session.get(Producto, producto_id)
+    if not obj:
+        raise HTTPException(status_code=404, detail="Producto no encontrado")
+    session.delete(obj)
+    session.commit()
+    return
