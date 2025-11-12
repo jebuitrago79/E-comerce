@@ -8,16 +8,18 @@ from sqlalchemy.engine.url import make_url
 load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
-if not DATABASE_URL:
-    raise RuntimeError("DATABASE_URL no encontrada en .env")
 
-# Compatibilidad con PostgreSQL (normal o con "ppostgresql" usado por algunos entornos)
+# Permite trabajar sin .env en local (opcional). Si no quieres fallback, quita esta línea:
+if not DATABASE_URL:
+    DATABASE_URL = "sqlite:///./local.db"
+
+# Normalización: aceptar "ppostgresql://" o "postgresql://"
 if DATABASE_URL.startswith("ppostgresql://"):
     DATABASE_URL = "postgresql+psycopg2://" + DATABASE_URL[len("ppostgresql://"):]
 elif DATABASE_URL.startswith("postgresql://"):
     DATABASE_URL = "postgresql+psycopg2://" + DATABASE_URL[len("postgresql://"):]
 
-# Validar formatos admitidos
+# Validación de formatos admitidos
 if not (
     DATABASE_URL.startswith("postgresql+psycopg2://")
     or DATABASE_URL.startswith("sqlite:///")
@@ -25,21 +27,21 @@ if not (
 ):
     raise ValueError(f"Formato inválido de DATABASE_URL: {DATABASE_URL}")
 
-# Log sin contraseña
+# Log seguro (oculta password)
 try:
     safe_url = make_url(DATABASE_URL).set(password="***")
 except Exception:
     safe_url = DATABASE_URL
 print(f">>> DB_URL_USADA: {safe_url}")
 
-# Crear el engine
+# Crear engine (pre_ping para evitar conexiones muertas)
 engine = create_engine(
     DATABASE_URL,
     echo=False,
-    pool_pre_ping=True,  # evita conexiones rotas
+    pool_pre_ping=True,
 )
 
-# Generador de sesión
+# Generador de sesión (expire_on_commit=False para no expirar objetos tras commit)
 def get_session():
-    with Session(engine) as session:
+    with Session(engine, expire_on_commit=False) as session:
         yield session
