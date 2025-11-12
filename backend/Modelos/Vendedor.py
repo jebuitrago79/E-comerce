@@ -1,41 +1,24 @@
-# backend/Modelos/Vendedor.py
-from typing import Optional, List, TYPE_CHECKING
+from typing import Optional, List
+from datetime import datetime
 from sqlmodel import SQLModel, Field, Relationship
-from sqlalchemy import Column, Integer, String, UniqueConstraint
-
-if TYPE_CHECKING:
-    from .Producto import Producto
+from sqlalchemy import UniqueConstraint
+from backend.Modelos.common import EstadoCuenta
 
 class Vendedor(SQLModel, table=True):
     __tablename__ = "vendedores"
-
-    # PK real en la BD
-    id: Optional[int] = Field(
-        default=None,
-        sa_column=Column("id", Integer, primary_key=True, autoincrement=True)
-    )
-
-    # ID manual de negocio (único, NO PK)
-    id_vendedor: int = Field(
-        sa_column=Column("id_vendedor", Integer, nullable=False, unique=True)
-    )
-
-    nombre: str
-    email: str
-    telefono: Optional[str] = None
-    empresa: Optional[str] = None
-    direccion: Optional[str] = None
-    password: str
-
-    estado_cuenta: str = Field(
-        default="activo",
-        sa_column=Column("estado_cuenta", String, nullable=False)
-    )
-
-    productos: List["Producto"] = Relationship(back_populates="vendedor")
-
-    # (opcional) si quieres asegurar unicidad adicional por ORM:
     __table_args__ = (
         UniqueConstraint("id_vendedor", name="uq_vendedores_id_vendedor"),
+        UniqueConstraint("email", name="uq_vendedores_email"),
     )
 
+    id: Optional[int] = Field(default=None, primary_key=True, index=True)
+    id_vendedor: int = Field(index=True, description="ID manual visible del negocio")
+    nombre: str
+    email: str
+    password: str
+    estado_cuenta: EstadoCuenta = Field(default=EstadoCuenta.activo)
+    telefono: Optional[str] = None            # ← NUEVO
+    created_at: datetime = Field(default_factory=datetime.utcnow, index=True)
+    updated_at: datetime = Field(default_factory=datetime.utcnow, index=True)
+
+    productos: List["Producto"] = Relationship(back_populates="vendedor")
