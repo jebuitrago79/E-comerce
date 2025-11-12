@@ -1,36 +1,14 @@
-# Modelos/Categoria.py
-from typing import Optional
-from sqlmodel import SQLModel, Field
-from datetime import datetime
+# backend/Modelos/Categoria.py
+from typing import Optional, List
+from sqlmodel import SQLModel, Field, Relationship
+from sqlalchemy import UniqueConstraint
 
 class Categoria(SQLModel, table=True):
     __tablename__ = "categorias"
+    __table_args__ = (UniqueConstraint("nombre", name="uq_categorias_nombre"),)  # <-- NUEVO
 
-    id: Optional[int] = Field(default=None, primary_key=True)
-    tenant_id: int = Field(index=True)
-    slug: str = Field(index=True, max_length=100)
-    nombre: str = Field(max_length=100)
-    descripcion: Optional[str] = Field(default=None, max_length=255)
-
-    created_at: datetime = Field(default_factory=datetime.utcnow)
-    updated_at: datetime = Field(default_factory=datetime.utcnow)
-
-
-# ===== DTOs (para requests/responses) =====
-
-class CategoriaBase(SQLModel):
-    slug: str
-    nombre: str
+    id: Optional[int] = Field(default=None, primary_key=True, index=True)
+    nombre: str = Field(index=True)
     descripcion: Optional[str] = None
 
-class CategoriaCreate(CategoriaBase):
-    pass
-
-class CategoriaUpdate(SQLModel):
-    slug: Optional[str] = None
-    nombre: Optional[str] = None
-    descripcion: Optional[str] = None
-
-class CategoriaRead(CategoriaBase):
-    id: int
-    tenant_id: int
+    productos: List["Producto"] = Relationship(back_populates="categoria")
