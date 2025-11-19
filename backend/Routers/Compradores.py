@@ -8,6 +8,8 @@ from backend.CRUD.Crud_Comprador import (
     actualizar_comprador, eliminar_comprador,
 )
 from backend.Modelos.common import EstadoCuenta
+from backend.Modelos.Comprador import Comprador
+from sqlmodel import select
 
 router = APIRouter(prefix="/compradores", tags=["Compradores"])
 
@@ -32,6 +34,11 @@ class CompradorUpdate(SQLModel):
 class CompradorRead(CompradorBase):
     id: int
     id_comprador: Optional[int] = None
+
+class CompradorLogin(SQLModel):
+    email: str
+    password: str
+
 
 @router.post("/", response_model=CompradorRead, status_code=status.HTTP_201_CREATED)
 def create_comprador(payload: CompradorCreate, session: Session = Depends(get_session)):
@@ -80,3 +87,20 @@ def delete_comprador(comprador_id: int, session: Session = Depends(get_session))
     if not ok:
         raise HTTPException(status_code=404, detail="Comprador no encontrado")
     return
+
+@router.post("/login", response_model=CompradorRead)
+def login_comprador(
+    credenciales: CompradorLogin,
+    session: Session = Depends(get_session),
+):
+    comprador = session.exec(
+        select(Comprador).where(Comprador.email == credenciales.email)
+    ).first()
+
+    if not comprador or comprador.password != credenciales.password:
+        raise HTTPException(status_code=401, detail="Credenciales inválidas")
+
+    if comprador.estado_cuenta != EstadoCuenta.activo:
+        raise HTTPException(status_code=403, detail="Cuenta no activa")
+
+    return CompradorRead.model_validate(comprador, from_attributes=True)

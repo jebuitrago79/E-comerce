@@ -22,6 +22,45 @@ class EstadoPayload(SQLModel):
     estado_cuenta: EstadoCuenta
 
 
+class AdminCreate(SQLModel):
+    id_admin: int
+    nombre: str
+    email: str
+    password: str
+    nivel_acceso: str
+
+class AdminLogin(SQLModel):
+    email: str
+    password: str
+
+
+@router.post("/", response_model=Administrador)
+def crear_admin(
+    data: AdminCreate,
+    session: Session = Depends(get_session),
+):
+    # Validar email único
+    existe = session.exec(
+        select(Administrador).where(Administrador.email == data.email)
+    ).first()
+    if existe:
+        raise HTTPException(status_code=400, detail="El email ya está en uso")
+
+    admin = Administrador(
+        id_admin=data.id_admin,
+        nombre=data.nombre,
+        email=data.email,
+        password=data.password,
+        nivel_acceso=data.nivel_acceso,
+        estado_cuenta=EstadoCuenta.activo,
+    )
+
+    session.add(admin)
+    session.commit()
+    session.refresh(admin)
+    return admin
+
+
 # ✅ GET LIST
 @router.get("/", response_model=List[Administrador])
 def listar_administradores(
@@ -80,3 +119,20 @@ def desactivar_admin(id_admin: int, session: Session = Depends(get_session)):
     session.add(admin)
     session.commit()
     return {"message": f"Administrador {admin.nombre} desactivado"}
+
+@router.post("/login", response_model=Administrador)
+def login_admin(
+    credenciales: AdminLogin,
+    session: Session = Depends(get_session),
+):
+    admin = session.exec(
+        select(Administrador).where(Administrador.email == credenciales.email)
+    ).first()
+
+    if not admin or admin.password != credenciales.password:
+        raise HTTPException(status_code=401, detail="Credenciales inválidas")
+
+    if admin.estado_cuenta != EstadoCuenta.activo:
+        raise HTTPException(status_code=403, detail="Cuenta no activa")
+
+    return admin

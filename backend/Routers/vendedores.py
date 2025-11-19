@@ -1,7 +1,7 @@
 # backend/Routers/vendedores.py
 from typing import Optional, List
 from fastapi import APIRouter, Depends, HTTPException, Query, status
-from sqlmodel import Session, SQLModel, Field
+from sqlmodel import Session, SQLModel, Field, select
 from backend.db.engine import get_session
 from backend.Modelos.Vendedor import Vendedor
 from backend.CRUD.Crud_Vendedor import (
@@ -41,6 +41,10 @@ class VendedorUpdate(SQLModel):
 class VendedorRead(VendedorBase):
     id: int
     id_vendedor: int
+
+class VendedorLogin(SQLModel):
+    email: str
+    password: str
 
 
 # ========= Endpoints =========
@@ -116,3 +120,24 @@ def get_tienda_vendedor(
     return tienda
 
 
+
+@router.post("/login", response_model=VendedorRead)
+    
+def login_vendedor(
+    credenciales: VendedorLogin,
+    session: Session = Depends(get_session),
+    ):
+    vendedor = session.exec(
+        select(Vendedor).where(Vendedor.email == credenciales.email)
+    ).first()
+
+    if not vendedor:
+        raise HTTPException(status_code=401, detail="Credenciales inválidas")
+
+    if vendedor.password != credenciales.password:
+        raise HTTPException(status_code=401, detail="Credenciales inválidas")
+
+    if vendedor.estado_cuenta != EstadoCuenta.activo:
+        raise HTTPException(status_code=403, detail="Cuenta no activa")
+
+    return VendedorRead.model_validate(vendedor, from_attributes=True)
