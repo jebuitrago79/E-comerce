@@ -8,13 +8,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from backend.Routers import vendedores, Administradores, Compradores
 from backend.Routers import Productos as productos_router
 from backend.Routers import Categoria as categorias_router
+from backend.Routers import Tienda
 
 # Init DB (una sola fuente de verdad)
 from backend.db.init_db import create_db_and_tables, test_connection
 
-# ──────────────────────────────────────────────────────────────────────────────
-# Toggle opcional para CI / pruebas locales
-# Si NO quieres desactivar nada, simplemente no pongas TESTING=1 y listo.
+
 TESTING = os.getenv("TESTING") == "1"
 # ──────────────────────────────────────────────────────────────────────────────
 
@@ -56,6 +55,8 @@ app.include_router(Administradores.router)
 app.include_router(Compradores.router)
 app.include_router(productos_router.router)
 app.include_router(categorias_router.router)
+app.include_router(Tienda.router)
+
 
 # Rutas simples
 @app.get("/")

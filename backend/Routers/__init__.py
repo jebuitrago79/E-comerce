@@ -3,4 +3,5 @@ from . import Compradores
 from . import Categoria
 from . import Productos
 from . import vendedores
-__all__ = ["Administradores", "Compradores", "Categoria", "Productos", "vendedores"]
+from . import Tienda
+__all__ = ["Administradores", "Compradores", "Categoria", "Productos", "vendedores", "Tienda"]

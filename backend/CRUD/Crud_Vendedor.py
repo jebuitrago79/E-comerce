@@ -3,7 +3,7 @@ from typing import List, Optional, Dict, Any
 from datetime import datetime
 from sqlalchemy.exc import IntegrityError
 from sqlmodel import Session, select
-
+from backend.Modelos import Producto, Tienda
 from backend.Modelos.Vendedor import Vendedor
 
 # Campos que realmente existen en el modelo de BD
@@ -131,3 +131,30 @@ def eliminar_vendedor(session: Session, id_vendedor: int) -> bool:
     session.delete(obj)
     session.commit()
     return True
+
+
+def productos_de_vendedor(session: Session, id_vendedor: int):
+    """
+    Devuelve todos los productos que pertenecen a un vendedor,
+    recibiendo el ID MANUAL (id_vendedor).
+    """
+    vendedor = obtener_vendedor(session, id_vendedor)
+    if not vendedor:
+        return []
+
+    stmt = select(Producto).where(Producto.vendedor_id == vendedor.id)  # FK usa PK
+    return session.exec(stmt).all()
+
+
+def tienda_de_vendedor(session: Session, id_vendedor: int):
+    """
+    Devuelve la tienda asociada a un vendedor (si existe),
+    recibiendo el ID MANUAL (id_vendedor).
+    """
+    vendedor = obtener_vendedor(session, id_vendedor)
+    if not vendedor:
+        return None
+
+    stmt = select(Tienda).where(Tienda.vendedor_id == vendedor.id)
+    return session.exec(stmt).first()
+

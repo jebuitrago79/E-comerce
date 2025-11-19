@@ -3,7 +3,7 @@ from sqlmodel import SQLModel
 from sqlalchemy import text
 from backend.db.engine import engine
 # Importa todos los modelos para que SQLModel.metadata tenga las tablas
-from backend.Modelos import Administrador, Comprador, Usuario, Vendedor, Producto, Categoria
+from backend.Modelos import Administrador, Comprador, Usuario, Vendedor, Producto, Categoria, Tienda
 
 def ensure_constraints():
     """Crea constraints/índices que tu modelo declara pero que quizá no existen aún.

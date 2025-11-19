@@ -1,8 +1,13 @@
-from typing import Optional, List
+# backend/Modelos/Vendedor.py
+from __future__ import annotations
+
+from typing import Optional
 from datetime import datetime
-from sqlmodel import SQLModel, Field, Relationship
+
+from sqlmodel import SQLModel, Field
 from sqlalchemy import UniqueConstraint
 from backend.Modelos.common import EstadoCuenta
+
 
 class Vendedor(SQLModel, table=True):
     __tablename__ = "vendedores"
@@ -17,8 +22,9 @@ class Vendedor(SQLModel, table=True):
     email: str
     password: str
     estado_cuenta: EstadoCuenta = Field(default=EstadoCuenta.activo)
-    telefono: Optional[str] = None            # ← NUEVO
+    telefono: Optional[str] = None
     created_at: datetime = Field(default_factory=datetime.utcnow, index=True)
     updated_at: datetime = Field(default_factory=datetime.utcnow, index=True)
 
-    productos: List["Producto"] = Relationship(back_populates="vendedor")
+    # ❌ SIN relaciones ORM aquí
+    # productos y tienda los manejamos via consultas usando vendedor.id

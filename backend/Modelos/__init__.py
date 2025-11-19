@@ -5,8 +5,11 @@ from .Usuario import Usuario
 from .Categoria import Categoria
 from .Producto import Producto
 from .Vendedor import Vendedor
+from .Tienda import Tienda
+
+
 
 __all__ = [
     "Administrador", "Comprador", "Usuario",
-    "Categoria", "Producto", "Vendedor",
+    "Categoria", "Producto", "Vendedor", "Tienda"
 ]
