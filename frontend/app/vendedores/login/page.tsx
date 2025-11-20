@@ -31,12 +31,13 @@ async function handleSubmit(e: FormEvent) {
       password,
     });
 
-  if (typeof window !== "undefined") {
-    // guarda TODO el vendedor
-    localStorage.setItem("vendedorActual", JSON.stringify(data));
-    // 👇 guarda el id_vendedor MANUAL
-    localStorage.setItem("id_vendedor", String(data.id_vendedor));
-  }  
+    if (typeof window !== "undefined") {
+      // 👇 usa SIEMPRE la misma clave que leerá el panel
+      localStorage.setItem("vendedor", JSON.stringify(data));
+
+      // opcional, si quieres seguir teniendo el id por separado:
+      localStorage.setItem("id_vendedor", String(data.id_vendedor));
+    }
 
     router.push("/vendedores/panel");
   } catch (err: any) {

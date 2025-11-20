@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import SQLModel, Session, select
 
 from backend.db.engine import get_session
-from backend.Modelos.Tienda import Tienda
+from backend.Modelos.Tienda import Tienda 
 from backend.Modelos.Vendedor import Vendedor
 
 router = APIRouter(prefix="/tiendas", tags=["Tiendas"])
@@ -31,6 +31,16 @@ class TiendaUpdate(SQLModel):
     color_primario: Optional[str] = None
     logo_url: Optional[str] = None
     slug: Optional[str] = None
+
+class TiendaPublica(SQLModel):
+    id: int
+    vendedor_id: int          # PK del vendedor
+    vendedor_id_manual: int   # 👈 ESTE es el id_vendedor manual
+    nombre_negocio: str
+    descripcion: Optional[str] = None
+    color_primario: Optional[str] = None
+    logo_url: Optional[str] = None
+    slug: str
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -105,18 +115,35 @@ def crear_tienda(
 # OBTENER TIENDA POR SLUG (PÚBLICO)
 # GET /tiendas/{slug}
 # ──────────────────────────────────────────────────────────────────────────────
-@router.get("/{slug}", response_model=Tienda)
+@router.get("/{slug}", response_model=TiendaPublica)
 def obtener_tienda_por_slug(
     slug: str,
     session: Session = Depends(get_session),
 ):
-    stmt = select(Tienda).where(Tienda.slug == slug)
-    tienda = session.exec(stmt).first()
+    # Unimos Tienda con Vendedor para obtener también el id_vendedor manual
+    stmt = (
+        select(Tienda, Vendedor)
+        .join(Vendedor, Tienda.vendedor_id == Vendedor.id)
+        .where(Tienda.slug == slug)
+    )
+    result = session.exec(stmt).first()
 
-    if not tienda:
+    if not result:
         raise HTTPException(status_code=404, detail="Tienda no encontrada")
 
-    return tienda
+    tienda, vendedor = result
+
+    return TiendaPublica(
+        id=tienda.id,
+        vendedor_id=tienda.vendedor_id,
+        vendedor_id_manual=vendedor.id_vendedor,  # 👈 aquí mandamos el manual
+        nombre_negocio=tienda.nombre_negocio,
+        descripcion=tienda.descripcion,
+        color_primario=tienda.color_primario,
+        logo_url=tienda.logo_url,
+        slug=tienda.slug,
+    )
+
 
 
 # ──────────────────────────────────────────────────────────────────────────────

@@ -1,3 +1,4 @@
+//tienda/configurar/page
 "use client";
 
 import { useEffect, useState } from "react";
@@ -156,6 +157,9 @@ export default function ConfigurarTiendaPage() {
     );
   }
 
+  // 🔹 URL pública a mostrar (usa primero la de la tienda, si no el slug del formulario)
+  const slugPublico = tienda?.slug || slug;
+
   return (
     <main className="min-h-screen bg-gray-50 px-8 py-10">
       <div className="max-w-3xl mx-auto space-y-6">
@@ -178,6 +182,28 @@ export default function ConfigurarTiendaPage() {
         {success && (
           <div className="rounded-md border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
             {success}
+          </div>
+        )}
+
+        {/* 🔹 Bloque nuevo: URL pública + botón Ver tienda */}
+        {slugPublico && (
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 text-sm">
+            <div className="text-slate-700">
+              URL pública de su tienda:{" "}
+              <span className="font-mono text-slate-900">
+                /tienda/{slugPublico}
+              </span>
+            </div>
+            {tienda?.slug && (
+              <a
+                href={`/tienda/${tienda.slug}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-md bg-slate-900 px-3 py-1.5 text-xs font-medium text-white hover:bg-slate-800"
+              >
+                Ver tienda pública
+              </a>
+            )}
           </div>
         )}
 

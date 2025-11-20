@@ -1,3 +1,4 @@
+//tienda/page
 "use client";
 
 import { useEffect, useState } from "react";
