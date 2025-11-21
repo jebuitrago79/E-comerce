@@ -1,110 +1,142 @@
+//app/vendedores/login/page
 "use client";
 
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import { postJSON } from "@/lib/api";
+import { loginVendedor } from "@/lib/vendedores";
 
-type VendedorRead = {
-  id: number;
-  id_vendedor: number;
-  nombre: string;
-  email: string;
-  telefono?: string | null;
-  estado_cuenta: "activo" | "bloqueado";
+type Errors = {
+  email?: string;
+  password?: string;
+  general?: string;
 };
 
-export default function VendedorLoginPage() {
+export default function LoginVendedorPage() {
   const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState<Errors>({});
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [okMsg, setOkMsg] = useState<string | null>(null);
 
-async function handleSubmit(e: FormEvent) {
-  e.preventDefault();
-  setError(null);
-  setLoading(true);
+  // ------- validaciones en frontend -------
+  const validate = (): boolean => {
+    const newErrors: Errors = {};
 
-  try {
-    const data = await postJSON<VendedorRead>("/vendedores/login", {
-      email,
-      password,
-    });
-
-    if (typeof window !== "undefined") {
-      // 👇 usa SIEMPRE la misma clave que leerá el panel
-      localStorage.setItem("vendedor", JSON.stringify(data));
-
-      // opcional, si quieres seguir teniendo el id por separado:
-      localStorage.setItem("id_vendedor", String(data.id_vendedor));
+    // Email
+    if (!email.trim()) {
+      newErrors.email = "El email es obligatorio.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      newErrors.email = "Ingrese un email válido.";
     }
 
-    router.push("/vendedores/panel");
-  } catch (err: any) {
-    const msg =
-      err?.message ||
-      err?.detail ||
-      "Error al iniciar sesión. Verifique sus datos.";
-    setError(msg);
-  } finally {
-    setLoading(false);
-  }
+    // Password
+    if (!password) {
+      newErrors.password = "La contraseña es obligatoria.";
+    } else if (password.length < 8) {
+      newErrors.password = "La contraseña debe tener al menos 8 caracteres.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setErrors({});
+    setOkMsg(null);
+
+    if (!validate()) return;
+
+    setLoading(true);
+    try {
+      const vendedor = await loginVendedor(email.trim(), password);
+
+      // Guardar sesión en localStorage
+if (vendedor) {
+  // Objeto completo para el panel/tienda
+  localStorage.setItem("vendedorActual", JSON.stringify(vendedor));
+  // ID manual como string para otras pantallas
+  localStorage.setItem("id_vendedor", String(vendedor.id_vendedor));
 }
 
-  return (
-    <div className="min-h-screen bg-slate-100 flex items-center justify-center px-4">
-      <div className="w-full max-w-md bg-white shadow-md rounded-lg p-6">
-        <h1 className="text-2xl font-semibold mb-2 text-slate-900">
-          Iniciar sesión como vendedor
-        </h1>
-        <p className="text-sm text-slate-500 mb-6">
-          Use el correo y contraseña que registró como vendedor.
-        </p>
+      setOkMsg("Ingreso exitoso.");
 
-        {error && (
-          <div className="mb-4 rounded-md bg-red-50 border border-red-200 px-3 py-2 text-sm text-red-700">
-            {error}
+      // 👉 Redirigir al panel o productos del vendedor
+      if (vendedor?.id_vendedor) {
+        router.push("/vendedores/panel");
+      }
+    } catch (err: any) {
+      console.error(err);
+      const detail =
+        err?.response?.data?.detail ||
+        "No se pudo iniciar sesión. Verifique sus datos.";
+      setErrors((prev) => ({ ...prev, general: String(detail) }));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <main className="min-h-screen flex items-center justify-center bg-slate-100">
+      <div className="w-full max-w-md bg-white shadow-md rounded-lg p-6">
+        <h1 className="text-2xl font-bold mb-4 text-center">
+          Login de vendedor
+        </h1>
+
+        {errors.general && (
+          <div className="mb-3 rounded bg-red-100 text-red-700 px-3 py-2 text-sm">
+            {errors.general}
+          </div>
+        )}
+
+        {okMsg && (
+          <div className="mb-3 rounded bg-green-100 text-green-700 px-3 py-2 text-sm">
+            {okMsg}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Email */}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">
-              Correo electrónico
-            </label>
+            <label className="block text-sm font-medium mb-1">Email</label>
             <input
               type="email"
-              className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
+              className="w-full border rounded px-3 py-2 text-sm"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
-              autoComplete="email"
             />
+            {errors.email && (
+              <p className="text-xs text-red-600 mt-1">{errors.email}</p>
+            )}
           </div>
 
+          {/* Contraseña */}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">
+            <label className="block text-sm font-medium mb-1">
               Contraseña
             </label>
             <input
               type="password"
-              className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
+              className="w-full border rounded px-3 py-2 text-sm"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
-              autoComplete="current-password"
             />
+            {errors.password && (
+              <p className="text-xs text-red-600 mt-1">{errors.password}</p>
+            )}
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-60"
+            className="w-full bg-blue-600 text-white py-2 rounded font-medium hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            {loading ? "Iniciando sesión..." : "Iniciar sesión"}
+            {loading ? "Ingresando..." : "Iniciar sesión"}
           </button>
         </form>
       </div>
-    </div>
+    </main>
   );
 }

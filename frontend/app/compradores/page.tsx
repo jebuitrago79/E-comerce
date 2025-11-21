@@ -1,3 +1,4 @@
+//app/compradores/page
 "use client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { del, getJSON, postJSON, putJSON } from "@/lib/api";

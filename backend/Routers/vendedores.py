@@ -14,28 +14,48 @@ from backend.CRUD.Crud_Vendedor import (
     tienda_de_vendedor,
 )
 from backend.Modelos.common import EstadoCuenta
+from pydantic import EmailStr, constr
 
 router = APIRouter(prefix="/vendedores", tags=["Vendedores"])
 
 # ========= Schemas (DTOs) =========
 class VendedorBase(SQLModel):
-    nombre: str
-    email: str
-    telefono: Optional[str] = None
+    nombre: constr(
+        min_length=3,
+        max_length=80,
+        pattern=r"^[A-Za-zÁÉÍÓÚÑáéíóúñ0-9\s\.\-]+$"
+    )
+    email: EmailStr
+    telefono: Optional[constr(
+        min_length=7,
+        max_length=20,
+        pattern=r"^[0-9+\-\s]+$"
+    )] = None
     estado_cuenta: EstadoCuenta = EstadoCuenta.activo
 
 
 class VendedorCreate(VendedorBase):
-    id_vendedor: int = Field(description="ID manual visible del vendedor")
-    password: str
+    id_vendedor: int = Field(
+        gt=0,
+        description="ID manual visible del vendedor"
+    )
+    password: constr(min_length=8)
 
 
 class VendedorUpdate(SQLModel):
-    nombre: Optional[str] = None
-    email: Optional[str] = None
-    telefono: Optional[str] = None
+    nombre: Optional[constr(
+        min_length=3,
+        max_length=80,
+        pattern=r"^[A-Za-zÁÉÍÓÚÑáéíóúñ0-9\s\.\-]+$"
+    )] = None
+    email: Optional[EmailStr] = None
+    telefono: Optional[constr(
+        min_length=7,
+        max_length=20,
+        pattern=r"^[0-9+\-\s]+$"
+    )] = None
     estado_cuenta: Optional[EstadoCuenta] = None
-    password: Optional[str] = None
+    password: Optional[constr(min_length=8)] = None
 
 
 class VendedorRead(VendedorBase):
@@ -43,8 +63,8 @@ class VendedorRead(VendedorBase):
     id_vendedor: int
 
 class VendedorLogin(SQLModel):
-    email: str
-    password: str
+    email: EmailStr
+    password: constr(min_length=8)
 
 
 # ========= Endpoints =========

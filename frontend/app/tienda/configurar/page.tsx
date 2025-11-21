@@ -1,3 +1,4 @@
+//app/tienda/Configurar
 "use client";
 
 import { useEffect, useState } from "react";

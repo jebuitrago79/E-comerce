@@ -1,3 +1,4 @@
+//app/tienda/slug
 "use client";
 
 import { useEffect, useState } from "react";
@@ -12,7 +13,7 @@ import { useParams } from "next/navigation";
 type Tienda = {
   id: number;
   vendedor_id: number;
-  vendedor_id_manual: string | number | null;
+  vendedor_id_manual: string | number;
   nombre_negocio: string;
   descripcion: string | null;
   color_primario: string | null;
@@ -30,11 +31,6 @@ type Producto = {
   vendedor_id: number;
 };
 
-// 🔹 tipo que Plasmic va a recibir en productosDestacados
-type DestacadoImage = {
-  src: string;
-};
-
 const TIENDA_BY_SLUG_URL = (slug: string) => `/tiendas/${slug}`;
 
 export default function TiendaPublicaPage() {
@@ -43,17 +39,15 @@ export default function TiendaPublicaPage() {
 
   const [tienda, setTienda] = useState<Tienda | null>(null);
   const [plasmicData, setPlasmicData] = useState<any | null>(null);
-
-  // 👉 ahora es array de objetos { src }
-  const [productosDestacados, setProductosDestacados] = useState<
-    DestacadoImage[]
-  >([]);
-
+  // 👉 AQUÍ sólo guardamos URLs (strings) de imágenes destacadas
+  const [productosDestacados, setProductosDestacados] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!slug) return;
+
+    const safeSlug = String(slug);
 
     async function load() {
       try {
@@ -62,39 +56,40 @@ export default function TiendaPublicaPage() {
 
         // 1) Datos de la tienda
         const tiendaJson = await getJSON<Tienda>(
-          TIENDA_BY_SLUG_URL(encodeURIComponent(String(slug)))
+          TIENDA_BY_SLUG_URL(encodeURIComponent(safeSlug))
         );
         setTienda(tiendaJson);
 
-        // 2) Determinar id para productos (manual o normal)
-        const vendedorKey =
-          tiendaJson.vendedor_id_manual ?? tiendaJson.vendedor_id;
-
-        // 3) Productos del vendedor
+        // 2) Productos del vendedor
+        const vendedorIdManual = tiendaJson.vendedor_id_manual;
         const productos = await getJSON<Producto[]>(
-          `/vendedores/${encodeURIComponent(String(vendedorKey))}/productos`
+          `/vendedores/${encodeURIComponent(String(vendedorIdManual))}/productos`
         );
 
-        // 4) Filtrar destacados con imagen válida y mapear a { src }
-        const imagenes: DestacadoImage[] = productos
+        // 3) Sólo productos destacados con imagen válida
+        const imagenesDestacadas = productos
           .filter(
             (p) =>
               p.destacado === true &&
               typeof p.imagen_url === "string" &&
               p.imagen_url.trim() !== ""
           )
-          .map((p) => ({
-            src: p.imagen_url!.trim(),
-          }));
+          .map((p) => p.imagen_url as string);
 
-        setProductosDestacados(imagenes);
+        setProductosDestacados(imagenesDestacadas);
 
-        // 5) Cargar Plasmic
+        // 4) Plasmic
         const plasmic = await PLASMIC.fetchComponentData("tienda");
+        if (!plasmic) {
+          throw new Error("No se encontró el componente 'tienda' en Plasmic.");
+        }
         setPlasmicData(plasmic);
       } catch (err: any) {
         console.error(err);
-        setError("Error cargando la tienda.");
+        setError(
+          err?.message ??
+            "No se pudo cargar la tienda pública. Verifique el enlace."
+        );
       } finally {
         setLoading(false);
       }
@@ -103,7 +98,6 @@ export default function TiendaPublicaPage() {
     load();
   }, [slug]);
 
-  // ---- estados de carga / error ----
   if (!slug) {
     return (
       <div className="p-8 text-center text-gray-600">
@@ -126,31 +120,37 @@ export default function TiendaPublicaPage() {
 
   if (!plasmicData || !tienda) return null;
 
-  // Logo seguro: string o undefined (NO vacío)
   const logoUrl =
     typeof tienda.logo_url === "string" && tienda.logo_url.trim() !== ""
-      ? tienda.logo_url.trim()
-      : undefined;
+      ? tienda.logo_url
+      : undefined; // importante: undefined, no ""
 
-  // URL para ver todos los productos
-  const tiendaProductosUrl = `/vendedores/${encodeURIComponent(
-    String(tienda.vendedor_id_manual ?? tienda.vendedor_id)
-  )}/productos`;
+  const tiendaProductosUrl =
+    tienda?.vendedor_id_manual != null
+      ? `/vendedores/${encodeURIComponent(
+          String(tienda.vendedor_id_manual)
+        )}/productos`
+      : `/vendedores/${encodeURIComponent(
+          String(tienda.vendedor_id)
+        )}/productos`;
 
   return (
     <PlasmicRootProvider loader={PLASMIC} prefetchedData={plasmicData}>
-      <PlasmicComponent
-        component="tienda"
-        componentProps={{
-          tiendaNombre: tienda.nombre_negocio,
-          tiendaDescripcion: tienda.descripcion ?? "",
-          tiendaColorPrimario: tienda.color_primario ?? "#0080ff",
-          tiendaLogoUrl: logoUrl,
-          tiendaProductosUrl,
-          // 👇 ahora es SIEMPRE un array de objetos { src }
-          productosDestacados,
-        }}
-      />
+      <div className="flex justify-center w-full">
+        <div className="w-full max-w-[1200px] px-4 pt-6">
+          <PlasmicComponent
+            component="tienda"
+            componentProps={{
+              tiendaNombre: tienda.nombre_negocio,
+              tiendaDescripcion: tienda.descripcion ?? "",
+              tiendaColorPrimario: tienda.color_primario ?? "#0080ff",
+              tiendaLogoUrl: logoUrl,
+              tiendaProductosUrl,
+              productosDestacados, // 👉 array de URLs
+            }}
+          />
+        </div>
+      </div>
     </PlasmicRootProvider>
   );
 }

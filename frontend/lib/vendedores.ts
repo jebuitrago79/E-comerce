@@ -24,3 +24,12 @@ export const crearVendedor = async (nuevo: Vendedor) => {
 export const eliminarVendedor = async (id: number) => {
   await api.delete(`/vendedores/${id}`);
 };
+
+// 🔐 LOGIN VENDEDOR
+export const loginVendedor = async (email: string, password: string) => {
+  const { data } = await api.post<Vendedor>("/vendedores/login", {
+    email,
+    password,
+  });
+  return data; // VendedorRead
+};

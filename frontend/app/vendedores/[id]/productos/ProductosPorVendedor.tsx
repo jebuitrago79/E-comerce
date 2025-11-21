@@ -1,3 +1,4 @@
+//app/vendedores/id/productos
 "use client";
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -216,6 +217,7 @@ export default function ProductosPorVendedor({
       imagen_url,
       destacado: form.destacado,                // 👈 URL final (nueva o existente)
     };
+    console.log("PAYLOAD PRODUCTO:", payload);
 
     if (editingId) {
       actualizarProducto.mutate({ id: editingId, data: payload });
