@@ -16,7 +16,10 @@ class Producto(SQLModel, table=True):
     descripcion: Optional[str] = None
     precio: float
     stock: int
+    imagen_url: Optional[str] = None
+    destacado: bool = Field(default=False)
 
+    
     vendedor_id: int = Field(foreign_key="vendedores.id", index=True)
     category_id: Optional[int] = Field(default=None, foreign_key="categorias.id", index=True)
 

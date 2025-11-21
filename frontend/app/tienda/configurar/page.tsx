@@ -1,9 +1,9 @@
-//tienda/configurar/page
 "use client";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getJSON, postJSON, putJSON } from "@/lib/api";
+import { supabase } from "@/lib/supabaseClient"; // 👈 el mismo que usas para productos
 
 type Tienda = {
   id: number;
@@ -14,6 +14,31 @@ type Tienda = {
   logo_url?: string | null;
   slug: string;
 };
+
+// 👇 función auxiliar para subir logo (igual que productos, pero en carpeta logos/)
+async function uploadLogoImage(file: File, slug: string) {
+  const ext = file.name.split(".").pop() || "png";
+  const fileName = `${Date.now()}-${Math.random()
+    .toString(36)
+    .slice(2)}.${ext}`;
+  const path = `logos/${slug || "sin-slug"}/${fileName}`;
+
+  // Usa el MISMO bucket que ya tienes funcionando (productos)
+  const { data, error } = await supabase.storage
+    .from("productos") // <- si luego quieres, lo cambias a "tiendas" y creas ese bucket
+    .upload(path, file);
+
+  if (error) {
+    console.error("Error subiendo logo:", error);
+    throw error;
+  }
+
+  const { data: publicData } = supabase.storage
+    .from("productos")
+    .getPublicUrl(path);
+
+  return publicData.publicUrl;
+}
 
 export default function ConfigurarTiendaPage() {
   const router = useRouter();
@@ -29,6 +54,7 @@ export default function ConfigurarTiendaPage() {
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [subiendoLogo, setSubiendoLogo] = useState(false); // 👈 nuevo
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
@@ -85,6 +111,37 @@ export default function ConfigurarTiendaPage() {
     fetchTienda();
   }, [idVendedor]);
 
+  // 👇 2.5) Subir logo a Supabase y guardar URL en el estado
+  const handleLogoUpload = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!slug) {
+      alert(
+        "Primero escriba el slug de su tienda (abajo) para poder generar la ruta del logo."
+      );
+      e.target.value = "";
+      return;
+    }
+
+    try {
+      setSubiendoLogo(true);
+      setError(null);
+      setSuccess(null);
+
+      const publicUrl = await uploadLogoImage(file, slug);
+      setLogoUrl(publicUrl);
+      setSuccess("Logo subido correctamente.");
+    } catch (err) {
+      console.error(err);
+      setError("No se pudo subir el logo. Intente nuevamente.");
+    } finally {
+      setSubiendoLogo(false);
+    }
+  };
+
   // 3) Guardar (crear o actualizar)
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -136,7 +193,9 @@ export default function ConfigurarTiendaPage() {
   if (loading) {
     return (
       <main className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <p className="text-sm text-gray-500">Cargando configuración de tienda...</p>
+        <p className="text-sm text-gray-500">
+          Cargando configuración de tienda...
+        </p>
       </main>
     );
   }
@@ -168,8 +227,9 @@ export default function ConfigurarTiendaPage() {
             Configuración de mi tienda
           </h1>
           <p className="text-sm text-gray-600">
-            Defina el nombre del negocio, los colores, el logo y la URL pública de su
-            tienda. Más adelante esto se reflejará en la página construida con Plasmic.
+            Defina el nombre del negocio, los colores, el logo y la URL
+            pública de su tienda. Más adelante esto se reflejará en la
+            página construida con Plasmic.
           </p>
         </header>
 
@@ -237,7 +297,9 @@ export default function ConfigurarTiendaPage() {
             />
           </div>
 
+          {/* Color + Logo */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Color */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Color primario
@@ -259,20 +321,59 @@ export default function ConfigurarTiendaPage() {
               </div>
             </div>
 
+            {/* Logo */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                URL del logo (opcional)
+                Logo de la tienda (opcional)
               </label>
-              <input
-                type="text"
-                value={logoUrl}
-                onChange={(e) => setLogoUrl(e.target.value)}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                placeholder="https://..."
-              />
+
+              <div className="space-y-2">
+                {/* input de archivo */}
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleLogoUpload}
+                  className="block w-full text-sm text-gray-700
+                    file:mr-4 file:py-2 file:px-3
+                    file:rounded-md file:border-0
+                    file:text-sm file:font-medium
+                    file:bg-indigo-50 file:text-indigo-700
+                    hover:file:bg-indigo-100"
+                />
+
+                {subiendoLogo && (
+                  <p className="text-xs text-gray-500">
+                    Subiendo logo...
+                  </p>
+                )}
+
+                {/* campo de URL, igual que en productos */}
+                <input
+                  type="text"
+                  value={logoUrl}
+                  onChange={(e) => setLogoUrl(e.target.value)}
+                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  placeholder="https://... (se llena automáticamente al subir un logo)"
+                />
+
+                {/* vista previa */}
+                {logoUrl && (
+                  <div>
+                    <p className="text-xs text-gray-500 mb-1">
+                      Vista previa:
+                    </p>
+                    <img
+                      src={logoUrl}
+                      alt="Logo de la tienda"
+                      className="h-16 object-contain rounded-md border border-gray-200 bg-white"
+                    />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
+          {/* Slug */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Slug público (URL de la tienda)
@@ -298,7 +399,8 @@ export default function ConfigurarTiendaPage() {
               />
             </div>
             <p className="mt-1 text-xs text-gray-500">
-              Solo letras, números y guiones. Debe ser único en la plataforma.
+              Solo letras, números y guiones. Debe ser único en la
+              plataforma.
             </p>
           </div>
 

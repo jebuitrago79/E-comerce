@@ -6,6 +6,7 @@ from backend.db.engine import get_session
 from backend.Modelos.Producto import Producto
 from backend.Modelos.Vendedor import Vendedor
 
+
 router = APIRouter(prefix="/productos", tags=["Productos"])
 
 class ProductoBase(SQLModel):
@@ -16,6 +17,8 @@ class ProductoBase(SQLModel):
     category_id: Optional[int] = None
     external_id: Optional[str] = None
     source: Optional[str] = None
+    imagen_url: Optional[str] = None
+    destacado: Optional[bool] = False 
 
 class ProductoCreate(ProductoBase):
     id_vendedor: int  # ID manual visible que llega del front
@@ -29,6 +32,8 @@ class ProductoUpdate(SQLModel):
     external_id: Optional[str] = None
     source: Optional[str] = None
     id_vendedor: Optional[int] = None
+    imagen_url: Optional[str] = None
+    destacado: Optional[bool] = None 
 
 class ProductoRead(ProductoBase):
     id: int
@@ -52,6 +57,9 @@ def crear_producto(payload: ProductoCreate, session: Session = Depends(get_sessi
         category_id=payload.category_id,
         external_id=payload.external_id,
         source=payload.source,
+        imagen_url=payload.imagen_url,
+        destacado=payload.destacado,
+        
     )
     session.add(obj)
     session.commit()
@@ -71,6 +79,11 @@ def listar_productos(
         stmt = stmt.where(Producto.vendedor_id == vendedor_pk)
     rows = session.exec(stmt).all()
     return [ProductoRead.model_validate(r, from_attributes=True) for r in rows]
+
+@router.get("/destacados", response_model=List[Producto])
+def productos_destacados(session: Session = Depends(get_session)):
+    stmt = select(Producto).where(Producto.destacado == True)
+    return session.exec(stmt).all()
 
 @router.get("/{producto_id}", response_model=ProductoRead)
 def obtener_producto(producto_id: int, session: Session = Depends(get_session)):
@@ -105,3 +118,6 @@ def eliminar_producto(producto_id: int, session: Session = Depends(get_session))
     session.delete(obj)
     session.commit()
     return
+
+
+

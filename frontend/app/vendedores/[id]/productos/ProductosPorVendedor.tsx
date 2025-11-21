@@ -5,6 +5,7 @@ import { getJSON, postJSON, putJSON, del } from "@/lib/api";
 import { useMemo, useState } from "react";
 import Modal from "@/components/Modal";
 import Pagination from "@/components/Pagination";
+import { supabase } from "@/lib/supabaseClient";   // 👈 IMPORTANTE
 
 // Tipos locales
 type Producto = {
@@ -15,6 +16,8 @@ type Producto = {
   stock: number;
   category_id?: number | null;
   vendedor_id: number;
+  imagen_url?: string | null;
+  destacado: boolean;               
 };
 
 type Categoria = {
@@ -29,6 +32,8 @@ type ProductoForm = {
   precio: number | "";
   stock: number | "";
   category_id: number | "";
+  imagen_url?: string | null;
+  destacado: boolean;               // 👈 NUEVO
 };
 
 export default function ProductosPorVendedor({
@@ -50,7 +55,11 @@ export default function ProductosPorVendedor({
     precio: "",
     stock: "",
     category_id: "",
+    imagen_url: undefined,
+    destacado: false,
   });
+
+  const [file, setFile] = useState<File | null>(null);   // 👈 archivo seleccionado
 
   // ========== 🔵 CONSULTA: productos del vendedor ==========
   const {
@@ -100,7 +109,7 @@ export default function ProductosPorVendedor({
     },
   });
 
-  // ==========
+  // ========== MODALES ==========
   const openCreateModal = () => {
     setEditingId(null);
     setForm({
@@ -109,7 +118,10 @@ export default function ProductosPorVendedor({
       precio: "",
       stock: "",
       category_id: "",
+      imagen_url: undefined,
+      destacado: false,
     });
+    setFile(null);
     setIsModalOpen(true);
   };
 
@@ -122,14 +134,19 @@ export default function ProductosPorVendedor({
       precio: p.precio,
       stock: p.stock,
       category_id: p.category_id ?? "",
+      imagen_url: p.imagen_url ?? undefined, 
+      destacado: p.destacado, // 👈 guardamos URL actual
     });
+    setFile(null);                              // 👈 si sube otro archivo, sustituye
     setIsModalOpen(true);
   };
 
   const closeModal = () => setIsModalOpen(false);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => {
     const { name, value } = e.target;
 
@@ -143,19 +160,61 @@ export default function ProductosPorVendedor({
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // 👇 AHORA ES ASYNC POR LA SUBIDA A SUPABASE
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // 1) Validaciones básicas
+    const precioNum = form.precio === "" ? 0 : Number(form.precio);
+    const stockNum = form.stock === "" ? 0 : Number(form.stock);
+    const categoriaNum =
+      form.category_id === "" ? undefined : Number(form.category_id);
+
+    // 2) Subir imagen a Supabase (si escogieron archivo)
+    let imagen_url = form.imagen_url ?? null;
+
+    if (file) {
+      try {
+        const ext = file.name.split(".").pop() ?? "jpg";
+        const fileName = `${Date.now()}-${Math.random()
+          .toString(36)
+          .slice(2)}.${ext}`;
+
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from("productos") // bucket
+          .upload(fileName, file, {
+            cacheControl: "3600",
+            upsert: false,
+          });
+
+        if (uploadError) {
+          console.error(uploadError);
+          alert("Error al subir la imagen");
+          return;
+        }
+
+        const { data: publicData } = supabase.storage
+          .from("productos")
+          .getPublicUrl(uploadData.path);
+
+        imagen_url = publicData.publicUrl;
+      } catch (err) {
+        console.error(err);
+        alert("Error inesperado al subir la imagen");
+        return;
+      }
+    }
+
+    // 3) Payload para backend (igual que /productos, pero con vendedor fijo)
     const payload = {
       nombre: form.nombre,
       descripcion: form.descripcion,
-      precio: form.precio === "" ? 0 : Number(form.precio),
-      stock: form.stock === "" ? 0 : Number(form.stock),
-      category_id:
-        form.category_id === "" ? undefined : Number(form.category_id),
-
-      // 👇 MUY IMPORTANTE
-      id_vendedor: vendedorId,
+      precio: precioNum,
+      stock: stockNum,
+      category_id: categoriaNum,
+      id_vendedor: vendedorId,  // 👈 ID MANUAL DEL VENDEDOR (de la URL)
+      imagen_url,
+      destacado: form.destacado,                // 👈 URL final (nueva o existente)
     };
 
     if (editingId) {
@@ -190,26 +249,36 @@ export default function ProductosPorVendedor({
         <>
           <div className="overflow-x-auto border rounded-lg bg-white">
             <table className="min-w-full text-sm">
-              <thead className="bg-slate-50">
-                <tr>
-                  <th className="px-4 py-2 text-left">ID</th>
-                  <th className="px-4 py-2 text-left">Nombre</th>
-                  <th className="px-4 py-2 text-left">Precio</th>
-                  <th className="px-4 py-2 text-left">Stock</th>
-                  <th className="px-4 py-2 text-left">Categoría</th>
-                  <th className="px-4 py-2 text-right">Acciones</th>
-                </tr>
-              </thead>
+<thead className="bg-slate-50">
+  <tr>
+    <th className="px-4 py-2 text-left">ID</th>
+    <th className="px-4 py-2 text-left">Img</th>
+    <th className="px-4 py-2 text-left">Nombre</th>
+    <th className="px-4 py-2 text-left">Precio</th>
+    <th className="px-4 py-2 text-left">Stock</th>
+    <th className="px-4 py-2 text-left">Categoría</th>
+    <th className="px-4 py-2 text-right">Acciones</th>
+  </tr>
+</thead>
               <tbody>
                 {pageItems.map((p) => (
                   <tr key={p.id} className="border-t">
                     <td className="px-4 py-2">{p.id}</td>
+                    <td className="px-4 py-2">
+                      {p.imagen_url ? (
+                        <img
+                          src={p.imagen_url}
+                          alt={p.nombre}
+                          className="h-10 w-10 object-cover rounded"
+                        />
+                      ) : (
+                        "-"
+                      )}
+                    </td>
                     <td className="px-4 py-2">{p.nombre}</td>
                     <td className="px-4 py-2">${p.precio}</td>
                     <td className="px-4 py-2">{p.stock}</td>
-                    <td className="px-4 py-2">
-                      {p.category_id ?? "-"}
-                    </td>
+                    <td className="px-4 py-2">{p.category_id ?? "-"}</td>
                     <td className="px-4 py-2 text-right space-x-2">
                       <button
                         onClick={() => openEditModal(p)}
@@ -219,9 +288,7 @@ export default function ProductosPorVendedor({
                       </button>
 
                       <button
-                        onClick={() =>
-                          eliminarProducto.mutate(p.id)
-                        }
+                        onClick={() => eliminarProducto.mutate(p.id)}
                         className="px-3 py-1 bg-red-600 text-white text-xs rounded-md"
                       >
                         Eliminar
@@ -233,7 +300,7 @@ export default function ProductosPorVendedor({
                 {productos?.length === 0 && (
                   <tr>
                     <td
-                      colSpan={6}
+                      colSpan={7}
                       className="text-center py-4 text-slate-400"
                     >
                       Este vendedor no tiene productos.
@@ -257,6 +324,7 @@ export default function ProductosPorVendedor({
         </>
       )}
 
+      {/* MODAL: mismo formulario que /productos, pero en modal */}
       <Modal
         open={isModalOpen}
         onClose={closeModal}
@@ -324,6 +392,47 @@ export default function ProductosPorVendedor({
                 </option>
               ))}
             </select>
+          </div>
+
+          <div className="flex items-center space-x-2">
+  <input
+    type="checkbox"
+    name="destacado"
+    checked={form.destacado}
+    onChange={(e) =>
+      setForm((prev) => ({
+        ...prev,
+        destacado: e.target.checked,     // 👈 boolean
+      }))
+    }
+    className="h-4 w-4"
+  />
+  <label className="text-sm">Producto destacado</label>
+</div>
+
+          <div>
+            <label className="block text-sm">Imagen del producto</label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                const f = e.target.files?.[0] ?? null;
+                setFile(f);
+              }}
+              className="w-full border rounded-md px-3 py-2"
+            />
+            {form.imagen_url && (
+              <div className="mt-2 flex items-center space-x-3">
+                <span className="text-xs text-slate-500">
+                  Imagen actual:
+                </span>
+                <img
+                  src={form.imagen_url}
+                  alt={form.nombre}
+                  className="h-10 w-10 object-cover rounded"
+                />
+              </div>
+            )}
           </div>
 
           <div className="flex justify-end space-x-3">

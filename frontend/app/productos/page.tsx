@@ -3,6 +3,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { del, getJSON, postJSON } from "@/lib/api";
 import { useState } from "react";
+import { supabase } from "@/lib/supabaseClient";
 
 type Producto = {
   id: number;
@@ -13,6 +14,7 @@ type Producto = {
   category_id: number | null;
   vendedor_id: number | null;
   tenant_id?: number | null;
+  imagen_url?: string | null;
 };
 
 type VendedorMin = {
@@ -21,21 +23,33 @@ type VendedorMin = {
   email: string;
 };
 
+type Categoria = {
+  id: number;
+  nombre: string;
+};
+
 export default function ProductosPage() {
   const qc = useQueryClient();
 
-  // Listado de productos
+  // 1) Productos
   const { data, isLoading, isError } = useQuery({
     queryKey: ["productos"],
     queryFn: () => getJSON<Producto[]>("/productos/"),
     staleTime: 1000,
   });
 
-  // Listado de vendedores para el dropdown (solo id y nombre)
+  // 2) Vendedores para el dropdown
   const vendQ = useQuery({
     queryKey: ["vendedores-min"],
     queryFn: () => getJSON<VendedorMin[]>("/vendedores/?limit=200&offset=0"),
     staleTime: 5_000,
+  });
+
+  // 3) Categorías para el dropdown
+  const catQ = useQuery({
+    queryKey: ["categorias"],
+    queryFn: () => getJSON<Categoria[]>("/categorias/?limit=200&offset=0"),
+    staleTime: 60_000,
   });
 
   // Form controlado
@@ -44,11 +58,11 @@ export default function ProductosPage() {
     descripcion: "",
     precio: "",
     stock: "0",
-    category_id: "",
-    vendedor_id: "", // ← opcional, si vacío mandamos null
-    tenant_id: "1",
+    category_id: "",   // ahora será el id de la categoría elegida
+    vendedor_id: "",  // id_vendedor manual
   });
 
+  const [file, setFile] = useState<File | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
 
   // Crear producto
@@ -63,52 +77,88 @@ export default function ProductosPage() {
         stock: "0",
         category_id: "",
         vendedor_id: "",
-        tenant_id: "1",
       });
+      setFile(null);
       qc.invalidateQueries({ queryKey: ["productos"] });
     },
     onError: (e: any) => setMsg(`❌ ${e?.response?.data?.detail ?? e.message}`),
   });
 
-const handleCreate = (e: React.FormEvent) => {
-  e.preventDefault();
-  setMsg(null);
+  const handleCreate = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setMsg(null);
 
-  const precio = Number(form.precio);
-  const stock = Number(form.stock);
-  const category_id = form.category_id ? Number(form.category_id) : null;
+    const precio = Number(form.precio);
+    const stock = Number(form.stock);
+    const category_id = form.category_id ? Number(form.category_id) : null;
+    const vendedor_id =
+      form.vendedor_id === "" ? null : Number(form.vendedor_id);
 
-  // vendedor_id: "" -> null; si tiene valor, lo validamos contra el listado
-  const vendedor_id =
-    form.vendedor_id === ""
-      ? null
-      : Number(form.vendedor_id);
+    // VALIDACIONES
+    if (!form.nombre) return setMsg("❌ El nombre es obligatorio.");
+    if (!Number.isFinite(precio) || precio < 0)
+      return setMsg("❌ Precio inválido.");
+    if (!Number.isInteger(stock) || stock < 0)
+      return setMsg("❌ Stock inválido.");
+    if (category_id === null)
+      return setMsg("❌ Debe seleccionar una categoría.");
 
-  const tenant_id = form.tenant_id ? Number(form.tenant_id) : undefined;
+    if (vendedor_id !== null) {
+      const exists = (vendQ.data ?? []).some(
+        (v) => v.id_vendedor === vendedor_id
+      );
+      if (!exists) {
+        return setMsg(
+          `❌ vendedor_id ${vendedor_id} no existe. Elija uno de la lista o deje vacío.`
+        );
+      }
+    }
 
-  if (!form.nombre) return setMsg("❌ El nombre es obligatorio.");
-  if (!Number.isFinite(precio) || precio < 0) return setMsg("❌ Precio inválido.");
-  if (!Number.isInteger(stock) || stock < 0) return setMsg("❌ Stock inválido.");
-  if (category_id === null) return setMsg("❌ category_id es obligatorio.");
+    // 1) Subir imagen a Supabase (si hay archivo)
+    let imagen_url: string | null = null;
+    try {
+      if (file) {
+        const ext = file.name.split(".").pop() ?? "jpg";
+        const fileName = `${Date.now()}-${Math.random()
+          .toString(36)
+          .slice(2)}.${ext}`;
 
-  // ✅ Validar que el vendedor exista en el dropdown si lo eligieron
-  if (vendedor_id !== null) {
-    const exists = (vendQ.data ?? []).some(v => v.id_vendedor === vendedor_id);
-    if (!exists) return setMsg(`❌ vendedor_id ${vendedor_id} no existe. Elija uno de la lista o deje vacío.`);
-  }
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from("productos") // bucket
+          .upload(fileName, file, {
+            cacheControl: "3600",
+            upsert: false,
+          });
 
-  const payload = {
-    nombre: form.nombre,
-    descripcion: form.descripcion || null,
-    precio,
-    stock,
-    category_id,
-    vendedor_id, // null si no eligió
-    tenant_id,   // opcional
+        if (uploadError) {
+          console.error(uploadError);
+          return setMsg("❌ Error al subir la imagen.");
+        }
+
+        const { data: publicData } = supabase.storage
+          .from("productos")
+          .getPublicUrl(uploadData.path);
+
+        imagen_url = publicData.publicUrl;
+      }
+    } catch (err: any) {
+      console.error(err);
+      return setMsg("❌ Error inesperado al subir la imagen.");
+    }
+
+    // 2) Enviar producto al backend (sin tenant_id, que usa default=1)
+    const payload = {
+      nombre: form.nombre,
+      descripcion: form.descripcion || null,
+      precio,
+      stock,
+      category_id,
+      id_vendedor: vendedor_id, // tu backend espera id_vendedor manual
+      imagen_url,
+    };
+
+    createMut.mutate(payload);
   };
-
-  createMut.mutate(payload);
-};
 
   // Eliminar
   const delMut = useMutation({
@@ -140,7 +190,9 @@ const handleCreate = (e: React.FormEvent) => {
           <input
             className="input"
             value={form.descripcion}
-            onChange={(e) => setForm({ ...form, descripcion: e.target.value })}
+            onChange={(e) =>
+              setForm({ ...form, descripcion: e.target.value })
+            }
           />
         </label>
 
@@ -164,22 +216,35 @@ const handleCreate = (e: React.FormEvent) => {
           />
         </label>
 
+        {/* CATEGORÍA: ahora es un select con las categorías creadas */}
         <label className="flex flex-col text-sm">
-          Categoría ID
-          <input
-            type="number"
+          Categoría
+          <select
             className="input"
             value={form.category_id}
-            onChange={(e) => setForm({ ...form, category_id: e.target.value })}
-          />
+            onChange={(e) =>
+              setForm({ ...form, category_id: e.target.value })
+            }
+            disabled={catQ.isLoading || catQ.isError}
+          >
+            <option value="">— Seleccione categoría —</option>
+            {(catQ.data ?? []).map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.id} · {c.nombre}
+              </option>
+            ))}
+          </select>
         </label>
 
+        {/* VENDEDOR: igual que antes */}
         <label className="flex flex-col text-sm">
           Vendedor (opcional)
           <select
             className="input"
             value={form.vendedor_id}
-            onChange={(e) => setForm({ ...form, vendedor_id: e.target.value })}
+            onChange={(e) =>
+              setForm({ ...form, vendedor_id: e.target.value })
+            }
             disabled={vendQ.isLoading || vendQ.isError}
           >
             <option value="">— Sin vendedor —</option>
@@ -191,13 +256,17 @@ const handleCreate = (e: React.FormEvent) => {
           </select>
         </label>
 
-        <label className="flex flex-col text-sm">
-          Tenant ID (opcional)
+        {/* INPUT DE IMAGEN */}
+        <label className="flex flex-col text-sm md:col-span-2">
+          Imagen del producto
           <input
-            type="number"
+            type="file"
+            accept="image/*"
             className="input"
-            value={form.tenant_id}
-            onChange={(e) => setForm({ ...form, tenant_id: e.target.value })}
+            onChange={(e) => {
+              const f = e.target.files?.[0] ?? null;
+              setFile(f);
+            }}
           />
         </label>
 
@@ -215,6 +284,7 @@ const handleCreate = (e: React.FormEvent) => {
           <thead className="bg-gray-100">
             <tr>
               <th className="th">ID</th>
+              <th className="th">Img</th>
               <th className="th">Nombre</th>
               <th className="th">Precio</th>
               <th className="th">Stock</th>
@@ -226,14 +296,14 @@ const handleCreate = (e: React.FormEvent) => {
           <tbody>
             {isLoading && (
               <tr>
-                <td className="td py-6 text-center" colSpan={7}>
+                <td className="td py-6 text-center" colSpan={8}>
                   Cargando…
                 </td>
               </tr>
             )}
             {isError && (
               <tr>
-                <td className="td py-6 text-center" colSpan={7}>
+                <td className="td py-6 text-center" colSpan={8}>
                   Error al cargar.
                 </td>
               </tr>
@@ -241,13 +311,27 @@ const handleCreate = (e: React.FormEvent) => {
             {(data ?? []).map((p) => (
               <tr key={p.id} className="border-t">
                 <td className="td">{p.id}</td>
+                <td className="td">
+                  {p.imagen_url ? (
+                    <img
+                      src={p.imagen_url}
+                      alt={p.nombre}
+                      className="h-10 w-10 object-cover rounded"
+                    />
+                  ) : (
+                    "-"
+                  )}
+                </td>
                 <td className="td">{p.nombre}</td>
                 <td className="td">${p.precio}</td>
                 <td className="td">{p.stock}</td>
                 <td className="td">{p.category_id ?? "-"}</td>
                 <td className="td">{p.vendedor_id ?? "-"}</td>
                 <td className="td">
-                  <button className="btn-danger" onClick={() => delMut.mutate(p.id)}>
+                  <button
+                    className="btn-danger"
+                    onClick={() => delMut.mutate(p.id)}
+                  >
                     Eliminar
                   </button>
                 </td>
@@ -255,7 +339,7 @@ const handleCreate = (e: React.FormEvent) => {
             ))}
             {!isLoading && !isError && (data?.length ?? 0) === 0 && (
               <tr>
-                <td className="td py-6 text-center" colSpan={7}>
+                <td className="td py-6 text-center" colSpan={8}>
                   Sin resultados.
                 </td>
               </tr>
