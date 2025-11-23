@@ -14,8 +14,6 @@ export interface Comprador {
 
 
 
-
-
 export type CompradorLoginResponse = {
   id: number;
   id_comprador?: number;
