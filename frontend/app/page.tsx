@@ -71,7 +71,7 @@ export default function HomePage() {
               Acceda al panel para supervisar usuarios, tiendas y productos.
             </p>
             <Link
-              href="/administrador/login"
+              href="/administradores/login"
               className="inline-flex px-4 py-2 rounded-md bg-slate-800 text-white text-sm font-semibold hover:bg-slate-900 transition"
             >
               Iniciar sesión como admin

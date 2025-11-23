@@ -66,6 +66,8 @@ class VendedorLogin(SQLModel):
     email: EmailStr
     password: constr(min_length=8)
 
+class EstadoVendedorPayload(SQLModel):
+    estado_cuenta: EstadoCuenta
 
 # ========= Endpoints =========
 @router.get("/", response_model=List[VendedorRead])
@@ -119,16 +121,6 @@ def delete_vendedor(id_vendedor: int, session: Session = Depends(get_session)):
         raise HTTPException(status_code=404, detail="Vendedor no encontrado")
     return
 
-
-@router.get("/{id_vendedor}/productos")
-def get_productos_vendedor(
-    id_vendedor: int,
-    session: Session = Depends(get_session),
-):
-    # id_vendedor es el ID MANUAL
-    return productos_de_vendedor(session, id_vendedor)
-
-
 @router.get("/{id_vendedor}/tienda")
 def get_tienda_vendedor(
     id_vendedor: int,
@@ -161,3 +153,23 @@ def login_vendedor(
         raise HTTPException(status_code=403, detail="Cuenta no activa")
 
     return VendedorRead.model_validate(vendedor, from_attributes=True)
+
+
+@router.put("/{id_vendedor}/estado", response_model=Vendedor)   
+def cambiar_estado_vendedor(
+    id_vendedor: int,
+    payload: EstadoVendedorPayload,
+    session: Session = Depends(get_session),
+):
+    vendedor = session.exec(
+        select(Vendedor).where(Vendedor.id_vendedor == id_vendedor)
+    ).first()
+
+    if not vendedor:
+        raise HTTPException(status_code=404, detail="Vendedor no encontrado")
+
+    vendedor.estado_cuenta = payload.estado_cuenta
+    session.add(vendedor)
+    session.commit()
+    session.refresh(vendedor)
+    return vendedor

@@ -9,6 +9,8 @@ from backend.Routers import vendedores, Administradores, Compradores
 from backend.Routers import Productos as productos_router
 from backend.Routers import Categoria as categorias_router
 from backend.Routers import Tienda
+from backend.Routers import Pedidos
+
 
 # Init DB (una sola fuente de verdad)
 from backend.db.init_db import create_db_and_tables, test_connection
@@ -56,7 +58,7 @@ app.include_router(Compradores.router)
 app.include_router(productos_router.router)
 app.include_router(categorias_router.router)
 app.include_router(Tienda.router)
-
+app.include_router(Pedidos.router)
 
 # Rutas simples
 @app.get("/")

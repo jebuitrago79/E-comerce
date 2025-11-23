@@ -1,9 +1,9 @@
-// app/vendedores/login/page.tsx
+// app/administradores/login/page.tsx
 "use client";
 
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import { loginVendedor } from "@/lib/vendedores";
+import { loginAdministrador } from "@/lib/administradores";
 
 type Errors = {
   email?: string;
@@ -11,67 +11,48 @@ type Errors = {
   general?: string;
 };
 
-export default function LoginVendedorPage() {
+export default function LoginAdminPage() {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<Errors>({});
   const [loading, setLoading] = useState(false);
-  const [okMsg, setOkMsg] = useState<string | null>(null);
 
-  // ------- validaciones en frontend -------
   const validate = (): boolean => {
-    const newErrors: Errors = {};
+    const e: Errors = {};
 
-    // Email
     if (!email.trim()) {
-      newErrors.email = "El email es obligatorio.";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-      newErrors.email = "Ingrese un email válido.";
+      e.email = "El email es obligatorio.";
     }
 
-    // Password
-    if (!password) {
-      newErrors.password = "La contraseña es obligatoria.";
-    } else if (password.length < 8) {
-      newErrors.password = "La contraseña debe tener al menos 8 caracteres.";
+    if (!password.trim()) {
+      e.password = "La contraseña es obligatoria.";
     }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    setErrors(e);
+    return Object.keys(e).length === 0;
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setErrors({});
-    setOkMsg(null);
-
     if (!validate()) return;
 
     setLoading(true);
     try {
-      const vendedor = await loginVendedor(email.trim(), password);
+      // 👇 usamos loginAdministrador (no loginAdmin)
+      const admin = await loginAdministrador(email.trim(), password.trim());
 
-      // Guardar sesión en localStorage
-      if (vendedor) {
-        // Objeto completo para el panel/tienda
-        localStorage.setItem("vendedorActual", JSON.stringify(vendedor));
-        // ID manual como string para otras pantallas
-        localStorage.setItem("id_vendedor", String(vendedor.id_vendedor));
-      }
+      // guardamos sesión
+      localStorage.setItem("adminActual", JSON.stringify(admin));
 
-      setOkMsg("Ingreso exitoso.");
-
-      // 👉 Redirigir al panel del vendedor
-      if (vendedor?.id_vendedor) {
-        router.push("/vendedores/panel");
-      }
+      // 👇 ruta ajustada a tu carpeta /administradores
+      router.push("/administradores/panel");
     } catch (err: any) {
-      //console.error(err);
-      // El servicio ya convierte AxiosError en Error(message)
-      const detail = err?.message || "No se pudo iniciar sesión.";
-      setErrors((prev) => ({ ...prev, general: detail }));
+      setErrors({
+        general: err?.message || "No se pudo iniciar sesión.",
+      });
     } finally {
       setLoading(false);
     }
@@ -81,18 +62,12 @@ export default function LoginVendedorPage() {
     <main className="min-h-screen flex items-center justify-center bg-slate-100">
       <div className="w-full max-w-md bg-white shadow-md rounded-lg p-6">
         <h1 className="text-2xl font-bold mb-4 text-center">
-          Login de vendedor
+          Login de Administrador
         </h1>
 
         {errors.general && (
           <div className="mb-3 rounded bg-red-100 text-red-700 px-3 py-2 text-sm">
             {errors.general}
-          </div>
-        )}
-
-        {okMsg && (
-          <div className="mb-3 rounded bg-green-100 text-green-700 px-3 py-2 text-sm">
-            {okMsg}
           </div>
         )}
 
@@ -130,9 +105,9 @@ export default function LoginVendedorPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 text-white py-2 rounded font-medium hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed"
-          >
-            {loading ? "Ingresando..." : "Iniciar sesión"}
+            className="w-full bg-gray-900 text-white py-2 rounded font-medium hover:bg-black disabled:opacity-60"
+          >     
+            {loading ? "Ingresando…" : "Iniciar sesión"}
           </button>
         </form>
       </div>

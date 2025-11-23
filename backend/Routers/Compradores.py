@@ -39,6 +39,9 @@ class CompradorLogin(SQLModel):
     email: str
     password: str
 
+class EstadoCompradorPayload(SQLModel):
+    estado_cuenta: EstadoCuenta
+
 
 @router.post("/", response_model=CompradorRead, status_code=status.HTTP_201_CREATED)
 def create_comprador(payload: CompradorCreate, session: Session = Depends(get_session)):
@@ -104,3 +107,23 @@ def login_comprador(
         raise HTTPException(status_code=403, detail="Cuenta no activa")
 
     return CompradorRead.model_validate(comprador, from_attributes=True)
+
+
+@router.put("/{id_comprador}/estado", response_model=Comprador)  
+def cambiar_estado_comprador(
+    id_comprador: int,
+    payload: EstadoCompradorPayload,
+    session: Session = Depends(get_session),
+):
+    comprador = session.exec(
+        select(Comprador).where(Comprador.id_comprador == id_comprador)
+    ).first()
+
+    if not comprador:
+        raise HTTPException(status_code=404, detail="Comprador no encontrado")
+
+    comprador.estado_cuenta = payload.estado_cuenta
+    session.add(comprador)
+    session.commit()
+    session.refresh(comprador)
+    return comprador

@@ -125,14 +125,7 @@ export default function TiendaPublicaPage() {
       ? tienda.logo_url
       : undefined; // importante: undefined, no ""
 
-  const tiendaProductosUrl =
-    tienda?.vendedor_id_manual != null
-      ? `/vendedores/${encodeURIComponent(
-          String(tienda.vendedor_id_manual)
-        )}/productos`
-      : `/vendedores/${encodeURIComponent(
-          String(tienda.vendedor_id)
-        )}/productos`;
+const tiendaProductosUrl = `/tienda/${tienda.slug}/productos`;
 
   return (
     <PlasmicRootProvider loader={PLASMIC} prefetchedData={plasmicData}>

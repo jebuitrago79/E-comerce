@@ -5,6 +5,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlmodel import Session, select
 from backend.Modelos import Producto, Tienda
 from backend.Modelos.Vendedor import Vendedor
+from backend.Modelos.common import EstadoCuenta
 
 # Campos que realmente existen en el modelo de BD
 _ALLOWED_FIELDS = {"id_vendedor", "nombre", "email", "password", "estado_cuenta", "telefono"}
@@ -111,27 +112,20 @@ def actualizar_vendedor(session: Session, id_vendedor: int, **data) -> Optional[
 
 # ============ DELETE ============
 def eliminar_vendedor(session: Session, id_vendedor: int) -> bool:
-    """
-    Elimina buscando por el ID MANUAL (id_vendedor).
-    Si prefieres bloquear la eliminación cuando existen productos asociados,
-    haz la verificación aquí antes de borrar.
-    """
-    obj = obtener_vendedor(session, id_vendedor)
-    if not obj:
+    # id_vendedor = ID MANUAL (ej. 80027655)
+    vendedor = session.exec(
+        select(Vendedor).where(Vendedor.id_vendedor == id_vendedor)
+    ).first()
+
+    if not vendedor:
         return False
 
-    # Ejemplo de bloqueo si tiene productos (descomenta si lo necesitas):
-    # from backend.Modelos.Producto import Producto
-    # tiene_productos = session.exec(
-    #     select(Producto).where(Producto.vendedor_id == obj.id)
-    # ).first() is not None
-    # if tiene_productos:
-    #     raise ValueError("No puede eliminarse: el vendedor tiene productos asociados")
-
-    session.delete(obj)
+    # 👇 soft delete: sólo bloqueamos la cuenta, no borramos la fila
+    vendedor.estado_cuenta = EstadoCuenta.bloqueado
+    session.add(vendedor)
     session.commit()
+    session.refresh(vendedor)
     return True
-
 
 def productos_de_vendedor(session: Session, id_vendedor: int):
     """

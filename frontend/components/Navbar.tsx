@@ -1,61 +1,43 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-
-const tabs = [
-  { href: "/vendedores", label: "Vendedores" },
-  { href: "/compradores", label: "Compradores" },
-  { href: "/productos", label: "Productos" },
-  { href: "/categorias", label: "Categorías" },
-  { href: "/administradores", label: "Administrador" },
-];
+import { useCart } from "@/app/context/CartContext";
+import { usePathname } from "next/navigation";   // 👈 IMPORTANTE
 
 export default function Navbar() {
-  const path = usePathname();
-  const router = useRouter();
+  const { items } = useCart();
+  const totalItems = items.reduce((acc, it) => acc + it.cantidad, 0);
 
-  const handleLogout = () => {
-    if (typeof window !== "undefined") {
-      // limpiamos lo que usamos para la sesión del vendedor
-      localStorage.removeItem("vendedorActual");
-      localStorage.removeItem("id_vendedor");
-      // si más adelante usas sesiones para comprador/admin, también las borras aquí
-      // localStorage.removeItem("compradorActual");
-      // localStorage.removeItem("adminActual");
-    }
+  const pathname = usePathname();                 // 👈 obtenemos ruta actual
 
-    // 👉 redirige al panel inicial de selección de rol
-    router.push("/"); // cambia "/" si tu pantalla inicial está en otra ruta
-  };
+  const linkClass = (href: string) =>
+    `text-sm font-medium hover:opacity-90 ${
+      pathname === href ? "underline" : ""
+    }`;
 
   return (
-    <nav className="bg-blue-600 text-white">
-      <div className="max-w-6xl mx-auto px-4 h-12 flex items-center justify-between">
-        <div className="flex gap-6">
-          {tabs.map((t) => {
-            const active = path?.startsWith(t.href);
-            return (
-              <Link
-                key={t.href}
-                href={t.href}
-                className={`text-sm font-medium hover:opacity-90 ${
-                  active ? "underline" : ""
-                }`}
-              >
-                {t.label}
-              </Link>
-            );
-          })}
+    <nav className="w-full border-b bg-white">
+      <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-3 text-sm">
+        <div className="flex items-center gap-4">
+          <Link href="/" className={linkClass("/")}>Inicio</Link>
+          <Link href="/vendedores" className={linkClass("/vendedores")}>Vendedores</Link>
+          <Link href="/compradores" className={linkClass("/compradores")}>Compradores</Link>
+          <Link href="/pedidos" className={linkClass("/pedidos")}>Pedidos</Link>
         </div>
 
-        <button
-          onClick={handleLogout}
-          className="text-xs font-medium text-red-200 hover:text-red-100"
+        <Link
+          href="/carrito"
+          className="relative inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-slate-200 hover:bg-slate-50"
         >
-          Cerrar sesión
-        </button>
+          <span>Carrito</span>
+          {totalItems > 0 && (
+            <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-600 text-white">
+              {totalItems}
+            </span>
+          )}
+        </Link>
       </div>
     </nav>
   );
 }
+
