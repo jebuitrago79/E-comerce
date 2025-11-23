@@ -1,4 +1,4 @@
-//app/tienda/slug
+// app/tienda/[slug]/page.tsx
 "use client";
 
 import { useEffect, useState } from "react";
@@ -39,14 +39,12 @@ export default function TiendaPublicaPage() {
 
   const [tienda, setTienda] = useState<Tienda | null>(null);
   const [plasmicData, setPlasmicData] = useState<any | null>(null);
-  // 👉 AQUÍ sólo guardamos URLs (strings) de imágenes destacadas
   const [productosDestacados, setProductosDestacados] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!slug) return;
-
     const safeSlug = String(slug);
 
     async function load() {
@@ -60,13 +58,12 @@ export default function TiendaPublicaPage() {
         );
         setTienda(tiendaJson);
 
-        // 2) Productos del vendedor
-        const vendedorIdManual = tiendaJson.vendedor_id_manual;
+        // 2) Productos de la tienda (NO del vendedor)
         const productos = await getJSON<Producto[]>(
-          `/vendedores/${encodeURIComponent(String(vendedorIdManual))}/productos`
+          `/tiendas/${encodeURIComponent(safeSlug)}/productos`
         );
 
-        // 3) Sólo productos destacados con imagen válida
+        // 3) Imágenes de productos destacados
         const imagenesDestacadas = productos
           .filter(
             (p) =>
@@ -78,7 +75,7 @@ export default function TiendaPublicaPage() {
 
         setProductosDestacados(imagenesDestacadas);
 
-        // 4) Plasmic
+        // 4) Datos de Plasmic
         const plasmic = await PLASMIC.fetchComponentData("tienda");
         if (!plasmic) {
           throw new Error("No se encontró el componente 'tienda' en Plasmic.");
@@ -123,9 +120,10 @@ export default function TiendaPublicaPage() {
   const logoUrl =
     typeof tienda.logo_url === "string" && tienda.logo_url.trim() !== ""
       ? tienda.logo_url
-      : undefined; // importante: undefined, no ""
+      : undefined;
 
-const tiendaProductosUrl = `/tienda/${tienda.slug}/productos`;
+  // URL pública para el botón de "ver productos" en Plasmic
+  const tiendaProductosUrl = `/tienda/${tienda.slug}/productos`;
 
   return (
     <PlasmicRootProvider loader={PLASMIC} prefetchedData={plasmicData}>
@@ -139,7 +137,7 @@ const tiendaProductosUrl = `/tienda/${tienda.slug}/productos`;
               tiendaColorPrimario: tienda.color_primario ?? "#0080ff",
               tiendaLogoUrl: logoUrl,
               tiendaProductosUrl,
-              productosDestacados, // 👉 array de URLs
+              productosDestacados,
             }}
           />
         </div>

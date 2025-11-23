@@ -15,6 +15,8 @@ from backend.CRUD.Crud_Vendedor import (
 )
 from backend.Modelos.common import EstadoCuenta
 from pydantic import EmailStr, constr
+from backend.Modelos.Producto import Producto
+
 
 router = APIRouter(prefix="/vendedores", tags=["Vendedores"])
 
@@ -130,6 +132,32 @@ def get_tienda_vendedor(
     if not tienda:
         raise HTTPException(status_code=404, detail="El vendedor no tiene tienda.")
     return tienda
+
+
+@router.get("/{id_vendedor}/productos", response_model=List[Producto])
+def get_productos_vendedor(
+    id_vendedor: int,
+    session: Session = Depends(get_session),
+):
+    """
+    Devuelve los productos del vendedor identificado por su ID MANUAL (id_vendedor),
+    que es el que guardas en localStorage y usas en el frontend.
+    """
+
+    # 1) Buscar al vendedor por su ID MANUAL (campo Vendedor.id_vendedor)
+    vendedor = session.exec(
+        select(Vendedor).where(Vendedor.id_vendedor == id_vendedor)
+    ).first()
+
+    if not vendedor:
+        raise HTTPException(status_code=404, detail="Vendedor no encontrado")
+
+    # 2) Buscar productos cuyo FK vendedor_id = PK del vendedor
+    stmt = select(Producto).where(Producto.vendedor_id == vendedor.id)
+    productos = session.exec(stmt).all()
+
+    return productos
+
 
 
 

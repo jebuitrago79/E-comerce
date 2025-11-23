@@ -1,10 +1,10 @@
+// app/tienda/[slug]/productos/page.tsx
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { getJSON } from "@/lib/api";
 import { useCart } from "@/app/context/CartContext";
-
 
 type Tienda = {
   id: number;
@@ -32,8 +32,9 @@ const TIENDA_BY_SLUG_URL = (slug: string) => `/tiendas/${slug}`;
 export default function CatalogoTiendaPage() {
   const params = useParams<{ slug: string }>();
   const slug = params?.slug;
+  const router = useRouter();
 
-  const { addItem } = useCart();          // 👈 usamos el carrito
+  const { addItem } = useCart();
 
   const [tienda, setTienda] = useState<Tienda | null>(null);
   const [productos, setProductos] = useState<Producto[]>([]);
@@ -50,16 +51,35 @@ export default function CatalogoTiendaPage() {
         setLoading(true);
         setError(null);
 
+        // 1) Datos de la tienda
         const tiendaJson = await getJSON<Tienda>(
           TIENDA_BY_SLUG_URL(encodeURIComponent(safeSlug))
         );
         setTienda(tiendaJson);
 
-        const vendedorIdManual = tiendaJson.vendedor_id_manual;
+        // 2) ¿Es el vendedor dueño de la tienda?
+        if (typeof window !== "undefined") {
+          const rawVend = window.localStorage.getItem("vendedorActual");
+          if (rawVend) {
+            try {
+              const vend = JSON.parse(rawVend);
+              const idManualLocal = Number(vend?.id_vendedor);
+              const idManualTienda = Number(tiendaJson.vendedor_id_manual);
+
+              if (!isNaN(idManualLocal) && idManualLocal === idManualTienda) {
+                // Es el dueño → ir al panel de productos (CRUD)
+                router.push(`/vendedores/${idManualLocal}/productos`);
+                return; // no seguimos cargando catálogo
+              }
+            } catch (e) {
+              console.warn("No se pudo leer vendedorActual:", e);
+            }
+          }
+        }
+
+        // 3) Productos de la tienda para el catálogo de compra
         const productosJson = await getJSON<Producto[]>(
-          `/vendedores/${encodeURIComponent(
-            String(vendedorIdManual)
-          )}/productos`
+          `/tiendas/${encodeURIComponent(safeSlug)}/productos`
         );
         setProductos(productosJson);
       } catch (err: any) {
@@ -73,10 +93,9 @@ export default function CatalogoTiendaPage() {
     }
 
     load();
-  }, [slug]);
+  }, [slug, router]);
 
-  // ... tus returns de loading / error iguales ...
-
+  // Estados de carga / error
   if (!slug) {
     return (
       <main className="min-h-screen flex items-center justify-center">
@@ -103,6 +122,7 @@ export default function CatalogoTiendaPage() {
     );
   }
 
+  // Vista de catálogo (comprador u otro usuario)
   return (
     <main className="min-h-screen bg-gray-50 px-6 py-10">
       <div className="max-w-5xl mx-auto space-y-6">
@@ -125,7 +145,7 @@ export default function CatalogoTiendaPage() {
           </div>
         </header>
 
-        {/* Lista de productos SOLO LECTURA + botón agregar */}
+        {/* Lista de productos SOLO lectura + botón agregar */}
         {productos.length === 0 ? (
           <p className="text-sm text-gray-500">
             Esta tienda aún no tiene productos publicados.
