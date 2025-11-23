@@ -8,7 +8,7 @@ from sqlmodel import SQLModel, Session, select
 from backend.db.engine import get_session
 from backend.Modelos.Tienda import Tienda 
 from backend.Modelos.Vendedor import Vendedor
-
+from backend.Modelos.Producto import Producto 
 router = APIRouter(prefix="/tiendas", tags=["Tiendas"])
 
 

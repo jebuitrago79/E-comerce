@@ -6,20 +6,35 @@ export default function HomePage() {
     <main className="min-h-[calc(100vh-56px)] bg-slate-50 flex items-center justify-center px-4">
       <div className="max-w-5xl w-full grid gap-10 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
         {/* Columna izquierda: texto principal */}
-        <section>
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Bienvenido a tu plataforma E-commerce
-          </h1>
-          <p className="text-gray-700 mb-4">
-            Elija cómo quiere entrar a la plataforma. Cada tipo de usuario
-            tendrá un panel distinto con herramientas específicas.
-          </p>
-          <ul className="text-sm text-gray-600 space-y-1 list-disc list-inside">
-            <li><strong>Vendedor:</strong> crea tu tienda, categorías y productos.</li>
-            <li><strong>Comprador:</strong> explora tiendas y compra productos.</li>
-            <li><strong>Administrador:</strong> gestiona usuarios, tiendas y actividad.</li>
-          </ul>
-        </section>
+<section className="animate-fade-in">
+  <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-4">
+    Bienvenido a tu centro inteligente <br />
+    <span className="text-indigo-600">E-commerce</span>
+  </h1>
+
+  <p className="text-gray-700 text-lg mb-6">
+    Administra, explora o supervisa tu experiencia digital desde un solo lugar.
+    Elija su rol y acceda a un panel diseñado especialmente para sus necesidades.
+  </p>
+
+  <ul className="text-gray-700 space-y-3 text-base">
+    <li className="flex items-start gap-2">
+      <span className="text-indigo-600 text-xl">🛍️</span>
+      <span><strong>Vendedor:</strong> configura tu tienda, organiza categorías y administra tus productos.</span>
+    </li>
+
+    <li className="flex items-start gap-2">
+      <span className="text-emerald-600 text-xl">🛒</span>
+      <span><strong>Comprador:</strong> explora catálogos, descubre tiendas y realiza tus compras con seguridad.</span>
+    </li>
+
+    <li className="flex items-start gap-2">
+      <span className="text-slate-800 text-xl">🛡️</span>
+      <span><strong>Administrador:</strong> controla usuarios, tiendas y actividad general de la plataforma.</span>
+    </li>
+  </ul>
+</section>
+
 
         {/* Columna derecha: tarjetas de acceso */}
         <section className="grid gap-4 md:grid-rows-3">

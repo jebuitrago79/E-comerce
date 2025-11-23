@@ -36,64 +36,61 @@ export default function PedidosPage() {
   const [vendedor, setVendedor] = useState<VendedorActual | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+useEffect(() => {
+  let compradorId: number | null = null;
+  let hayRol = false;
 
-  useEffect(() => {
-    let compradorId: number | null = null;
+  if (typeof window !== "undefined") {
+    const c = window.localStorage.getItem("compradorActual");
+    const v = window.localStorage.getItem("vendedorActual");
 
-    // 1) Leer roles desde localStorage
-    if (typeof window !== "undefined") {
-      const c = window.localStorage.getItem("compradorActual");
-      const v = window.localStorage.getItem("vendedorActual");
+    if (c) {
+      try {
+        const parsed: CompradorActual = JSON.parse(c);
+        setComprador(parsed);
 
-      if (c) {
-        try {
-          const parsed: CompradorActual = JSON.parse(c);
-          setComprador(parsed);
-
-          const idManual = Number(parsed.id_comprador);
-          if (!Number.isNaN(idManual)) {
-            compradorId = idManual; // 👈 este es el que usamos para filtrar
-          }
-        } catch (e) {
-          console.error("Error leyendo compradorActual:", e);
+        const idManual = Number(parsed.id_comprador);
+        if (!Number.isNaN(idManual)) {
+          compradorId = idManual;
+          hayRol = true;
         }
-      }
-
-      if (v) {
-        try {
-          const parsed: VendedorActual = JSON.parse(v);
-          setVendedor(parsed);
-        } catch (e) {
-          console.error("Error leyendo vendedorActual:", e);
-        }
-      }
+      } catch {}
     }
 
-    // 2) Cargar pedidos (filtrados por comprador si existe)
-    const load = async (idComprador: number | null) => {
+    if (v) {
       try {
-        setError(null);
+        const parsed: VendedorActual = JSON.parse(v);
+        setVendedor(parsed);
+        hayRol = true;
+      } catch {}
+    }
+  }
 
-        let url = "/pedidos";
-        if (idComprador) {
-          // 👉 SOLO pedidos de ese comprador
-          url += `?comprador_id=${idComprador}`;
-        }
+  // ⛔ Si NO hay comprador NI vendedor → NO cargamos nada
+  if (!hayRol) {
+    setLoading(false);
+    return;
+  }
 
-        const data = await getJSON<Pedido[]>(url);
-        setPedidos(data);
-      } catch (err: any) {
-        console.error(err);
-        setError(
-          err?.response?.data?.detail ?? "No se pudieron cargar los pedidos."
-        );
-      } finally {
-        setLoading(false);
-      }
-    };
+  // ✔ Si hay algún rol → cargamos pedidos
+  const load = async () => {
+    try {
+      setError(null);
 
-    load(compradorId);
-  }, []);
+      let url = "/pedidos";
+      if (compradorId) url += `?comprador_id=${compradorId}`;
+
+      const data = await getJSON<Pedido[]>(url);
+      setPedidos(data);
+    } catch (err: any) {
+      setError("No se pudieron cargar los pedidos.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  load();
+}, []);
 
   const marcarEntregado = async (id: number) => {
     try {
