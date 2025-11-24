@@ -30,7 +30,7 @@ export default function CrudPage({ config }: { config: CrudConfig }) {
   });
 
   const remove = useMutation({
-    mutationFn: (id: number) => api.del(config.deleteUrl(id)),
+    mutationFn: (id: number) => api.delete(config.deleteUrl(id)),
     onSuccess: () => qc.invalidateQueries({ queryKey: [config.listUrl] }),
   });
 
