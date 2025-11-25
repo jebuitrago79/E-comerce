@@ -1,7 +1,9 @@
-/** @type {import('next').NextConfig} */
+/** @type {import("next").NextConfig} */
 const nextConfig = {
   output: "standalone",
-  reactStrictMode: true,
+  images: {
+    domains: ["YOUR_SUPABASE_PROJECT_ID.supabase.co"],
+  },
 };
 
 export default nextConfig;
