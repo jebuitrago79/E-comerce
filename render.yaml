@@ -1,0 +1,33 @@
+services:
+  # ============================
+  # 🚀 FRONTEND (Next.js)
+  # ============================
+  - type: web
+    name: frontend
+    env: node
+    plan: free
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    envVars:
+      NEXT_PUBLIC_SUPABASE_URL: https://aqdwhapdvikqzgeodneu.supabase.co
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxZHdoYXBkdmlrcXpnZW9kbmV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA5ODYwOTEsImV4cCI6MjA3NjU2MjA5MX0.fPnIdRxejZW-lDcgYWC9GX9aMKktyFloMDmdA5Fouj8
+      NEXT_PUBLIC_API_URL:
+        fromService:
+          name: backend
+          type: web
+          property: host
+
+  # ============================
+  # 🚀 BACKEND (FastAPI)
+  # ============================
+  - type: web
+    name: backend
+    env: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r ../requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port 8000
+    envVars:
+      PYTHONPATH: ..
+      DATABASE_URL: postgresql+psycopg2://postgres.aqdwhapdvikqzgeodneu:Ju16Li26An@aws-1-us-east-2.pooler.supabase.com:6543/postgres?sslmode=require
