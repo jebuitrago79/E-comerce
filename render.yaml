@@ -27,7 +27,7 @@ services:
     plan: free
     rootDir: backend
     buildCommand: pip install -r ../requirements.txt
-    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port 8000
+    startCommand: bash start_backend.sh
     envVars:
       PYTHONPATH: ..
       DATABASE_URL: postgresql+psycopg2://postgres.aqdwhapdvikqzgeodneu:Ju16Li26An@aws-1-us-east-2.pooler.supabase.com:6543/postgres?sslmode=require
